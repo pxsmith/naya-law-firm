@@ -20,7 +20,7 @@
   font-family: var(--font-heading);
   font-size: 1.75rem;
   margin: 0 0 var(--space-3);
-  line-height: 1.2;
+  line-height: var(--line-height-heading);
 }
 
 .title a {

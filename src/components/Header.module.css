@@ -13,6 +13,7 @@
 
 .brand {
   font-family: var(--font-heading);
+  line-height: var(--line-height-heading);
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--color-text);

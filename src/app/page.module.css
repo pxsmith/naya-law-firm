@@ -193,7 +193,7 @@
   /* size left to browser h-tag-like scale via this large rem;
      adjust during type exploration */
   font-size: 3.5rem;
-  line-height: 1;
+  line-height: var(--line-height-heading);
 }
 
 .priceCardMuted .priceAmount {
@@ -223,6 +223,7 @@
 .compareTable th {
   background-color: var(--color-surface);
   font-family: var(--font-heading);
+  line-height: var(--line-height-heading);
 }
 
 .compareTable tbody tr:last-child td {
