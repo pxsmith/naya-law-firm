@@ -33,12 +33,12 @@
   display: inline-block;
   padding: var(--space-3) var(--space-6);
   background-color: var(--color-accent);
-  color: #fff;
+  color: var(--color-on-accent);
   border-radius: var(--radius);
 }
 
 .ctaButton:hover {
   background-color: var(--color-accent-hover);
-  color: #fff;
+  color: var(--color-on-accent);
   text-decoration: none;
 }

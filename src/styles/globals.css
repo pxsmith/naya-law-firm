@@ -12,8 +12,9 @@
   --color-text: #ebecef;
   --color-text-muted: #8a8d94;
   --color-border: #25282f;
-  --color-accent: #6c8fc7;
-  --color-accent-hover: #88a7d8;
+  --color-accent: #b1e244;
+  --color-accent-hover: #c4ed5c;
+  --color-on-accent: #0a0b0e;
   --color-disclaimer: #686b73;
 
   /* Typography — fonts are loaded in src/app/layout.tsx via next/font/local.
