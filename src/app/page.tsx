@@ -7,6 +7,15 @@ export default function HomePage() {
     <>
       {/* ───────────── Hero ───────────── */}
       <section className={styles.hero}>
+        <video
+          className={styles.heroVideo}
+          src="/videos/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
         <Container>
           <p className={styles.eyebrow}>Naya Law Group</p>
           <h1 className={styles.heroTitle}>
