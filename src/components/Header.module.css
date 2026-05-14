@@ -12,17 +12,19 @@
 }
 
 .brand {
-  font-family: var(--font-heading);
-  line-height: var(--line-height-heading);
-  font-size: var(--text-lg);
-  font-weight: 500;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
 }
 
 .brand:hover {
-  color: var(--color-accent);
   text-decoration: none;
+  opacity: 0.85;
+}
+
+.brandLogo {
+  display: block;
+  height: 36px;
+  width: auto;
 }
 
 .nav {

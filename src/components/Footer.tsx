@@ -22,7 +22,14 @@ export function Footer() {
       <Container>
         <div className={styles.grid}>
           <div>
-            <p className={styles.brand}>{siteSettings.firmName}</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/naya-logo.png"
+              alt={siteSettings.firmName}
+              className={styles.brand}
+              width={780}
+              height={112}
+            />
             {office && (
               <address className={styles.address}>
                 {office.street}

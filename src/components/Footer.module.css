@@ -14,9 +14,9 @@
 }
 
 .brand {
-  font-family: var(--font-heading);
-  line-height: var(--line-height-heading);
-  font-size: var(--text-lg);
+  display: block;
+  height: 40px;
+  width: auto;
   margin-bottom: var(--space-4);
 }
 

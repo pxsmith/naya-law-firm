@@ -14,8 +14,19 @@ export function Header() {
     <header className={styles.header}>
       <Container>
         <div className={styles.inner}>
-          <Link href="/" className={styles.brand}>
-            {siteSettings.firmName}
+          <Link
+            href="/"
+            className={styles.brand}
+            aria-label={siteSettings.firmName}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/naya-logo.png"
+              alt={siteSettings.firmName}
+              className={styles.brandLogo}
+              width={780}
+              height={112}
+            />
           </Link>
           <nav className={styles.nav} aria-label="Primary">
             <ul className={styles.navList}>
