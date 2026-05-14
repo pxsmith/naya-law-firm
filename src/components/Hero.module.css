@@ -1,0 +1,66 @@
+.hero {
+  padding-block: var(--space-24);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: 760px;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+}
+
+.title {
+  margin-bottom: var(--space-6);
+}
+
+.description {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.ctas {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.primaryCta {
+  padding: var(--space-3) var(--space-8);
+  background-color: var(--color-accent);
+  color: #fff;
+  font-weight: 500;
+  border-radius: var(--radius);
+  transition: background-color var(--transition);
+}
+
+.primaryCta:hover {
+  background-color: var(--color-accent-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.secondaryCta {
+  padding: var(--space-3) var(--space-8);
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: border-color var(--transition);
+}
+
+.secondaryCta:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+}

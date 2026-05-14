@@ -1,0 +1,24 @@
+.intro {
+  padding-block: var(--space-16) var(--space-12);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+  font-weight: 500;
+}
+
+.title {
+  margin: 0 0 var(--space-4);
+}
+
+.description {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  max-width: 640px;
+  margin: 0;
+}
