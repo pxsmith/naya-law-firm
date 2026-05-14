@@ -37,7 +37,7 @@ export function HeroVideo({ className }: Props) {
   return (
     <video
       className={className}
-      src="/videos/hero.mp4"
+      src="/videos/Stocksy_unlicensed_comp_watermarked_2907984.mp4"
       autoPlay
       muted
       loop
