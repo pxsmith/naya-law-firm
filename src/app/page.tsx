@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
-import { HeroVideo } from "@/components/HeroVideo";
+import { VideoBg } from "@/components/VideoBg";
 import styles from "./page.module.css";
+
+const HERO_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_2907984.mp4";
+const CONTACT_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
 
 export default function HomePage() {
   return (
     <>
       {/* ───────────── Hero ───────────── */}
       <section className={styles.hero}>
-        <HeroVideo className={styles.heroVideo} />
+        <VideoBg src={HERO_VIDEO} className={styles.sectionVideo} />
         <Container>
           <p className={styles.eyebrow}>Naya Law Group</p>
           <h1 className={styles.heroTitle}>
@@ -300,6 +303,7 @@ export default function HomePage() {
 
       {/* ───────────── Final CTA / Contact ───────────── */}
       <section id="contact" className={styles.finalCta}>
+        <VideoBg src={CONTACT_VIDEO} className={styles.sectionVideo} />
         <Container narrow>
           <h2 className={styles.sectionTitle}>
             Ready to close with more certainty?
