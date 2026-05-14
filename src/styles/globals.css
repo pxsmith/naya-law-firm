@@ -6,15 +6,15 @@
  */
 
 :root {
-  /* Color — neutral starting palette, designed to be overridden */
-  --color-bg: #ffffff;
-  --color-surface: #f7f6f3;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5a5a5a;
-  --color-border: #e6e3dc;
-  --color-accent: #1e3a5f;
-  --color-accent-hover: #142845;
-  --color-disclaimer: #6b6b6b;
+  /* Color — Linear-inspired dark palette. Cool, near-black neutrals. */
+  --color-bg: #0a0b0e;
+  --color-surface: #14161a;
+  --color-text: #ebecef;
+  --color-text-muted: #8a8d94;
+  --color-border: #25282f;
+  --color-accent: #6c8fc7;
+  --color-accent-hover: #88a7d8;
+  --color-disclaimer: #686b73;
 
   /* Typography — fonts are loaded in src/app/layout.tsx via next/font/local.
      Three families are exposed:
@@ -75,6 +75,7 @@
 }
 
 html {
+  color-scheme: dark;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
