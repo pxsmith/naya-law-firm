@@ -8,6 +8,10 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
   padding-block: var(--space-24);
   border-bottom: 1px solid var(--color-border);
   background-color: var(--color-bg);
