@@ -4,9 +4,9 @@ import { Container } from "./Container";
 import styles from "./Header.module.css";
 
 const NAV_LINKS = [
-  { href: "/about", label: "About" },
+  { href: "/#about", label: "About" },
   { href: "/#pricing", label: "Pricing" },
-  { href: "/for-lawyers", label: "For Lawyers" },
+  { href: "/#for-lawyers", label: "For Lawyers" },
 ];
 
 export function Header() {
@@ -27,7 +27,7 @@ export function Header() {
                 </li>
               ))}
               <li>
-                <Link href="/contact" className={styles.ctaLink}>
+                <Link href="/#contact" className={styles.ctaLink}>
                   Book a Call
                 </Link>
               </li>

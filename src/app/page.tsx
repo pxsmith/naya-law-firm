@@ -10,7 +10,7 @@ export default function HomePage() {
         <Container>
           <p className={styles.eyebrow}>Naya Law Group</p>
           <h1 className={styles.heroTitle}>
-            Fixed-fee commercial real estate closings. No billable hours.
+            Save 50% on commercial real estate closings.
           </h1>
           <p className={styles.lede}>
             Naya Law Group is an AI-native law firm for institutional lenders.
@@ -23,7 +23,7 @@ export default function HomePage() {
             100+ commercial real estate loans closed using this model.
           </p>
           <div className={styles.ctas}>
-            <Link href="/contact" className={styles.primaryCta}>
+            <Link href="/#contact" className={styles.primaryCta}>
               Book a Call
             </Link>
             <Link href="#approach" className={styles.secondaryCta}>
@@ -127,12 +127,12 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ───────────── Experience ───────────── */}
-      <section className={`${styles.section} ${styles.alt}`}>
+      {/* ───────────── Experience / About ───────────── */}
+      <section id="about" className={`${styles.section} ${styles.alt}`}>
         <Container>
           <div className={styles.split}>
             <div>
-              <p className={styles.eyebrow}>Experience</p>
+              <p className={styles.eyebrow}>About</p>
               <h2 className={styles.sectionTitle}>
                 Big Law judgment. Different economics.
               </h2>
@@ -271,8 +271,8 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ───────────── For Lawyers teaser ───────────── */}
-      <section className={`${styles.section} ${styles.alt}`}>
+      {/* ───────────── For Lawyers ───────────── */}
+      <section id="for-lawyers" className={`${styles.section} ${styles.alt}`}>
         <Container narrow>
           <p className={styles.eyebrow}>For lawyers</p>
           <h2 className={styles.sectionTitle}>
@@ -294,8 +294,8 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ───────────── Final CTA ───────────── */}
-      <section className={styles.finalCta}>
+      {/* ───────────── Final CTA / Contact ───────────── */}
+      <section id="contact" className={styles.finalCta}>
         <Container narrow>
           <h2 className={styles.sectionTitle}>
             Ready to close with more certainty?

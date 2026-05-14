@@ -6,28 +6,9 @@
 
 .hero {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
   padding-block: var(--space-24);
   border-bottom: 1px solid var(--color-border);
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(ellipse 90% 80% at 25% 18%, #050608 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 18% 78%, #0a3e3e 0%, transparent 60%),
-    radial-gradient(ellipse 90% 80% at 58% 55%, #3a9460 0%, transparent 55%),
-    radial-gradient(ellipse 80% 80% at 88% 88%, #b1e244 0%, transparent 55%);
-}
-
-/* Grain overlay — SVG feTurbulence noise blended on top of the mesh. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.22;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  /* Background video will go here. */
 }
 
 .section {
@@ -73,8 +54,8 @@
 .lede {
   max-width: 60ch;
   margin: 0 0 var(--space-6);
-  font-size: var(--text-lg);
-  color: var(--color-text-muted);
+  font-size: var(--text-md);
+  color: #fff;
 }
 
 .proof {
@@ -108,12 +89,19 @@
 .primaryCta {
   padding: var(--space-3) var(--space-6);
   background-color: var(--color-accent);
+  background-image:
+    radial-gradient(ellipse at top right, #c4ed5c 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #3a9460 0%, transparent 70%);
   color: var(--color-on-accent);
   border-radius: var(--radius);
+  transition: filter var(--transition);
 }
 
 .primaryCta:hover {
   background-color: var(--color-accent-hover);
+  background-image:
+    radial-gradient(ellipse at top right, #d4f470 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #4daa72 0%, transparent 70%);
   color: var(--color-on-accent);
   text-decoration: none;
 }
@@ -268,41 +256,84 @@
   border-radius: 999px;
 }
 
-/* ─── Final CTA ─── */
+/* ─── Final CTA / Contact (animated mesh gradient) ─── */
 
 .finalCta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding-block: var(--space-24);
-  background-color: var(--color-accent);
-  color: var(--color-on-accent);
+  color: #fff;
   text-align: left;
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse 90% 80% at 25% 18%, #050608 0%, transparent 55%),
+    radial-gradient(ellipse 60% 60% at 18% 78%, #0a3e3e 0%, transparent 60%),
+    radial-gradient(ellipse 90% 80% at 58% 55%, #3a9460 0%, transparent 55%),
+    radial-gradient(ellipse 80% 80% at 88% 88%, #b1e244 0%, transparent 55%);
+  background-size: 200% 200%;
+  animation: meshDrift 28s ease-in-out infinite;
+}
+
+/* Grain texture on top of the mesh. */
+.finalCta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+}
+
+@keyframes meshDrift {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
 }
 
 .finalCta .sectionTitle,
 .finalCta .lede {
-  color: var(--color-on-accent);
+  color: #fff;
 }
 
 .finalCta .lede {
-  opacity: 0.85;
+  opacity: 0.9;
   max-width: 50ch;
 }
 
+/* Inside the gradient panel, the primary CTA goes solid-dark for contrast
+   against the colored mesh — overrides the mesh gradient on the default
+   .primaryCta. */
 .finalCta .primaryCta {
   background-color: var(--color-on-accent);
+  background-image: none;
   color: var(--color-text);
 }
 
 .finalCta .primaryCta:hover {
   background-color: var(--color-surface);
+  background-image: none;
   color: var(--color-text);
 }
 
 .finalCta .secondaryCta {
-  border-color: rgba(10, 11, 14, 0.4);
-  color: var(--color-on-accent);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
 .finalCta .secondaryCta:hover {
-  border-color: var(--color-on-accent);
-  color: var(--color-on-accent);
+  border-color: #fff;
+  color: #fff;
 }

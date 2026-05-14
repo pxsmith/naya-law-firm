@@ -33,12 +33,18 @@
   display: inline-block;
   padding: var(--space-3) var(--space-6);
   background-color: var(--color-accent);
+  background-image:
+    radial-gradient(ellipse at top right, #c4ed5c 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #3a9460 0%, transparent 70%);
   color: var(--color-on-accent);
   border-radius: var(--radius);
 }
 
 .ctaButton:hover {
   background-color: var(--color-accent-hover);
+  background-image:
+    radial-gradient(ellipse at top right, #d4f470 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #4daa72 0%, transparent 70%);
   color: var(--color-on-accent);
   text-decoration: none;
 }
