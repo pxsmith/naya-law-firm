@@ -31,6 +31,7 @@
 .navList {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-6);
   list-style: none;
   margin: 0;
@@ -44,6 +45,22 @@
 
 .navLink:hover {
   color: var(--color-accent);
+  text-decoration: none;
+}
+
+.ctaLink {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  transition: background-color var(--transition);
+}
+
+.ctaLink:hover {
+  background-color: var(--color-accent-hover);
+  color: #fff;
   text-decoration: none;
 }
 

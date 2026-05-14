@@ -1,33 +1,287 @@
+/* Home page — wireframe-level styling.
+ * Typography sizes/weights intentionally left to browser defaults so
+ * they can be defined later. Layout, spacing, and color are scaffolded. */
+
+/* ─── Section primitives ─── */
+
+.hero {
+  padding-block: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+}
+
 .section {
-  padding-block: var(--space-24) 0;
+  padding-block: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--space-8);
-  gap: var(--space-4);
-  flex-wrap: wrap;
+.alt {
+  background-color: var(--color-surface);
 }
 
-.sectionHeader h2 {
-  margin: 0;
+.eyebrow {
+  margin: 0 0 var(--space-4);
+  color: var(--color-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
 
-.sectionLink {
-  font-size: 0.95rem;
-  font-weight: 500;
+.sectionTitle {
+  margin: 0 0 var(--space-8);
+  max-width: 18ch;
 }
 
-.cardGrid {
+.prose {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  max-width: 65ch;
+}
+
+.proseNarrow {
+  max-width: 60ch;
+  margin-bottom: var(--space-8);
+}
+
+/* ─── Hero ─── */
+
+.heroTitle {
+  margin: 0 0 var(--space-6);
+  max-width: 18ch;
+}
+
+.lede {
+  max-width: 60ch;
+  margin: 0 0 var(--space-6);
+  color: var(--color-text-muted);
+}
+
+.proof {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-8);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+}
+
+.proofDot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+/* ─── CTAs ─── */
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.primaryCta {
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+}
+
+.primaryCta:hover {
+  background-color: var(--color-accent-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.secondaryCta {
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius);
+}
+
+.secondaryCta:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* ─── Differentiators grid (What We Do) ─── */
+
+.differentiators {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-6);
 }
 
-.attorneyGrid {
+.differentiators li {
+  padding: var(--space-6);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.differentiators h3 {
+  margin: 0 0 var(--space-2);
+}
+
+.differentiators p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* ─── Split (Experience) ─── */
+
+.split {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-8);
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+/* ─── Pricing ─── */
+
+.priceCompare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+@media (max-width: 700px) {
+  .priceCompare {
+    grid-template-columns: 1fr;
+  }
+}
+
+.priceCard {
+  padding: var(--space-8);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.priceCardMuted {
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.priceLabel {
+  margin: 0 0 var(--space-2);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.priceAmount {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-heading);
+  /* size left to browser h-tag-like scale via this large rem;
+     adjust during type exploration */
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.priceCardMuted .priceAmount {
+  color: var(--color-text-muted);
+}
+
+.priceNote {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.compareTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-4);
+}
+
+.compareTable th,
+.compareTable td {
+  padding: var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.compareTable th {
+  background-color: var(--color-surface);
+  font-family: var(--font-heading);
+}
+
+.compareTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ─── Audience list ─── */
+
+.audienceList {
+  list-style: none;
+  margin: var(--space-4) 0 var(--space-8);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.audienceList li {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+/* ─── Final CTA ─── */
+
+.finalCta {
+  padding-block: var(--space-24);
+  background-color: var(--color-accent);
+  color: #fff;
+  text-align: left;
+}
+
+.finalCta .sectionTitle,
+.finalCta .lede {
+  color: #fff;
+}
+
+.finalCta .lede {
+  opacity: 0.85;
+  max-width: 50ch;
+}
+
+.finalCta .primaryCta {
+  background-color: #fff;
+  color: var(--color-accent);
+}
+
+.finalCta .primaryCta:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-accent);
+}
+
+.finalCta .secondaryCta {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.finalCta .secondaryCta:hover {
+  border-color: #fff;
+  color: #fff;
 }

@@ -1,0 +1,44 @@
+.body {
+  padding-block: var(--space-16);
+  display: grid;
+  gap: var(--space-6);
+  max-width: 65ch;
+}
+
+.body h2 {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+}
+
+.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.bullets li {
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.cta {
+  margin-top: var(--space-8);
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+}
+
+.ctaButton:hover {
+  background-color: var(--color-accent-hover);
+  color: #fff;
+  text-decoration: none;
+}

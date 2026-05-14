@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/Container";
 import { PageIntro } from "@/components/PageIntro";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Naya Law Firm — the firm's story, values, and approach to client service.",
+    "Naya Law Group is an AI-native law firm for institutional lenders, focused on commercial real estate closings.",
 };
 
 export default function AboutPage() {
@@ -13,30 +14,65 @@ export default function AboutPage() {
     <>
       <PageIntro
         eyebrow="About"
-        title="A firm built around client outcomes."
-        description="Replace this placeholder with the firm's positioning statement — who you serve, what makes the practice distinctive, and how you work."
+        title="A law firm built around closing deals — not logging hours."
+        description="Big Law judgment, fixed-fee economics, and a proprietary platform built specifically for commercial mortgage transactions."
       />
       <Container narrow>
-        <article className="prose" style={{ paddingBlock: "var(--space-16)" }}>
-          <h2>Our story</h2>
+        <article
+          className="prose"
+          style={{
+            paddingBlock: "var(--space-16)",
+            display: "grid",
+            gap: "var(--space-6)",
+            maxWidth: "65ch",
+          }}
+        >
+          <h2>The firm</h2>
           <p>
-            Replace this section with the firm's history — when it was founded,
-            the experience the partners bring, and the philosophy that shapes
-            the practice today.
+            Naya Law Group is an AI-native law firm focused narrowly on
+            commercial real estate and corporate lending transactions. We
+            combine Big Law experience with a proprietary closing platform and
+            fixed-fee pricing — so institutional lenders can quote legal costs
+            up front, close more loans with the same team, and stop paying for
+            inefficiency.
           </p>
 
-          <h2>How we work</h2>
+          <h2>The founder</h2>
           <p>
-            Describe the firm's approach to engagements — staffing, fee
-            structures, communication cadence, and how matters are managed end
-            to end.
+            <strong>Matthew Basile</strong> spent nearly two decades practicing
+            commercial real estate law and served as a partner at a large Am
+            Law 150 firm before building Naya. That background gives the firm
+            experience with complex transactions; the delivery model is what
+            differs.
           </p>
 
-          <h2>Values</h2>
+          <h2>What's different</h2>
           <p>
-            Outline the principles that guide the firm — substantive
-            excellence, responsiveness, and the standards held in every
-            engagement.
+            Traditional law firms run on the billable hour — which means delay,
+            manual work, and extra timekeepers all turn into a bigger invoice.
+            The model also gives firms weak incentives to automate, because
+            efficiency reduces billable time.
+          </p>
+          <p>
+            Naya inverts that. The firm operates on its own software platform,
+            customized for commercial mortgage closings, with document
+            automation and workflow tooling built for lender requirements. The
+            legal workflow, software workflow, and client experience are
+            designed together from day one.
+          </p>
+          <p>
+            Because Naya does not bill by the hour, the incentive is simple:
+            close the deal accurately, efficiently, and without unnecessary
+            friction.
+          </p>
+
+          <h2>Track record</h2>
+          <p>
+            100+ commercial real estate loans closed using this model.
+          </p>
+
+          <p style={{ marginTop: "var(--space-8)" }}>
+            <Link href="/contact">Book a call &rarr;</Link>
           </p>
         </article>
       </Container>

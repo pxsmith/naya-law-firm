@@ -4,9 +4,10 @@ import { Container } from "./Container";
 import styles from "./Footer.module.css";
 
 const FOOTER_LINKS = [
-  { href: "/practice-areas", label: "Practice Areas" },
-  { href: "/attorneys", label: "Attorneys" },
-  { href: "/insights", label: "Insights" },
+  { href: "/about", label: "About" },
+  { href: "/#approach", label: "Approach" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/for-lawyers", label: "For Lawyers" },
   { href: "/contact", label: "Contact" },
   { href: "/disclaimer", label: "Disclaimer" },
   { href: "/privacy", label: "Privacy" },

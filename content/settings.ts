@@ -1,11 +1,12 @@
 export const siteSettings = {
-  firmName: "Naya Law Firm",
-  tagline: "Replace this with the firm's positioning line.",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nayalawfirm.com",
+  firmName: "Naya Law Group",
+  tagline:
+    "An AI-native law firm for institutional lenders. Fixed-fee commercial real estate closings.",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nayalawgroup.com",
   formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "",
 
   contact: {
-    email: "info@nayalawfirm.com",
+    email: "info@nayalawgroup.com",
     phone: "+1 (555) 000-0000",
     phoneDisplay: "(555) 000-0000",
   },
@@ -31,7 +32,7 @@ export const siteSettings = {
     attorneyAdvertising:
       "Attorney Advertising. The information provided on this website is for general informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome.",
     legalAdvice:
-      "Visiting this website or contacting Naya Law Firm does not create an attorney-client relationship. Please do not send confidential information until such a relationship has been established in writing.",
+      "Visiting this website or contacting Naya Law Group does not create an attorney-client relationship. Please do not send confidential information until such a relationship has been established in writing.",
   },
 } as const;
 
