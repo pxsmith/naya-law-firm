@@ -16,9 +16,14 @@
   --color-accent-hover: #142845;
   --color-disclaimer: #6b6b6b;
 
-  /* Typography */
-  --font-heading: var(--font-cormorant), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+  /* Typography — fonts are loaded in src/app/layout.tsx via next/font/local.
+     Three families are exposed:
+       --font-ryman          (Ryman Gothic Pro, weights 100-900 + italics)
+       --font-fansan         (Fansan, weights 300-700 + italics)
+       --font-fansan-display (Fansan Display, weights 300-700 + italics)
+     --font-heading and --font-body are the defaults; swap freely. */
+  --font-heading: var(--font-fansan-display), Georgia, serif;
+  --font-body: var(--font-ryman), -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
 
   /* Spacing scale (rem) */
