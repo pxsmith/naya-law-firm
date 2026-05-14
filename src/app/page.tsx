@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { HeroVideo } from "@/components/HeroVideo";
 import styles from "./page.module.css";
 
 export default function HomePage() {
@@ -7,15 +8,7 @@ export default function HomePage() {
     <>
       {/* ───────────── Hero ───────────── */}
       <section className={styles.hero}>
-        <video
-          className={styles.heroVideo}
-          src="/videos/hero.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-        />
+        <HeroVideo className={styles.heroVideo} />
         <Container>
           <p className={styles.eyebrow}>Naya Law Group</p>
           <h1 className={styles.heroTitle}>
