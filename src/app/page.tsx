@@ -10,7 +10,9 @@ export default function HomePage() {
         <Container>
           <p className={styles.eyebrow}>Naya Law Group</p>
           <h1 className={styles.heroTitle}>
-            Save 50% on commercial real estate closings.
+            Save 50% on commercial
+            <br />
+            real estate closings.
           </h1>
           <p className={styles.lede}>
             Naya Law Group is an AI-native law firm for institutional lenders.
