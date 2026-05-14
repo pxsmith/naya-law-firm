@@ -16,7 +16,7 @@
 .brand {
   font-family: var(--font-heading);
   line-height: var(--line-height-heading);
-  font-size: 1.5rem;
+  font-size: var(--text-lg);
   margin-bottom: var(--space-4);
 }
 

@@ -1,7 +1,6 @@
-/* Typography — intentionally minimal.
- * Specific sizes, weights, line-heights, and rhythms are left undefined
- * so they can be explored in component-level CSS as the design develops.
- * Browser defaults apply for everything except font-family. */
+/* Typography — heading sizes follow the golden-ratio scale defined
+ * in globals.css. h5/h6 inherit body size; line-height applies wherever
+ * the Fansan / Fansan Display heading font is used. */
 
 h1,
 h2,
@@ -11,4 +10,20 @@ h5,
 h6 {
   font-family: var(--font-heading);
   line-height: var(--line-height-heading);
+}
+
+h1 {
+  font-size: var(--text-2xl);
+}
+
+h2 {
+  font-size: var(--text-xl);
+}
+
+h3 {
+  font-size: var(--text-lg);
+}
+
+h4 {
+  font-size: var(--text-md);
 }

@@ -29,6 +29,18 @@
   /* Line-height applied wherever Fansan / Fansan Display is used. */
   --line-height-heading: 1.05;
 
+  /* Typographic scale — based on the golden ratio (φ ≈ 1.618).
+     Each step is the previous step × ratio. Computed values shown for
+     reference; change --ratio to retune the entire scale. */
+  --ratio: 1.618;
+  --text-md: 1rem;                                          /* 16.00px */
+  --text-sm: calc(var(--text-md) / var(--ratio));           /*  9.89px */
+  --text-xs: calc(var(--text-sm) / var(--ratio));           /*  6.11px */
+  --text-lg: calc(var(--text-md) * var(--ratio));           /* 25.89px */
+  --text-xl: calc(var(--text-lg) * var(--ratio));           /* 41.89px */
+  --text-2xl: calc(var(--text-xl) * var(--ratio));          /* 67.78px */
+  --text-3xl: calc(var(--text-2xl) * var(--ratio));         /* 109.66px */
+
   /* Spacing scale (rem) */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -74,7 +86,7 @@ body {
 
 body {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--text-md);
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
