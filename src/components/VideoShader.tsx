@@ -31,7 +31,7 @@ const EFFECT_LAYERS: ShaderLabLayerConfig[] = [
     name: "Pattern",
     opacity: 1,
     params: {
-      cellSize: 12,
+      cellSize: 6,
       preset: "candles",
       colorMode: "source",
       monoColor: "#f5f5f0",
