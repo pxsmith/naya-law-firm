@@ -10,11 +10,22 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 75vh;
+  min-height: 75dvh;
   padding-block: var(--space-24);
   border-bottom: 1px solid var(--color-border);
   background-color: var(--color-bg);
+  text-align: center;
+}
+
+/* Center-align block elements that have max-widths inside the hero, so
+ * the constrained text column sits in the middle rather than left. */
+.hero .lede {
+  margin-inline: auto;
+}
+
+.hero .ctas {
+  justify-content: center;
 }
 
 /* Shared video-background positioning. Used in the hero AND contact
@@ -26,6 +37,26 @@
   height: 100%;
   object-fit: cover;
   z-index: -2;
+}
+
+/* Soften the loop boundary: fade opacity briefly at the start/end of
+ * each cycle so the cut blends into the dark gradient overlay instead
+ * of jumping. Duration matches the shader timeline (see VideoShader.tsx
+ * TIMELINE.duration). */
+.hero .sectionVideo,
+.finalCta .sectionVideo {
+  animation: videoLoopFade 23.481792s linear infinite;
+}
+
+@keyframes videoLoopFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  6%,
+  94% {
+    opacity: 1;
+  }
 }
 
 /* Shared dark gradient overlay for video-backed sections.

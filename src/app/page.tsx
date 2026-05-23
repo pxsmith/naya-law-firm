@@ -14,20 +14,20 @@ export default function HomePage() {
         <VideoBg src={HERO_VIDEO} className={styles.sectionVideo} />
         <Container>
           <p className={styles.eyebrow}>Naya Law Group</p>
+          <p className={styles.proof}>
+            <span className={styles.proofDot} aria-hidden="true" />
+            100+ commercial real estate loans closed using this model.
+          </p>
           <h1 className={styles.heroTitle}>
-            Save 50% on commercial
+            Save 50% on
             <br />
-            real estate closings.
+            CRE closings.
           </h1>
           <p className={styles.lede}>
             Naya Law Group is an AI-native law firm for institutional lenders.
             We combine Big Law experience, a proprietary closing platform, and
             fixed-fee pricing so you can quote legal costs up front, close more
             loans with the same team, and stop paying for inefficiency.
-          </p>
-          <p className={styles.proof}>
-            <span className={styles.proofDot} aria-hidden="true" />
-            100+ commercial real estate loans closed using this model.
           </p>
           <div className={styles.ctas}>
             <Link href="/#contact" className={styles.primaryCta}>
