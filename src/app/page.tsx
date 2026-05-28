@@ -13,7 +13,7 @@ export default function HomePage() {
       <section className={styles.hero}>
         <VideoBg src={HERO_VIDEO} className={styles.sectionVideo} />
         <Container>
-          <p className={styles.eyebrow}>Naya Law Group</p>
+          <p className={styles.eyebrow}>Naya Law</p>
           <p className={styles.proof}>
             <span className={styles.proofDot} aria-hidden="true" />
             100+ commercial real estate loans closed using this model.
@@ -24,7 +24,7 @@ export default function HomePage() {
             CRE closings.
           </h1>
           <p className={styles.lede}>
-            Naya Law Group is an AI-native law firm for institutional lenders.
+            Naya Law is an AI-native law firm for institutional lenders.
             We combine Big Law experience, a proprietary closing platform, and
             fixed-fee pricing so you can quote legal costs up front, close more
             loans with the same team, and stop paying for inefficiency.
@@ -76,7 +76,7 @@ export default function HomePage() {
           </h2>
           <div className={`${styles.prose} ${styles.proseNarrow}`}>
             <p>
-              Naya Law Group focuses narrowly on commercial real estate and
+              Naya Law focuses narrowly on commercial real estate and
               corporate lending transactions rather than trying to be everything
               to everyone.
             </p>
@@ -178,7 +178,7 @@ export default function HomePage() {
 
           <div className={styles.priceCompare}>
             <div className={styles.priceCard}>
-              <p className={styles.priceLabel}>Naya Law Group</p>
+              <p className={styles.priceLabel}>Naya Law</p>
               <p className={styles.priceAmount}>$5K–$15K</p>
               <p className={styles.priceNote}>typical sub-$10M loan closing</p>
             </div>
@@ -202,7 +202,7 @@ export default function HomePage() {
             <thead>
               <tr>
                 <th>Traditional Big Law</th>
-                <th>Naya Law Group</th>
+                <th>Naya Law</th>
               </tr>
             </thead>
             <tbody>
@@ -318,7 +318,7 @@ export default function HomePage() {
               Book a Call
             </Link>
             <Link href="/contact" className={styles.secondaryCta}>
-              Contact Naya Law Group
+              Contact Naya Law
             </Link>
           </div>
         </Container>

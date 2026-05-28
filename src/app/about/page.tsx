@@ -6,7 +6,7 @@ import { PageIntro } from "@/components/PageIntro";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Naya Law Group is an AI-native law firm for institutional lenders, focused on commercial real estate closings.",
+    "Naya Law is an AI-native law firm for institutional lenders, focused on commercial real estate closings.",
 };
 
 export default function AboutPage() {
@@ -29,7 +29,7 @@ export default function AboutPage() {
         >
           <h2>The firm</h2>
           <p>
-            Naya Law Group is an AI-native law firm focused narrowly on
+            Naya Law is an AI-native law firm focused narrowly on
             commercial real estate and corporate lending transactions. We
             combine Big Law experience with a proprietary closing platform and
             fixed-fee pricing — so institutional lenders can quote legal costs
