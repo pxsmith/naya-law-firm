@@ -9,7 +9,7 @@ export const siteSettings = {
     email: "info@nayalawgroup.com",
     phone: "+1 (555) 000-0000",
     phoneDisplay: "(555) 000-0000",
-  },h
+  },
 
   offices: [
     {
