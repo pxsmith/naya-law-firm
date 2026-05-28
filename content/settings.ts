@@ -1,5 +1,5 @@
 export const siteSettings = {
-  firmName: "Naya Law Group",
+    firmName: "Naya Law",
   tagline:
     "An AI-native law firm for institutional lenders. Fixed-fee commercial real estate closings.",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nayalawgroup.com",
@@ -9,7 +9,7 @@ export const siteSettings = {
     email: "info@nayalawgroup.com",
     phone: "+1 (555) 000-0000",
     phoneDisplay: "(555) 000-0000",
-  },
+  },h
 
   offices: [
     {
