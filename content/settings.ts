@@ -32,7 +32,7 @@ export const siteSettings = {
     attorneyAdvertising:
       "Attorney Advertising. The information provided on this website is for general informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome.",
     legalAdvice:
-      "Visiting this website or contacting Naya Law Group does not create an attorney-client relationship. Please do not send confidential information until such a relationship has been established in writing.",
+      "Visiting this website or contacting Naya Law does not create an attorney-client relationship. Please do not send confidential information until such a relationship has been established in writing.",
   },
 } as const;
 
