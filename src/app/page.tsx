@@ -24,10 +24,10 @@ export default function HomePage() {
             AI + Tech Native Law Firm
           </h1>
           <p className={styles.lede}>
-            Naya Law is an AI-native law firm for institutional lenders.
+            Naya Law is an AI and tech native law firm for institutional real estate lenders.
             We combine Big Law experience, a proprietary closing platform, and
             fixed-fee pricing so you can quote legal costs up front, close more
-            loans with the same team, and stop paying for inefficiency.
+            loans with the same team, and stop relying on the billable hour pricing model.
           </p>
           <div className={styles.ctas}>
             <Link href="/#contact" className={styles.primaryCta}>
