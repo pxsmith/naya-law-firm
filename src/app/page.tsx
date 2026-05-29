@@ -19,9 +19,9 @@ export default function HomePage() {
             100+ commercial real estate loans closed using this model.
           </p>
           <h1 className={styles.heroTitle}>
-            Partner with us
+            The New Model Law Firm for CRE Closings
             <br />
-            revolutionize your closing process.
+            Starts Now
           </h1>
           <p className={styles.lede}>
             Naya Law is an AI-native law firm for institutional lenders.
