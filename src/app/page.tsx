@@ -13,23 +13,40 @@ export default function HomePage() {
       <section className={styles.hero}>
         <VideoBg src={HERO_VIDEO} className={styles.sectionVideo} />
         <Container>
-          <p className={styles.eyebrow}>Naya Law</p>
-          <p className={styles.proof}>
+          <p
+            className={`${styles.eyebrow} ${styles.reveal}`}
+            style={{ animationDelay: "0ms" }}
+          >
+            Naya Law
+          </p>
+          <p
+            className={`${styles.proof} ${styles.reveal}`}
+            style={{ animationDelay: "90ms" }}
+          >
             <span className={styles.proofDot} aria-hidden="true" />
             100+ commercial real estate loans closed using this model.
           </p>
-          <h1 className={styles.heroTitle}>
+          <h1
+            className={`${styles.heroTitle} ${styles.reveal}`}
+            style={{ animationDelay: "180ms" }}
+          >
             The Commercial Real Estate
             <br />
             AI + Tech Native Law Firm
           </h1>
-          <p className={styles.lede}>
+          <p
+            className={`${styles.lede} ${styles.reveal}`}
+            style={{ animationDelay: "300ms" }}
+          >
             Naya Law is a revolutionary AI and tech native law firm for institutional real estate lenders.
             We combine Big Law experience, a proprietary technology platform, and
             fixed-fee pricing so you can quote legal costs up front, close more
             loans with the same team, and leverage AI to transform your closing process.
           </p>
-          <div className={styles.ctas}>
+          <div
+            className={`${styles.ctas} ${styles.reveal}`}
+            style={{ animationDelay: "420ms" }}
+          >
             <Link href="/#contact" className={styles.primaryCta}>
               Book a Call
             </Link>
