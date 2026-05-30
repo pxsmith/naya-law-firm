@@ -144,6 +144,31 @@
   background-color: var(--color-accent);
 }
 
+/* ─── Hero entrance (plays once on page load) ─── */
+
+/* Elements are visible by default; the rise-in only runs for users who
+ * haven't asked to reduce motion, so nothing can get stuck hidden. */
+.reveal {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: heroRiseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes heroRiseIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ─── CTAs ─── */
 
 .ctas {
