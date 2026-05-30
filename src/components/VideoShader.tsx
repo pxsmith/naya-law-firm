@@ -46,7 +46,7 @@ const EFFECT_LAYERS: ShaderLabLayerConfig[] = [
       customColor4: "#e1e2de",
       bloomEnabled: true,
       bloomIntensity: 1.25,
-      bloomThreshold: 0,
+      bloomThreshold: 0.25,
       bloomRadius: 6,
       bloomSoftness: 0.35,
     },

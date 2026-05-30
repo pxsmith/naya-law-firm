@@ -14,6 +14,7 @@ h6 {
 
 h1 {
   font-size: var(--text-2xl);
+  line-height: 0.98;
 }
 
 h2 {
@@ -26,4 +27,9 @@ h3 {
 
 h4 {
   font-size: var(--text-md);
+}
+
+.sansHeading {
+  font-family: var(--font-body);
+  font-weight: 300;
 }

@@ -12,8 +12,8 @@
   align-items: center;
   min-height: 75vh;
   min-height: 75dvh;
-  padding-block: var(--space-24);
-  border-bottom: 1px solid var(--color-border);
+  padding-top: calc(var(--space-24) - 2.5rem);
+  padding-bottom: calc(var(--space-24) + 2.5rem);
   background-color: var(--color-bg);
   text-align: center;
 }
@@ -44,7 +44,8 @@
  * of jumping. Duration matches the shader timeline (see VideoShader.tsx
  * TIMELINE.duration). */
 .hero .sectionVideo,
-.finalCta .sectionVideo {
+.finalCta .sectionVideo,
+.approachVideoSection .sectionVideo {
   animation: videoLoopFade 23.481792s linear infinite;
 }
 
@@ -63,7 +64,8 @@
  * Preserves text readability on the left, lets the video show through
  * on the right. */
 .hero::after,
-.finalCta::after {
+.finalCta::after,
+.approachVideoSection::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -79,11 +81,57 @@
 
 .section {
   padding-block: var(--space-24);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .alt {
-  background-color: var(--color-surface);
+}
+
+.approachVideoSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(var(--space-24) + 4rem);
+  padding-bottom: calc(var(--space-24) + 4rem);
+}
+
+/* ─── Fern Visual Break ─── */
+
+.fernSection {
+  padding-block: var(--space-8);
+  overflow: hidden; /* Prevent horizontal scrollbar on viewport-edge elements */
+}
+
+.fernWrapper {
+  position: relative;
+  margin-left: max(var(--container-padding), calc((100% - var(--container-width)) / 2 + var(--container-padding)));
+  margin-right: 0;
+  height: 380px;
+  overflow: hidden;
+  clip-path: polygon(180px 0%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: transparent;
+  mix-blend-mode: lighten;
+}
+
+.fernImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: lighten;
+}
+
+.fernImage canvas {
+  mix-blend-mode: lighten !important;
+  background-color: transparent !important;
+}
+
+@media (max-width: 800px) {
+  .fernWrapper {
+    height: 220px;
+    margin-left: var(--container-padding);
+    clip-path: polygon(80px 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
 }
 
 .eyebrow {
@@ -99,6 +147,11 @@
   max-width: 18ch;
 }
 
+.lightHeading {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
 .prose {
   display: grid;
   gap: var(--space-4);
@@ -106,7 +159,7 @@
 }
 
 .proseNarrow {
-  max-width: 60ch;
+  max-width: calc(100% / 3);
   margin-bottom: var(--space-8);
 }
 
@@ -118,10 +171,9 @@
 }
 
 .lede {
-  max-width: 60ch;
+  max-width: 75ch;
   margin: 0 0 var(--space-6);
   font-size: var(--text-md);
-  color: #fff;
 }
 
 .proof {
@@ -129,10 +181,6 @@
   align-items: center;
   gap: var(--space-2);
   margin: 0 0 var(--space-8);
-  padding: var(--space-2) var(--space-3);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
   font-size: 0.85rem;
 }
 
@@ -142,6 +190,27 @@
   height: 0.5rem;
   border-radius: 50%;
   background-color: var(--color-accent);
+  position: relative;
+}
+
+.proofDot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  animation: pulseDot 2.2s infinite ease-out;
+}
+
+@keyframes pulseDot {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
 }
 
 /* ─── Hero entrance (plays once on page load) ─── */
@@ -202,6 +271,7 @@
   border: 1px solid var(--color-border);
   color: var(--color-text);
   border-radius: var(--radius);
+  transition: border-color var(--transition), color var(--transition);
 }
 
 .secondaryCta:hover {
@@ -212,44 +282,93 @@
 
 /* ─── Differentiators grid (What We Do) ─── */
 
+.splitWithCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+.splitWithCards > div:first-child {
+  grid-column: 1;
+}
+
+.splitWithCards > ul:last-child {
+  grid-column: 3 / span 2;
+}
+
 .differentiators {
   list-style: none;
-  margin: var(--space-8) 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
 }
 
 .differentiators li {
   padding: var(--space-6);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
 
-.differentiators h3 {
+.differentiators h2 {
   margin: 0 0 var(--space-2);
 }
 
 .differentiators p {
   margin: 0;
-  color: var(--color-text-muted);
 }
-
-/* ─── Split (Experience) ─── */
 
 .split {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: var(--space-12);
-  align-items: start;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  align-items: center;
+}
+
+.split > div:first-child {
+  grid-column: 1;
+}
+
+.split > div:last-child {
+  grid-column: 3;
 }
 
 @media (max-width: 800px) {
   .split {
     grid-template-columns: 1fr;
     gap: var(--space-6);
+  }
+
+  .split > div:first-child {
+    grid-column: auto;
+  }
+
+  .split > div:last-child {
+    grid-column: auto;
+  }
+
+  .splitWithCards {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .splitWithCards > div:first-child {
+    grid-column: auto;
+  }
+
+  .splitWithCards > ul:last-child {
+    grid-column: auto;
+  }
+
+  .differentiators {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .proseNarrow {
+    max-width: 100%;
   }
 }
 
@@ -363,13 +482,11 @@
   background-color: var(--color-bg);
 }
 
-.finalCta .sectionTitle,
-.finalCta .lede {
+.finalCta .sectionTitle {
   color: #fff;
 }
 
 .finalCta .lede {
-  opacity: 0.9;
   max-width: 50ch;
 }
 

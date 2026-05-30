@@ -38,6 +38,7 @@
     radial-gradient(ellipse at bottom left, #3a9460 0%, transparent 70%);
   color: var(--color-on-accent);
   border-radius: var(--radius);
+  transition: filter var(--transition);
 }
 
 .ctaButton:hover {
