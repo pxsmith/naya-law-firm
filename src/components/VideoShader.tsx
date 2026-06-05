@@ -1,10 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   ShaderLabComposition,
   type ShaderLabConfig,
   type ShaderLabLayerConfig,
 } from "@basementstudio/shader-lab";
+import { useShaderPatternParams, type PatternParams } from "./ShaderControls";
 
 /**
  * Shared shader settings. Effects (Pattern, Dithering) and timeline are
@@ -45,10 +47,10 @@ const EFFECT_LAYERS: ShaderLabLayerConfig[] = [
       customColor3: "#969aa2",
       customColor4: "#e1e2de",
       bloomEnabled: true,
-      bloomIntensity: 1.25,
-      bloomThreshold: 0.25,
-      bloomRadius: 6,
-      bloomSoftness: 0.35,
+      bloomIntensity: 1.11,
+      bloomThreshold: 0.24,
+      bloomRadius: 9.75,
+      bloomSoftness: 0.77,
     },
     saturation: 1,
     type: "pattern",
@@ -116,15 +118,24 @@ const TIMELINE = {
   tracks: [],
 };
 
-function buildConfig(src: string, fileName: string): ShaderLabConfig {
+function buildConfig(
+  src: string,
+  fileName: string,
+  live: PatternParams | null,
+): ShaderLabConfig {
   const videoLayer: ShaderLabLayerConfig = {
     ...VIDEO_LAYER_DEFAULTS,
     id: `video-${fileName || src}`,
     name: "Video",
     asset: { fileName, kind: "video", src },
   };
+  // Layer 0 is the Pattern effect; overlay live tuning values onto its params.
+  const [pattern, ...rest] = EFFECT_LAYERS;
+  const patternLayer: ShaderLabLayerConfig = live
+    ? { ...pattern, params: { ...pattern.params, ...live } }
+    : pattern;
   return {
-    layers: [...EFFECT_LAYERS, videoLayer],
+    layers: [patternLayer, ...rest, videoLayer],
     timeline: TIMELINE,
   };
 }
@@ -136,10 +147,15 @@ interface Props {
 }
 
 export default function VideoShader({ src, fileName = "", className }: Props) {
+  const live = useShaderPatternParams();
+  const config = useMemo(
+    () => buildConfig(src, fileName, live),
+    [src, fileName, live],
+  );
   return (
     <div className={className}>
       <ShaderLabComposition
-        config={buildConfig(src, fileName)}
+        config={config}
         onRuntimeError={(msg) => {
           if (msg) {
             // eslint-disable-next-line no-console

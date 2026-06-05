@@ -1,10 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   ShaderLabComposition,
   type ShaderLabConfig,
   type ShaderLabLayerConfig,
 } from "@basementstudio/shader-lab";
+import { useShaderPatternParams, type PatternParams } from "./ShaderControls";
 
 /**
  * Shared shader settings for images, matching the exact styling as VideoShader.
@@ -39,10 +41,10 @@ const EFFECT_LAYERS: ShaderLabLayerConfig[] = [
       customColor3: "#969aa2",
       customColor4: "#e1e2de",
       bloomEnabled: true,
-      bloomIntensity: 1.25,
-      bloomThreshold: 0.25,
-      bloomRadius: 6,
-      bloomSoftness: 0.35,
+      bloomIntensity: 1.11,
+      bloomThreshold: 0.24,
+      bloomRadius: 9.75,
+      bloomSoftness: 0.77,
     },
     saturation: 1,
     type: "pattern",
@@ -109,15 +111,24 @@ const TIMELINE = {
   tracks: [],
 };
 
-function buildConfig(src: string, fileName: string): ShaderLabConfig {
+function buildConfig(
+  src: string,
+  fileName: string,
+  live: PatternParams | null,
+): ShaderLabConfig {
   const imageLayer: ShaderLabLayerConfig = {
     ...IMAGE_LAYER_DEFAULTS,
     id: `image-${fileName || src}`,
     name: "Image",
     asset: { fileName, kind: "image", src },
   };
+  // Layer 0 is the Pattern effect; overlay live tuning values onto its params.
+  const [pattern, ...rest] = EFFECT_LAYERS;
+  const patternLayer: ShaderLabLayerConfig = live
+    ? { ...pattern, params: { ...pattern.params, ...live } }
+    : pattern;
   return {
-    layers: [...EFFECT_LAYERS, imageLayer],
+    layers: [patternLayer, ...rest, imageLayer],
     timeline: TIMELINE,
   };
 }
@@ -129,10 +140,15 @@ interface Props {
 }
 
 export default function ImageShader({ src, fileName = "", className }: Props) {
+  const live = useShaderPatternParams();
+  const config = useMemo(
+    () => buildConfig(src, fileName, live),
+    [src, fileName, live],
+  );
   return (
     <div className={className}>
       <ShaderLabComposition
-        config={buildConfig(src, fileName)}
+        config={config}
         onRuntimeError={(msg) => {
           if (msg) {
             // eslint-disable-next-line no-console
