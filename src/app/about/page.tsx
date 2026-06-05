@@ -72,7 +72,7 @@ export default function AboutPage() {
           </p>
 
           <p style={{ marginTop: "var(--space-8)" }}>
-            <Link href="/contact">Book a call &rarr;</Link>
+            <Link href="/pricing">Get Pricing &rarr;</Link>
           </p>
         </article>
       </Container>

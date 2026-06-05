@@ -42,8 +42,8 @@ export default function HomePage() {
 						className={`${styles.ctas} ${styles.reveal}`}
 						style={{ animationDelay: "330ms" }}
 					>
-						<Link href="/#contact" className={styles.primaryCta}>
-							Book a Call
+						<Link href="/pricing" className={styles.primaryCta}>
+							Get Pricing
 						</Link>
 						<Link href="#approach" className={styles.secondaryCta}>
 							Learn More
@@ -342,8 +342,8 @@ export default function HomePage() {
 						Group was built for that.
 					</p>
 					<div className={styles.ctas}>
-						<Link href="/contact" className={styles.primaryCta}>
-							Book a Call
+						<Link href="/pricing" className={styles.primaryCta}>
+							Get Pricing
 						</Link>
 						<Link href="/contact" className={styles.secondaryCta}>
 							Contact Naya Law

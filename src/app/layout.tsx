@@ -7,6 +7,7 @@ import {
   StructuredData,
   legalServiceSchema,
 } from "@/components/StructuredData";
+import { ShaderControls } from "@/components/ShaderControls";
 import "@/styles/globals.css";
 import "@/styles/typography.css";
 
@@ -103,7 +104,9 @@ export default function RootLayout({
       <body>
         <StructuredData data={legalServiceSchema()} />
         <Header />
-        <main>{children}</main>
+        <ShaderControls>
+          <main>{children}</main>
+        </ShaderControls>
         <Footer />
       </body>
     </html>

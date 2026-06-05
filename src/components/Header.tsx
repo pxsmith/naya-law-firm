@@ -38,8 +38,8 @@ export function Header() {
                 </li>
               ))}
               <li>
-                <Link href="/#contact" className={styles.ctaLink}>
-                  Book a Call
+                <Link href="/pricing" className={styles.ctaLink}>
+                  Get Pricing
                 </Link>
               </li>
             </ul>
