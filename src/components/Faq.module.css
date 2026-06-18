@@ -1,0 +1,154 @@
+/* FAQ accordion — hairline-divided editorial rows.
+ * Visuals are token-driven to match the home page sections; motion follows
+ * the house easing (cubic-bezier(0.22, 1, 0.36, 1)) and is reduced-motion
+ * guarded, matching the .reveal pattern in page.module.css. */
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  border-top: 1px solid var(--color-border);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ─── Question row ─── */
+
+.term {
+  margin: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  width: 100%;
+  padding: var(--space-6) 0;
+  text-align: left;
+}
+
+.question {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  line-height: var(--line-height-heading);
+  font-weight: 400;
+  color: var(--color-text);
+  transition: color var(--transition);
+}
+
+.trigger:hover .question,
+.open .question {
+  color: #fff;
+}
+
+/* Plus icon that morphs into a minus when open. */
+.icon {
+  position: relative;
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: var(--space-1);
+}
+
+.icon::before,
+.icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: var(--color-accent);
+  border-radius: 1px;
+}
+
+.icon::before {
+  width: 1.1rem;
+  height: 1.5px;
+  transform: translate(-50%, -50%);
+}
+
+.icon::after {
+  width: 1.5px;
+  height: 1.1rem;
+  transform: translate(-50%, -50%);
+}
+
+.trigger:hover .icon::before,
+.trigger:hover .icon::after {
+  background-color: var(--color-accent-hover);
+}
+
+.open .icon::after {
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
+/* ─── Answer panel (collapsed by default, animated open) ─── */
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin: 0;
+}
+
+.answerInner {
+  overflow: hidden;
+  min-height: 0;
+  visibility: hidden;
+}
+
+.answer {
+  padding: 0 0 var(--space-6);
+  max-width: 60ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+  line-height: 1.6;
+}
+
+.answer a {
+  color: var(--color-accent);
+}
+
+.answer a:hover {
+  color: var(--color-accent-hover);
+}
+
+.open .panel {
+  grid-template-rows: 1fr;
+}
+
+.open .answerInner {
+  visibility: visible;
+}
+
+/* ─── Motion ─── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    transition: grid-template-rows 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Keep content visible through the collapse, then remove it from the
+     a11y tree + tab order once fully closed. */
+  .answerInner {
+    transition: visibility 0s linear 320ms;
+  }
+
+  .open .answerInner {
+    transition-delay: 0s;
+  }
+
+  .icon::before,
+  .icon::after {
+    transition: transform var(--transition), background-color var(--transition);
+  }
+}
+
+@media (max-width: 800px) {
+  .question {
+    font-size: 1.3rem;
+  }
+}
