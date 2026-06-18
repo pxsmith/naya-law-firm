@@ -2,7 +2,36 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { VideoBg } from "@/components/VideoBg";
 import { ImageBg } from "@/components/ImageBg";
+import { Faq } from "@/components/Faq";
 import styles from "./page.module.css";
+
+const FAQ_ITEMS = [
+	{
+		question: "How can a law firm offer fixed fees on complex closings?",
+		answer:
+			"Because Naya focuses narrowly on commercial real estate and corporate lending, the work is repeatable — and our platform automates the documents and workflow that traditional firms bill by the hour. That lets us price the matter based on what it should cost and stand behind that number before the work begins.",
+	},
+	{
+		question: "What happens if a deal turns out to be more complicated than expected?",
+		answer:
+			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing — if something material changes, we tell you before the work happens, not after.",
+	},
+	{
+		question: "Is my deal data confidential if you use AI?",
+		answer:
+			"Yes. Naya runs on its own platform built specifically for commercial mortgage transactions, and client data is never used to train third-party models. AI accelerates document and workflow tasks under attorney supervision; it does not replace the lawyer responsible for your matter.",
+	},
+	{
+		question: "Who is actually doing the legal work?",
+		answer:
+			"Experienced commercial real estate attorneys. Naya was built by Matthew Basile, who spent nearly two decades in CRE law and was a partner at a large Am Law 150 firm. You get Big Law judgment with a delivery model built for the AI era.",
+	},
+	{
+		question: "What types of transactions do you handle?",
+		answer:
+			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
+	},
+];
 
 const HERO_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_2907984.mp4";
 const CONTACT_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
@@ -326,6 +355,17 @@ export default function HomePage() {
 							Learn more about joining &rarr;
 						</Link>
 					</p>
+				</Container>
+			</section>
+
+			{/* ───────────── FAQ ───────────── */}
+			<section id="faq" className={styles.section}>
+				<Container narrow>
+					<p className={styles.eyebrow}>FAQ</p>
+					<h2 className={styles.sectionTitle}>
+						Questions lenders ask before switching.
+					</h2>
+					<Faq items={FAQ_ITEMS} />
 				</Container>
 			</section>
 
