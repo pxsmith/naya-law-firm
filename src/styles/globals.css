@@ -99,6 +99,18 @@ body {
 
 p {
   color: #fff;
+  /* Prevent orphans (a lone word on the last line) site-wide. */
+  text-wrap: pretty;
+}
+
+/* Headings balance across lines and also avoid orphans. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
 }
 
 img,

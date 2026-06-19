@@ -3,66 +3,42 @@ import { siteSettings } from "@content/settings";
 import { Container } from "./Container";
 import styles from "./Footer.module.css";
 
-const FOOTER_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/#approach", label: "Approach" },
-  { href: "/#pricing", label: "Pricing" },
-  { href: "/for-lawyers", label: "For Lawyers" },
-  { href: "/contact", label: "Contact" },
-  { href: "/disclaimer", label: "Disclaimer" },
-  { href: "/privacy", label: "Privacy" },
-];
-
 export function Footer() {
   const year = new Date().getFullYear();
-  const office = siteSettings.offices[0];
 
   return (
     <footer className={styles.footer}>
       <Container>
         <div className={styles.grid}>
-          <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/naya-logo.png"
-              alt={siteSettings.firmName}
-              className={styles.brand}
-              width={780}
-              height={112}
-            />
-            {office && (
-              <address className={styles.address}>
-                {office.street}
-                <br />
-                {office.city}, {office.region} {office.postalCode}
-                <br />
-                <a href={`tel:${siteSettings.contact.phone}`}>
-                  {siteSettings.contact.phoneDisplay}
-                </a>
-                <br />
-                <a href={`mailto:${siteSettings.contact.email}`}>
-                  {siteSettings.contact.email}
-                </a>
-              </address>
-            )}
-          </div>
-          <nav aria-label="Footer">
-            <ul className={styles.linkList}>
-              {FOOTER_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/naya-logo.png"
+            alt={siteSettings.firmName}
+            className={styles.brand}
+            width={780}
+            height={112}
+          />
         </div>
         <div className={styles.disclaimers}>
-          <p>{siteSettings.disclaimers.attorneyAdvertising}</p>
-          <p>{siteSettings.disclaimers.legalAdvice}</p>
+          <p>
+            {siteSettings.disclaimers.attorneyAdvertising}{" "}
+            {siteSettings.disclaimers.legalAdvice}
+          </p>
         </div>
-        <p className={styles.copyright}>
-          &copy; {year} {siteSettings.firmName}. All rights reserved.
-        </p>
+        <div className={styles.bottomBar}>
+          <p className={styles.copyright}>
+            &copy; {year} {siteSettings.firmName}. All rights reserved.{" "}
+            <Link href="/privacy">Privacy</Link>
+          </p>
+          <a
+            className={styles.credit}
+            href="https://gotimehq.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Design by Go Time
+          </a>
+        </div>
       </Container>
     </footer>
   );

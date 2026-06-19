@@ -152,15 +152,57 @@
   letter-spacing: -0.02em;
 }
 
+/* Approach + Pricing section titles, set in the brand sans (Ryman Gothic
+   Pro) instead of the display serif. Weight and size are driven live by the
+   dev DialKit panel via --tune-weight / --tune-size, each with a baked-in
+   fallback so production renders correctly with no JS. */
+.tunableHeading {
+  font-family: var(--font-body);
+  /* 900 = Ryman Gothic Black, the heaviest loaded weight. */
+  font-weight: var(--tune-weight, 900);
+  font-size: var(--tune-size, var(--text-xl));
+}
+
 .prose {
   display: grid;
   gap: var(--space-4);
   max-width: 65ch;
 }
 
+/* Approach section: everything centered on the page, with line breaks
+   tuned so no line is left a lonely orphan/widow. */
+.approachCenter {
+  text-align: center;
+}
+
+.approachCenter .eyebrow {
+  margin-inline: auto;
+}
+
+.approachCenter .sectionTitle {
+  max-width: 20ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+.approachCenter .prose {
+  justify-items: center;
+  max-width: 58ch;
+  margin-inline: auto;
+}
+
+.approachCenter .prose p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
 .proseNarrow {
   max-width: calc(100% / 3);
   margin-bottom: var(--space-8);
+}
+
+.proseRight {
+  text-align: right;
 }
 
 /* ─── Hero ─── */
@@ -174,6 +216,8 @@
   max-width: 75ch;
   margin: 0 0 var(--space-6);
   font-size: var(--text-md);
+  /* Even out line lengths so the last line isn't left short. */
+  text-wrap: balance;
 }
 
 .proof {
@@ -335,6 +379,27 @@
   grid-column: 3;
 }
 
+/* The differentiator cards sit in columns 3–4 of the splitWithCards grid.
+   Below ~1040px those two columns get too narrow and the card content
+   overflows the viewport. Collapse to a single column here — intro stacked
+   above the full-width card grid — well clear of the overflow zone, before
+   the 800px breakpoint that also drops .differentiators itself to one
+   column. */
+@media (max-width: 1080px) {
+  .splitWithCards {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .splitWithCards > div:first-child {
+    grid-column: auto;
+  }
+
+  .splitWithCards > ul:last-child {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 800px) {
   .split {
     grid-template-columns: 1fr;
@@ -349,19 +414,6 @@
     grid-column: auto;
   }
 
-  .splitWithCards {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
-
-  .splitWithCards > div:first-child {
-    grid-column: auto;
-  }
-
-  .splitWithCards > ul:last-child {
-    grid-column: auto;
-  }
-
   .differentiators {
     grid-template-columns: 1fr;
     gap: var(--space-6);
@@ -372,12 +424,130 @@
   }
 }
 
+/* ─── About (intro + numbered points) ─── */
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  column-gap: clamp(var(--space-8), 6vw, var(--space-24));
+  align-items: start;
+}
+
+/* Step up one rung on the golden-ratio scale (vs. the standard text-xl
+   section title) for emphasis, then clamp down so it never overflows a
+   narrow column or small screen. Floor = text-xl, ceiling = text-2xl. */
+.aboutTitle {
+  font-size: clamp(var(--text-xl), 1.4rem + 3.2vw, var(--text-2xl));
+  /* Force the deliberate few-words-per-line wrap from the mockup. */
+  max-width: 12ch;
+}
+
+/* "Different economics." set in Fansan Display's true italic face
+   (Fansan-DisplayItalic, weight 400) — not a synthesized slant. */
+.aboutTitleItalic {
+  font-style: italic;
+}
+
+.aboutLink {
+  margin-top: var(--space-12);
+  font-size: var(--text-md);
+}
+
+.aboutPoints {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Closes the framing rule beneath the final point. */
+  border-bottom: 1px solid var(--color-border);
+}
+
+.aboutPoint {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  column-gap: var(--space-8);
+  align-items: start;
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.aboutPointNum {
+  color: var(--color-accent);
+  font-size: var(--text-md);
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.aboutPoint p {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--color-text);
+}
+
+@media (max-width: 800px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-12);
+  }
+
+  .aboutPoint {
+    column-gap: var(--space-6);
+  }
+}
+
+/* ─── Platform (centered statement + supporting columns) ─── */
+
+.platformSection {
+  text-align: center;
+}
+
+.platformEyebrow {
+  margin-bottom: var(--space-6);
+}
+
+/* A large centered statement at text-2xl — clamped down to text-xl so it
+   never overflows on narrow screens. Both ends sit on the existing scale. */
+.platformTitle {
+  max-width: 17ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-16);
+  font-size: clamp(var(--text-xl), 1rem + 6vw, var(--text-2xl));
+  text-wrap: balance;
+}
+
+.platformColumns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+  text-align: left;
+}
+
+.platformColumns p {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 800px) {
+  .platformColumns {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    max-width: 40ch;
+    margin-inline: auto;
+  }
+
+  .platformColumns p {
+    max-width: none;
+  }
+}
+
 /* ─── Pricing ─── */
 
 .priceCompare {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
+  margin-top: var(--space-6);
   margin-bottom: var(--space-12);
 }
 
@@ -424,28 +594,72 @@
   color: var(--color-text-muted);
 }
 
-.compareTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: var(--space-4);
+/* The comparison points now live inside each price card, stacked below the
+   dollar amount. */
+.compareList {
+  list-style: none;
+  margin: var(--space-6) 0 0;
+  padding: var(--space-6) 0 0;
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-4);
 }
 
-.compareTable th,
-.compareTable td {
-  padding: var(--space-4);
-  text-align: left;
-  border-bottom: 1px solid var(--color-border);
-  vertical-align: top;
+.priceCard .compareList .compareCell {
+  color: var(--color-text);
 }
 
-.compareTable th {
-  background-color: var(--color-surface);
-  font-family: var(--font-heading);
-  line-height: var(--line-height-heading);
+.priceCardMuted .compareList .compareCell {
+  color: var(--color-text-muted);
 }
 
-.compareTable tbody tr:last-child td {
-  border-bottom: none;
+/* Each comparison cell pairs a status mark with its label. Grid keeps the
+   mark in a fixed gutter so labels stay aligned even when they wrap. */
+.compareCell {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: var(--space-3);
+}
+
+.compareMark {
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  /* Optically center the mark on the first line of the label. */
+  margin-top: 0.15em;
+}
+
+.compareMarkCheck {
+  color: var(--color-accent);
+}
+
+.compareMarkX {
+  color: var(--color-text-muted);
+}
+
+/* CTA pinned to the bottom of the Naya price card, below the checklist. */
+.priceCardCta {
+  display: block;
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-accent);
+  background-image:
+    radial-gradient(ellipse at top right, #c4ed5c 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #3a9460 0%, transparent 70%);
+  color: var(--color-on-accent);
+  text-align: center;
+  border-radius: var(--radius);
+  transition: filter var(--transition);
+}
+
+.priceCardCta:hover {
+  background-color: var(--color-accent-hover);
+  background-image:
+    radial-gradient(ellipse at top right, #d4f470 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #4daa72 0%, transparent 70%);
+  color: var(--color-on-accent);
+  text-decoration: none;
 }
 
 /* ─── Audience list ─── */
@@ -466,6 +680,63 @@
   border-radius: 999px;
 }
 
+/* ─── FAQ (intro + accordion, two-column) ───
+   Mirrors the About grid: a left intro column (eyebrow, display heading,
+   muted lede) paired with the accordion on the right. Collapses to a single
+   stacked column at the house 800px breakpoint. */
+
+/* Extra breathing room below the FAQ before the final CTA. */
+.faqSection {
+  padding-bottom: calc(var(--space-24) + var(--space-16));
+}
+
+.faqGrid {
+  display: grid;
+  /* minmax(0, …) lets either column shrink below its content's intrinsic
+     width so long question text wraps instead of forcing overflow. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  column-gap: clamp(var(--space-12), 8vw, var(--space-24));
+  align-items: start;
+}
+
+/* Step up one rung on the golden-ratio scale (text-xl → text-2xl) for the
+   section's anchor heading, then clamp so it never overflows the column or a
+   small screen. Same rung as .aboutTitle; max-width forces the deliberate
+   "Questions / lenders ask / before / switching." wrap from the sketch. */
+.faqTitle {
+  margin: 0 0 var(--space-6);
+  max-width: 12ch;
+  font-family: var(--font-heading);
+  line-height: var(--line-height-heading);
+  font-size: clamp(var(--text-xl), 1.4rem + 3.2vw, var(--text-2xl));
+}
+
+.faqLede {
+  margin: 0;
+  max-width: 32ch;
+  /* Class beats the global `p { color: #fff }` — keeps the lede muted. */
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .faqGrid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-12);
+  }
+
+  /* Let the heading and lede breathe wider once stacked, so neither becomes
+     an awkwardly tall, narrow column on phones. */
+  .faqTitle {
+    max-width: 20ch;
+  }
+
+  .faqLede {
+    max-width: 46ch;
+  }
+}
+
 /* ─── Final CTA / Contact (video background, see .sectionVideo) ─── */
 
 .finalCta {
@@ -478,16 +749,34 @@
   min-height: 100dvh;
   padding-block: var(--space-24);
   color: #fff;
-  text-align: left;
+  text-align: center;
   background-color: var(--color-bg);
 }
 
 .finalCta .sectionTitle {
   color: #fff;
+  margin-inline: auto;
+  /* Keep the headline tight to its subhead — they read as one unit. */
+  margin-bottom: var(--space-4);
 }
 
 .finalCta .lede {
-  max-width: 50ch;
+  /* Tighter measure sets the copy as clean, balanced lines and avoids
+     the ugly "technology-first" hyphen break a wide column forced. */
+  max-width: 42ch;
+  margin-inline: auto;
+  /* Larger, airier subhead so it reads as the headline's partner rather
+     than fine print — muted so the hierarchy stays clear. */
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  /* A bit more breathing room before the buttons, the deliberate gap
+     that separates the message from the action. */
+  margin-bottom: var(--space-12);
+}
+
+.finalCta .ctas {
+  justify-content: center;
 }
 
 /* Primary CTA inside the contact panel keeps the default mesh-gradient

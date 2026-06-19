@@ -35,7 +35,47 @@ const FAQ_ITEMS = [
 
 const HERO_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_2907984.mp4";
 const CONTACT_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
-const APPROACH_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4122955.mp4";
+const APPROACH_VIDEO = "/videos/approach.mp4";
+
+// Line-style marks for the comparison table. Lime check = the Naya way;
+// muted ✗ = the traditional way (brand avoids red, so the negative recedes
+// in grey rather than shouting).
+function CheckMark() {
+	return (
+		<svg
+			className={`${styles.compareMark} ${styles.compareMarkCheck}`}
+			viewBox="0 0 16 16"
+			fill="none"
+			aria-hidden="true"
+		>
+			<path
+				d="M3.5 8.5l3 3 6-7.5"
+				stroke="currentColor"
+				strokeWidth="1.75"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			/>
+		</svg>
+	);
+}
+
+function XMark() {
+	return (
+		<svg
+			className={`${styles.compareMark} ${styles.compareMarkX}`}
+			viewBox="0 0 16 16"
+			fill="none"
+			aria-hidden="true"
+		>
+			<path
+				d="M4 4l8 8M12 4l-8 8"
+				stroke="currentColor"
+				strokeWidth="1.75"
+				strokeLinecap="round"
+			/>
+		</svg>
+	);
+}
 
 export default function HomePage() {
 	return (
@@ -82,7 +122,7 @@ export default function HomePage() {
 			</section>
 
 			{/* ───────────── Problem ───────────── */}
-			<section className={styles.section}>
+			<section className={styles.section} data-beam-zone>
 				<Container>
 					<div className={styles.split}>
 						<div>
@@ -113,14 +153,14 @@ export default function HomePage() {
 			</section>
 
 			{/* ───────────── Fern Visual Break ───────────── */}
-			<section className={styles.fernSection}>
+			<section className={styles.fernSection} data-beam-zone>
 				<div className={styles.fernWrapper}>
 					<ImageBg src="/brand/fern.png" className={styles.fernImage} />
 				</div>
 			</section>
 
 			{/* ───────────── What Naya Does ───────────── */}
-			<section className={styles.section}>
+			<section className={styles.section} data-beam-zone>
 				<Container>
 					<div className={styles.splitWithCards}>
 						<div>
@@ -167,9 +207,9 @@ export default function HomePage() {
 			{/* ───────────── Approach ───────────── */}
 			<section id="approach" className={`${styles.section} ${styles.approachVideoSection}`}>
 				<VideoBg src={APPROACH_VIDEO} className={styles.sectionVideo} />
-				<Container narrow>
+				<Container narrow className={styles.approachCenter}>
 					<p className={styles.eyebrow}>Approach</p>
-					<h2 className={styles.sectionTitle}>
+					<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
 						Built to align with the client, not the clock.
 					</h2>
 					<div className={styles.prose}>
@@ -194,33 +234,51 @@ export default function HomePage() {
 			{/* ───────────── Experience / About ───────────── */}
 			<section id="about" className={`${styles.section} ${styles.alt}`}>
 				<Container>
-					<div className={styles.split}>
-						<div>
+					<div className={styles.aboutGrid}>
+						<div className={styles.aboutIntro}>
 							<p className={styles.eyebrow}>About</p>
-							<h2 className={styles.sectionTitle}>
-								Big Law judgment. Different economics.
+							<h2 className={`${styles.sectionTitle} ${styles.aboutTitle}`}>
+								Big Law judgment.{" "}
+								<span className={styles.aboutTitleItalic}>
+									<span data-beam-target>Different</span> economics.
+								</span>
 							</h2>
-						</div>
-						<div className={styles.prose}>
-							<p>
-								Matthew Basile spent nearly two decades practicing commercial
-								real estate law and served as a partner at a large Am Law 150
-								firm before building Naya.
-							</p>
-							<p>
-								That background gives Naya experience with complex transactions,
-								but the delivery model is different: fixed fees, software-enabled
-								workflows, and no billable-hour treadmill.
-							</p>
-							<p>
-								The result is the quality lenders expect from a major firm with
-								a pricing model built for how legal work should operate in the
-								AI era.
-							</p>
-							<p>
+							<p className={styles.aboutLink}>
 								<Link href="/about">More about the firm &rarr;</Link>
 							</p>
 						</div>
+						<ol className={styles.aboutPoints}>
+							<li className={styles.aboutPoint}>
+								<span className={styles.aboutPointNum} aria-hidden="true">
+									01
+								</span>
+								<p>
+									Matthew Basile spent nearly two decades practicing commercial
+									real estate law and served as a partner at a large Am Law 150
+									firm before building Naya.
+								</p>
+							</li>
+							<li className={styles.aboutPoint}>
+								<span className={styles.aboutPointNum} aria-hidden="true">
+									02
+								</span>
+								<p>
+									That background gives Naya experience with complex
+									transactions, but the delivery model is different: fixed fees,
+									software-enabled workflows, and no billable-hour treadmill.
+								</p>
+							</li>
+							<li className={styles.aboutPoint}>
+								<span className={styles.aboutPointNum} aria-hidden="true">
+									03
+								</span>
+								<p>
+									The result is the quality lenders expect from a major firm
+									with a pricing model built for how legal work should operate in
+									the AI era.
+								</p>
+							</li>
+						</ol>
 					</div>
 				</Container>
 			</section>
@@ -228,70 +286,88 @@ export default function HomePage() {
 			{/* ───────────── Pricing ───────────── */}
 			<section id="pricing" className={styles.section}>
 				<Container>
-					<p className={styles.eyebrow}>Pricing</p>
-					<h2 className={styles.sectionTitle}>
-						Know the legal fee before the work starts.
-					</h2>
+					<div className={styles.split}>
+						<div>
+							<p className={styles.eyebrow}>Pricing</p>
+							<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
+								Know the legal fee before the work starts.
+							</h2>
+						</div>
+						<div className={`${styles.prose} ${styles.proseRight}`}>
+							<p>
+								For context: large-firm associate rates often run $650–$700 per
+								hour, junior partners $1,000+, and top partners $2,000–$3,000.
+								Naya's pitch is simple: price the matter based on what it should
+								cost, then stand behind that number.
+							</p>
+						</div>
+					</div>
 
 					<div className={styles.priceCompare}>
-						<div className={styles.priceCard}>
-							<p className={styles.priceLabel}>Naya Law</p>
-							<p className={styles.priceAmount}>$5K–$15K</p>
-							<p className={styles.priceNote}>typical sub-$10M loan closing</p>
-						</div>
 						<div className={`${styles.priceCard} ${styles.priceCardMuted}`}>
 							<p className={styles.priceLabel}>Big Law equivalent</p>
 							<p className={styles.priceAmount}>$20K–$30K</p>
 							<p className={styles.priceNote}>for similar matters</p>
+							<ul className={styles.compareList}>
+								<li className={styles.compareCell}>
+									<XMark />
+									Bills by the hour.
+								</li>
+								<li className={styles.compareCell}>
+									<XMark />
+									Fee is known after the work.
+								</li>
+								<li className={styles.compareCell}>
+									<XMark />
+									Technology is layered onto old workflows.
+								</li>
+								<li className={styles.compareCell}>
+									<XMark />
+									Incentive is to spend more time.
+								</li>
+							</ul>
+						</div>
+						<div className={styles.priceCard}>
+							<p className={styles.priceLabel}>Naya Law</p>
+							<p className={styles.priceAmount} data-beam-target>$5K–$15K</p>
+							<p className={styles.priceNote}>typical sub-$10M loan closing</p>
+							<ul className={styles.compareList}>
+								<li className={styles.compareCell}>
+									<CheckMark />
+									Fixed fee quoted up front.
+								</li>
+								<li className={styles.compareCell}>
+									<CheckMark />
+									Fee structure is known before the work starts.
+								</li>
+								<li className={styles.compareCell}>
+									<CheckMark />
+									Technology is built into the operating model.
+								</li>
+								<li className={styles.compareCell}>
+									<CheckMark />
+									Incentive is to close efficiently.
+								</li>
+							</ul>
+							<Link href="/pricing" className={styles.priceCardCta}>
+								Get Pricing
+							</Link>
 						</div>
 					</div>
-
-					<div className={`${styles.prose} ${styles.proseNarrow}`}>
-						<p>
-							For context: large-firm associate rates often run $650–$700 per
-							hour, junior partners $1,000+, and top partners $2,000–$3,000.
-							Naya's pitch is simple: price the matter based on what it should
-							cost, then stand behind that number.
-						</p>
-					</div>
-
-					<table className={styles.compareTable}>
-						<thead>
-							<tr>
-								<th>Traditional Big Law</th>
-								<th>Naya Law</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Bills by the hour.</td>
-								<td>Fixed fee quoted up front.</td>
-							</tr>
-							<tr>
-								<td>Fee is known after the work.</td>
-								<td>Fee structure is known before the work starts.</td>
-							</tr>
-							<tr>
-								<td>Technology is layered onto old workflows.</td>
-								<td>Technology is built into the operating model.</td>
-							</tr>
-							<tr>
-								<td>Incentive is to spend more time.</td>
-								<td>Incentive is to close efficiently.</td>
-							</tr>
-						</tbody>
-					</table>
 				</Container>
 			</section>
 
 			{/* ───────────── Platform ───────────── */}
-			<section className={`${styles.section} ${styles.alt}`}>
-				<Container narrow>
-					<p className={styles.eyebrow}>Platform</p>
-					<h2 className={styles.sectionTitle}>
-						A law firm running on its own operating system.
+			<section className={`${styles.section} ${styles.alt} ${styles.platformSection}`}>
+				<Container>
+					<p className={`${styles.eyebrow} ${styles.platformEyebrow}`}>
+						Platform
+					</p>
+					<h2 className={`${styles.sectionTitle} ${styles.platformTitle}`}>
+						A law firm running on its own operating{" "}
+					<span data-beam-target>system</span>.
 					</h2>
-					<div className={styles.prose}>
+					<div className={styles.platformColumns}>
 						<p>
 							Naya's software is customized for commercial mortgage loan
 							transactions, including document automation and workflow support
@@ -315,7 +391,7 @@ export default function HomePage() {
 			<section className={styles.section}>
 				<Container>
 					<p className={styles.eyebrow}>Who it's for</p>
-					<h2 className={styles.sectionTitle}>
+					<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
 						Built for institutional lenders.
 					</h2>
 					<ul className={styles.audienceList}>
@@ -335,37 +411,22 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── For Lawyers ───────────── */}
-			<section id="for-lawyers" className={`${styles.section} ${styles.alt}`}>
-				<Container narrow>
-					<p className={styles.eyebrow}>For lawyers</p>
-					<h2 className={styles.sectionTitle}>
-						Tired of the billable-hour treadmill?
-					</h2>
-					<div className={styles.prose}>
-						<p>
-							Naya is also built for commercial real estate lawyers who want
-							better tools and more aligned economics — an operating system for
-							closing commercial mortgage loans that you can plug into instead
-							of trying to reform a traditional firm from the inside.
-						</p>
-					</div>
-					<p>
-						<Link href="/for-lawyers" className={styles.secondaryCta}>
-							Learn more about joining &rarr;
-						</Link>
-					</p>
-				</Container>
-			</section>
-
 			{/* ───────────── FAQ ───────────── */}
-			<section id="faq" className={styles.section}>
-				<Container narrow>
-					<p className={styles.eyebrow}>FAQ</p>
-					<h2 className={styles.sectionTitle}>
-						Questions lenders ask before switching.
-					</h2>
-					<Faq items={FAQ_ITEMS} />
+			<section id="faq" className={`${styles.section} ${styles.faqSection}`}>
+				<Container>
+					<div className={styles.faqGrid}>
+						<div>
+							<p className={styles.eyebrow}>FAQ</p>
+							<h2 className={styles.faqTitle}>
+								Questions lenders ask before switching.
+							</h2>
+							<p className={styles.faqLede}>
+								Everything firms want to understand before moving a closing
+								to Naya.
+							</p>
+						</div>
+						<Faq items={FAQ_ITEMS} />
+					</div>
 				</Container>
 			</section>
 
