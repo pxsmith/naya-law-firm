@@ -45,7 +45,8 @@
  * TIMELINE.duration). */
 .hero .sectionVideo,
 .finalCta .sectionVideo,
-.approachVideoSection .sectionVideo {
+.approachVideoSection .sectionVideo,
+.audienceVideoSection .sectionVideo {
   animation: videoLoopFade 23.481792s linear infinite;
 }
 
@@ -65,7 +66,8 @@
  * on the right. */
 .hero::after,
 .finalCta::after,
-.approachVideoSection::after {
+.approachVideoSection::after,
+.audienceVideoSection::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -90,24 +92,45 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-top: calc(var(--space-24) + 4rem);
-  padding-bottom: calc(var(--space-24) + 4rem);
+  padding-top: calc(var(--space-24) + 9rem);
+  padding-bottom: calc(var(--space-24) + 9rem);
+}
+
+/* "Who it's for" — same video-background treatment as the hero/approach/
+   contact sections. Establishes the stacking context so the <VideoBg>
+   (z-index: -2) and gradient overlay (z-index: -1) sit behind content. */
+.audienceVideoSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Generous breathing room so the video moment reads as a deliberate
+     section — considerably taller than a default section, but short of
+     the full-height treatment used by the hero/contact. */
+  padding-top: calc(var(--space-24) + 6rem);
+  padding-bottom: calc(var(--space-24) + 6rem);
 }
 
 /* ─── Fern Visual Break ─── */
 
 .fernSection {
-  padding-block: var(--space-8);
-  overflow: hidden; /* Prevent horizontal scrollbar on viewport-edge elements */
+  /* The band's own height is the breathing space; no section padding. The fern
+     fills the viewport width and reads as a single cinematic moment rather than
+     a small image floating in a tall, mostly-empty box. */
+  padding-block: 0;
+  overflow: hidden; /* Keeps the full-bleed band from spawning a horizontal scrollbar */
 }
 
 .fernWrapper {
   position: relative;
-  margin-left: max(var(--container-padding), calc((100% - var(--container-width)) / 2 + var(--container-padding)));
-  margin-right: 0;
-  height: 380px;
+  /* Full-bleed: the section has no Container, so width:100% === viewport width.
+     Using 100% (not 100vw) avoids the scrollbar-gutter horizontal-scroll bug. */
+  width: 100%;
+  margin: 0;
+  /* Height tracks viewport width so the cover-fit frond fills it top-to-bottom
+     with no dead black above/below — and scales down gracefully on narrow
+     screens instead of staying a fixed, oversized box. */
+  height: clamp(320px, 40vw, 500px);
   overflow: hidden;
-  clip-path: polygon(180px 0%, 100% 0%, 100% 100%, 0% 100%);
   background-color: transparent;
   mix-blend-mode: lighten;
 }
@@ -118,6 +141,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Bias the no-WebGPU fallback <img> cover-crop right so the left-pointing
+     frond tip stays in frame on the wide/short band (the shader path uses
+     offset [0.12, 0] for the same effect). */
+  object-position: 60% center;
   mix-blend-mode: lighten;
 }
 
@@ -128,9 +155,44 @@
 
 @media (max-width: 800px) {
   .fernWrapper {
-    height: 220px;
-    margin-left: var(--container-padding);
-    clip-path: polygon(80px 0%, 100% 0%, 100% 100%, 0% 100%);
+    /* Stay full-bleed; just shorten the band. Do NOT reintroduce a
+       margin-left/width gutter here — that left gutter was the "sliver pushed
+       to one side" mobile problem. */
+    width: 100%;
+    margin: 0;
+    height: clamp(220px, 56vw, 320px);
+  }
+}
+
+@media (max-width: 480px) {
+  .fernWrapper {
+    /* Safety floor so the smallest phones never get a thin ribbon. */
+    height: clamp(200px, 60vw, 280px);
+  }
+}
+
+/* ─── Black-trio rhythm (Problem → Fern → What We Do) ───
+   Layered on top of .section, never editing the shared token. Only the two
+   edges FACING the fern are trimmed — equally — so the gap around the fern is
+   symmetric and tight. The outer bookends keep the inherited var(--space-24)
+   (6rem) so the black trio still separates cleanly from the hero above and the
+   Approach video below. */
+
+.sectionTrimBottom {
+  padding-bottom: var(--space-12); /* Problem → Fern: 3rem on desktop */
+}
+
+.sectionTrimTop {
+  padding-top: var(--space-12); /* Fern → What We Do: 3rem on desktop */
+}
+
+@media (max-width: 800px) {
+  .sectionTrimBottom {
+    padding-bottom: var(--space-8); /* tighter on phones */
+  }
+
+  .sectionTrimTop {
+    padding-top: var(--space-8);
   }
 }
 
@@ -180,25 +242,33 @@
 }
 
 .approachCenter .sectionTitle {
-  max-width: 20ch;
   margin-inline: auto;
   text-wrap: balance;
 }
 
+/* Wide enough to hold the title on a single line — break it out of the
+   narrow column and center it on the viewport. Narrower screens keep the
+   natural two-line wrap so it never clips. */
+@media (min-width: 880px) {
+  .approachCenter .sectionTitle {
+    width: max-content;
+    max-width: 92vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-wrap: nowrap;
+  }
+}
+
 .approachCenter .prose {
   justify-items: center;
-  max-width: 58ch;
+  max-width: 70ch;
   margin-inline: auto;
 }
 
 .approachCenter .prose p {
   margin: 0;
   text-wrap: pretty;
-}
-
-.proseNarrow {
-  max-width: calc(100% / 3);
-  margin-bottom: var(--space-8);
 }
 
 .proseRight {
@@ -418,10 +488,6 @@
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
-
-  .proseNarrow {
-    max-width: 100%;
-  }
 }
 
 /* ─── About (intro + numbered points) ─── */
@@ -499,6 +565,16 @@
 
 .platformSection {
   text-align: center;
+  /* Override the default .section block padding. The beam glow rises above the
+     headline (it's anchored to the title), so the apparent top space is dominated
+     by the beam + the previous section's bottom padding, not this section's own
+     padding. Pull the whole moment UP with a negative top margin — the beam rides
+     up with the headline, lightening the top, and more of the space below the
+     columns scrolls into view. Keep a small top pad and a balanced bottom pad.
+     The negative margin eases to zero on narrow screens so sections never crowd. */
+  margin-top: clamp(calc(-1 * var(--space-16)), -4vw, 0px);
+  padding-top: var(--space-8);
+  padding-bottom: clamp(var(--space-24), 8vw, calc(var(--space-24) + var(--space-8)));
 }
 
 .platformEyebrow {
@@ -664,20 +740,52 @@
 
 /* ─── Audience list ─── */
 
+/* Two-column composition: left intro (eyebrow, heading, prose) paired with the
+   audience pills on the right. Mirrors .faqGrid below so the two adjacent
+   sections share the same rhythm; collapses to one stack at the 800px house
+   breakpoint. minmax(0, …) lets either column shrink so long text wraps
+   instead of forcing overflow. */
+.audienceGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  column-gap: clamp(var(--space-12), 8vw, var(--space-24));
+  align-items: start;
+}
+
 .audienceList {
   list-style: none;
-  margin: var(--space-4) 0 var(--space-8);
+  /* No top margin: pills align with the top of the left column's eyebrow. */
+  margin: 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
+  /* Stacked one-per-row in the right column ("stacked right below"). */
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-3);
 }
 
 .audienceList li {
-  padding: var(--space-2) var(--space-4);
+  /* Bumped one step up the type scale; padding scales with it to keep the pill
+     proportions. */
+  font-size: var(--text-lg);
+  padding: var(--space-3) var(--space-6);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 999px;
+}
+
+@media (max-width: 800px) {
+  .audienceGrid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-12);
+  }
+
+  /* Once stacked under the intro, let pills wrap inline again rather than form
+     a tall single-file list. */
+  .audienceList {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 /* ─── FAQ (intro + accordion, two-column) ───
@@ -687,6 +795,7 @@
 
 /* Extra breathing room below the FAQ before the final CTA. */
 .faqSection {
+  padding-top: calc(var(--space-24) + var(--space-16));
   padding-bottom: calc(var(--space-24) + var(--space-16));
 }
 

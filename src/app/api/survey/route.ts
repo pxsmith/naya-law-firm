@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 import { SURVEY_QUESTIONS } from "@/lib/survey";
+import { computeQuote, formatUSD, type Quote } from "@/lib/pricing";
+import { encodeQuote } from "@/lib/quoteCode";
 
 /**
- * Receives the survey answers from the custom front-end and relays them to the
- * Google Form's response endpoint. Because we submit the real form fields, the
- * responses flow into the same Google Sheet the form is already connected to —
- * no extra storage to maintain.
+ * Receives the survey answers from the custom front-end and:
+ *   1. relays the research answers to the Google Form (same Google Sheet), and
+ *   2. emails the full entry (incl. the computed fixed-fee estimate) via
+ *      Formspree — the same service the contact form already uses.
  *
- * The form id is public (it's in the form's share URL), but we keep it
- * server-side and submit from here so the browser never has to deal with
- * Google's cross-origin rules and we get a real success/failure status.
+ * The Google form id is public (it's in the form's share URL) but kept
+ * server-side so the browser avoids Google's cross-origin rules.
  */
 
 const FORM_ID =
@@ -18,12 +19,93 @@ const FORM_ID =
 
 const FORM_ACTION = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
 
+/**
+ * Where pricing submissions are emailed. Reuses the Formspree pattern from the
+ * contact form: create a Formspree form whose recipient is the target inbox,
+ * then set PRICING_FORMSPREE_ID to that form's id.
+ *
+ * ⚠️  PRODUCTION FLAG: for now this routes to phil@gotimehq.com (the recipient
+ * is configured inside the Formspree form). Before launch, point the Formspree
+ * form — or this env var — at the CLIENT's inbox.
+ */
+const PRICING_FORMSPREE_ID = process.env.PRICING_FORMSPREE_ID ?? "";
+
 type Answers = Record<string, string | string[] | undefined>;
 
 function isEmpty(value: string | string[] | undefined): boolean {
   if (value == null) return true;
   if (Array.isArray(value)) return value.length === 0;
   return value.trim() === "";
+}
+
+function describeEstimate(quote: Quote): string {
+  if (quote.baseTBD) return "Custom — loan over $20MM (call to confirm)";
+  if (quote.isTBD)
+    return `from ${formatUSD(quote.knownTotal)} (+ items priced per transaction)`;
+  return formatUSD(quote.total as number);
+}
+
+/** Email the entry + estimate to the Formspree inbox. Returns true on success. */
+async function notifyFormspree(
+  formId: string,
+  answers: Record<string, unknown>,
+  quote: Quote,
+  origin: string,
+): Promise<boolean> {
+  const str = (k: string) =>
+    typeof answers[k] === "string" ? (answers[k] as string).trim() : "";
+
+  const code = encodeQuote(answers);
+  const breakdown = [
+    quote.baseLabel
+      ? `Base fixed fee (${quote.baseLabel}): ${
+          quote.baseFee == null ? "TBD" : formatUSD(quote.baseFee)
+        }`
+      : null,
+    ...quote.lineItems.map(
+      (li) =>
+        `${li.label}${li.hasQuantity ? ` ×${li.quantity}` : ""}: ${
+          li.amount == null ? "TBD" : formatUSD(li.amount)
+        }`,
+    ),
+    `Total: ${describeEstimate(quote)}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  // Labelled research answers (only the questions that map to the Google form).
+  const survey = SURVEY_QUESTIONS.filter((q) => q.entryId)
+    .map((q) => {
+      const v = answers[q.id];
+      const s = Array.isArray(v)
+        ? v.join(", ")
+        : typeof v === "string"
+          ? v
+          : "";
+      return s ? `${q.title}\n  ${s}` : null;
+    })
+    .filter(Boolean)
+    .join("\n\n");
+
+  const payload = {
+    _subject: `New pricing estimate — ${describeEstimate(quote)}${
+      str("lenderName") ? ` · ${str("lenderName")}` : ""
+    }`,
+    name: str("name"),
+    email: str("email"),
+    lender: str("lenderName"),
+    estimate: describeEstimate(quote),
+    breakdown,
+    shareable_link: code ? `${origin}/pricing?q=${code}` : "(no estimate)",
+    survey,
+  };
+
+  const res = await fetch(`https://formspree.io/f/${formId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify(payload),
+  });
+  return res.ok;
 }
 
 export async function POST(request: Request) {
@@ -39,8 +121,12 @@ export async function POST(request: Request) {
 
   const answers = payload.answers ?? {};
 
-  // Validate required questions before bothering Google.
+  // Validate required questions before doing anything. Local-only pricing
+  // questions (no entryId, e.g. quoteLoanBand/quoteAddons) are validated on the
+  // client. Email is the one exception: it has no field of its own but is folded
+  // into Name on the Google side.
   for (const q of SURVEY_QUESTIONS) {
+    if (!q.entryId && q.id !== "email") continue;
     if (q.required && isEmpty(answers[q.id])) {
       return NextResponse.json(
         { ok: false, error: `Please answer: ${q.title}` },
@@ -49,9 +135,8 @@ export async function POST(request: Request) {
     }
   }
 
-  // The Google Form has no email field, so we capture the email alongside the
-  // name (e.g. "Jane Doe <jane@acme.com>") to avoid losing it. Add an "Email"
-  // question to the form and give it an entry id to break this out cleanly.
+  // The Google Form has no email field, so capture the email alongside the name
+  // (e.g. "Jane Doe <jane@acme.com>") to avoid losing it.
   const emailRaw = answers["email"];
   const email = typeof emailRaw === "string" ? emailRaw.trim() : "";
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -66,6 +151,7 @@ export async function POST(request: Request) {
   const body = new URLSearchParams();
   for (const q of SURVEY_QUESTIONS) {
     if (q.id === "email") continue; // no matching form field; folded into Name
+    if (!q.entryId) continue; // local-only pricing questions never post to Google
     const value = answers[q.id];
     if (q.id === "name") {
       const nameStr = typeof value === "string" ? value.trim() : "";
@@ -84,6 +170,12 @@ export async function POST(request: Request) {
   body.append("fvv", "1");
   body.append("pageHistory", "0");
 
+  const answersAny = answers as Record<string, unknown>;
+  const quote = computeQuote(answersAny);
+  const origin = new URL(request.url).origin;
+
+  // 1) Relay research answers to the Google Form (best-effort).
+  let googleOk = false;
   try {
     const res = await fetch(FORM_ACTION, {
       method: "POST",
@@ -93,22 +185,39 @@ export async function POST(request: Request) {
           "Mozilla/5.0 (compatible; NayaLawSurvey/1.0; +https://www.nayalawgroup.com)",
       },
       body: body.toString(),
-      // We don't need to read Google's HTML response.
       redirect: "follow",
     });
-
-    if (res.ok || (res.status >= 300 && res.status < 400)) {
-      return NextResponse.json({ ok: true });
-    }
-
-    return NextResponse.json(
-      { ok: false, error: `The form rejected the submission (${res.status}).` },
-      { status: 502 },
-    );
+    googleOk = res.ok || (res.status >= 300 && res.status < 400);
   } catch {
-    return NextResponse.json(
-      { ok: false, error: "Could not reach the form. Please try again." },
-      { status: 502 },
+    googleOk = false;
+  }
+
+  // 2) Email the entry + estimate via Formspree (best-effort — never blocks the
+  // reveal). If unconfigured, we simply skip it.
+  let formspreeOk = false;
+  if (PRICING_FORMSPREE_ID) {
+    try {
+      formspreeOk = await notifyFormspree(
+        PRICING_FORMSPREE_ID,
+        answersAny,
+        quote,
+        origin,
+      );
+    } catch {
+      formspreeOk = false;
+    }
+  } else {
+    console.warn(
+      "[survey] PRICING_FORMSPREE_ID not set — submission email skipped.",
     );
   }
+
+  // Success if the entry was captured anywhere (sheet or inbox).
+  if (googleOk || formspreeOk) {
+    return NextResponse.json({ ok: true });
+  }
+  return NextResponse.json(
+    { ok: false, error: "We couldn't record your responses. Please try again." },
+    { status: 502 },
+  );
 }

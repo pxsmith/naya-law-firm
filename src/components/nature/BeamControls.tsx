@@ -58,17 +58,29 @@ export function BeamControls() {
       "(hover: hover) and (pointer: fine)",
     ).matches;
     const cursor = { x: 0, y: 0, present: false };
+    // Element currently hovered via `data-beam-hover` (the Get Pricing CTAs).
+    let hoverEl: Element | null = null;
 
-    // Resolve what the beam should aim at: an in-view element-lock target first
-    // (scroll-driven), else the cursor while over a cursor zone, else nothing.
+    // Resolve what the beam should aim at: a hovered CTA first, else an in-view
+    // element-lock target (scroll-driven), else the cursor while over a cursor
+    // zone, else nothing.
     const recompute = () => {
       const t = targetRef.current;
       const vh = window.innerHeight;
+      // Hover takes top priority — bloom over the CTA and track it (same
+      // element-lock path the shader already follows each frame).
+      if (hoverEl) {
+        t.el = hoverEl;
+        t.inZone = true;
+        return;
+      }
       // Lock onto the in-view target nearest the viewport centre, so adjacent
       // keyword targets (e.g. About → Pricing) hand off cleanly as you scroll.
       const targets = document.querySelectorAll("[data-beam-target]");
       let best: Element | null = null;
       let bestDist = Infinity;
+      let incumbentDist = Infinity;
+      const incumbent = t.el; // currently-locked target, if any
       const mid = vh / 2;
       for (const el of Array.from(targets)) {
         const r = el.getBoundingClientRect();
@@ -79,7 +91,15 @@ export function BeamControls() {
             bestDist = d;
             best = el;
           }
+          if (el === incumbent) incumbentDist = d;
         }
+      }
+      // Hysteresis: while the locked target is still in view, only switch to a
+      // new one if it's closer to centre by a clear margin. Without this, two
+      // words straddling the centre flip-flop and the beam strobes/re-descends.
+      const margin = vh * 0.15;
+      if (incumbent && incumbentDist !== Infinity && bestDist > incumbentDist - margin) {
+        best = incumbent;
       }
       if (best) {
         t.el = best;
@@ -112,14 +132,37 @@ export function BeamControls() {
     const onScrollOrResize = () => recompute();
     const onLeave = () => {
       cursor.present = false;
+      hoverEl = null;
       targetRef.current.active = false;
       recompute();
+    };
+
+    // Delegated hover on the Get Pricing CTAs (marked `data-beam-hover`).
+    const onHoverOver = (e: PointerEvent) => {
+      const el = (e.target as Element | null)?.closest("[data-beam-hover]");
+      if (el && el !== hoverEl) {
+        hoverEl = el;
+        recompute();
+      }
+    };
+    const onHoverOut = (e: PointerEvent) => {
+      const el = (e.target as Element | null)?.closest("[data-beam-hover]");
+      const next = (e.relatedTarget as Element | null)?.closest(
+        "[data-beam-hover]",
+      );
+      // Ignore moves between children of the same CTA.
+      if (el && el !== next) {
+        hoverEl = null;
+        recompute();
+      }
     };
 
     if (finePointer) {
       window.addEventListener("pointermove", onMove, { passive: true });
       document.addEventListener("mouseleave", onLeave);
       window.addEventListener("blur", onLeave);
+      document.addEventListener("pointerover", onHoverOver, { passive: true });
+      document.addEventListener("pointerout", onHoverOut, { passive: true });
     }
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize);
@@ -129,6 +172,8 @@ export function BeamControls() {
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("blur", onLeave);
+      document.removeEventListener("pointerover", onHoverOver);
+      document.removeEventListener("pointerout", onHoverOut);
       window.removeEventListener("scroll", onScrollOrResize);
       window.removeEventListener("resize", onScrollOrResize);
     };

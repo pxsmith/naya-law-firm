@@ -41,8 +41,9 @@ const SHOW_DIAL_PANEL = false;
 // never reaches production or the server render.
 const DevTypePanel = dynamic(() => import("./DevTypePanel"), { ssr: false });
 
-// Golden-beam styling phase: show the beam + its tuning dial. Flip to `false`
-// to remove it; later it becomes hover/section-triggered instead of global.
+// Golden-beam: live in production + development. Activates on cursor zones,
+// scroll-locked targets, and hover over `data-beam-hover` elements (the Get
+// Pricing CTAs). Flip to `false` to remove it entirely.
 const SHOW_BEAM = true;
 
 export function ShaderControls({ children }: { children: ReactNode }) {
@@ -52,7 +53,7 @@ export function ShaderControls({ children }: { children: ReactNode }) {
     <ShaderParamsContext.Provider value={null}>
       {children}
       {DEV && SHOW_DIAL_PANEL && <DevTypePanel />}
-      {DEV && SHOW_BEAM && <BeamControls />}
+      {SHOW_BEAM && <BeamControls />}
     </ShaderParamsContext.Provider>
   );
 }

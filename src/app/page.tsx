@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { VideoBg } from "@/components/VideoBg";
 import { ImageBg } from "@/components/ImageBg";
 import { Faq } from "@/components/Faq";
+import { AudienceList } from "@/components/AudienceList";
 import styles from "./page.module.css";
 
 const FAQ_ITEMS = [
@@ -36,6 +37,7 @@ const FAQ_ITEMS = [
 const HERO_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_2907984.mp4";
 const CONTACT_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
 const APPROACH_VIDEO = "/videos/approach.mp4";
+const AUDIENCE_VIDEO = "/videos/audience.mp4";
 
 // Line-style marks for the comparison table. Lime check = the Naya way;
 // muted ✗ = the traditional way (brand avoids red, so the negative recedes
@@ -111,7 +113,7 @@ export default function HomePage() {
 						className={`${styles.ctas} ${styles.reveal}`}
 						style={{ animationDelay: "330ms" }}
 					>
-						<Link href="/pricing" className={styles.primaryCta}>
+						<Link href="/pricing" className={styles.primaryCta} data-beam-hover>
 							Get Pricing
 						</Link>
 						<Link href="#approach" className={styles.secondaryCta}>
@@ -122,7 +124,10 @@ export default function HomePage() {
 			</section>
 
 			{/* ───────────── Problem ───────────── */}
-			<section className={styles.section} data-beam-zone>
+			<section
+				className={`${styles.section} ${styles.sectionTrimBottom}`}
+				data-beam-zone
+			>
 				<Container>
 					<div className={styles.split}>
 						<div>
@@ -155,12 +160,20 @@ export default function HomePage() {
 			{/* ───────────── Fern Visual Break ───────────── */}
 			<section className={styles.fernSection} data-beam-zone>
 				<div className={styles.fernWrapper}>
-					<ImageBg src="/brand/fern.png" className={styles.fernImage} />
+					<ImageBg
+						src="/brand/fern.png"
+						className={styles.fernImage}
+						scale={1.15}
+						offset={[0.12, 0]}
+					/>
 				</div>
 			</section>
 
 			{/* ───────────── What Naya Does ───────────── */}
-			<section className={styles.section} data-beam-zone>
+			<section
+				className={`${styles.section} ${styles.sectionTrimTop}`}
+				data-beam-zone
+			>
 				<Container>
 					<div className={styles.splitWithCards}>
 						<div>
@@ -210,22 +223,16 @@ export default function HomePage() {
 				<Container narrow className={styles.approachCenter}>
 					<p className={styles.eyebrow}>Approach</p>
 					<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
-						Built to align with the client, not the clock.
+						Optimized for efficiency, not billable hours.
 					</h2>
 					<div className={styles.prose}>
 						<p>
 							Before the work begins, Naya gives clients a defined fee structure
-							instead of an open-ended hourly meter.
-						</p>
-						<p>
-							That helps lenders quote legal fees to borrowers early, manage
-							expectations, and compete more effectively on total deal
-							economics.
-						</p>
-						<p>
-							Because Naya does not bill by the hour, its incentive is
-							straightforward: close the deal accurately, efficiently, and
-							without unnecessary friction.
+							instead of an open-ended hourly meter. That helps lenders quote
+							legal fees to borrowers early, manage expectations, and compete
+							more effectively on total deal economics. And because Naya does not
+							bill by the hour, its incentive is straightforward: close the deal
+							accurately, efficiently, and without unnecessary friction.
 						</p>
 					</div>
 				</Container>
@@ -349,7 +356,7 @@ export default function HomePage() {
 									Incentive is to close efficiently.
 								</li>
 							</ul>
-							<Link href="/pricing" className={styles.priceCardCta}>
+							<Link href="/pricing" className={styles.priceCardCta} data-beam-hover>
 								Get Pricing
 							</Link>
 						</div>
@@ -388,25 +395,24 @@ export default function HomePage() {
 			</section>
 
 			{/* ───────────── Who It's For ───────────── */}
-			<section className={styles.section}>
+			<section className={`${styles.section} ${styles.audienceVideoSection}`}>
+				<VideoBg src={AUDIENCE_VIDEO} className={styles.sectionVideo} />
 				<Container>
-					<p className={styles.eyebrow}>Who it's for</p>
-					<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
-						Built for institutional lenders.
-					</h2>
-					<ul className={styles.audienceList}>
-						<li>Commercial mortgage lenders</li>
-						<li>Life insurance company lenders</li>
-						<li>Institutional lending teams</li>
-						<li>High-volume CRE finance participants</li>
-						<li>Other firms wanting fixed-fee capability</li>
-					</ul>
-					<div className={`${styles.prose} ${styles.proseNarrow}`}>
-						<p>
-							If your team needs predictable legal fees, repeatable workflows,
-							and a partner focused specifically on lending transactions, Naya
-							fits that profile.
-						</p>
+					<div className={styles.audienceGrid}>
+						<div>
+							<p className={styles.eyebrow}>Who it's for</p>
+							<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
+								Built for institutional lenders.
+							</h2>
+							<div className={styles.prose}>
+								<p>
+									If your team needs predictable legal fees, repeatable
+									workflows, and a partner focused specifically on lending
+									transactions, Naya fits that profile.
+								</p>
+							</div>
+						</div>
+						<AudienceList />
 					</div>
 				</Container>
 			</section>
@@ -443,7 +449,7 @@ export default function HomePage() {
 						Group was built for that.
 					</p>
 					<div className={styles.ctas}>
-						<Link href="/pricing" className={styles.primaryCta}>
+						<Link href="/pricing" className={styles.primaryCta} data-beam-hover>
 							Get Pricing
 						</Link>
 						<Link href="/contact" className={styles.secondaryCta}>

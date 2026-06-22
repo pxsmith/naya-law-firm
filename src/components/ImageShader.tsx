@@ -115,12 +115,19 @@ function buildConfig(
   src: string,
   fileName: string,
   live: PatternParams | null,
+  scale?: number,
+  offset?: [number, number],
 ): ShaderLabConfig {
   const imageLayer: ShaderLabLayerConfig = {
     ...IMAGE_LAYER_DEFAULTS,
     id: `image-${fileName || src}`,
     name: "Image",
     asset: { fileName, kind: "image", src },
+    params: {
+      ...IMAGE_LAYER_DEFAULTS.params,
+      ...(scale !== undefined ? { scale } : {}),
+      ...(offset !== undefined ? { offset } : {}),
+    },
   };
   // Layer 0 is the Pattern effect; overlay live tuning values onto its params.
   const [pattern, ...rest] = EFFECT_LAYERS;
@@ -137,13 +144,23 @@ interface Props {
   src: string;
   fileName?: string;
   className?: string;
+  /** Overrides the shader's image scale (default 0.65). Larger = bigger fill. */
+  scale?: number;
+  /** Overrides the shader's image offset (default [0, 0]). */
+  offset?: [number, number];
 }
 
-export default function ImageShader({ src, fileName = "", className }: Props) {
+export default function ImageShader({
+  src,
+  fileName = "",
+  className,
+  scale,
+  offset,
+}: Props) {
   const live = useShaderPatternParams();
   const config = useMemo(
-    () => buildConfig(src, fileName, live),
-    [src, fileName, live],
+    () => buildConfig(src, fileName, live, scale, offset),
+    [src, fileName, live, scale, offset],
   );
   return (
     <div className={className}>

@@ -7,6 +7,10 @@ interface Props {
   src: string;
   fileName?: string;
   className?: string;
+  /** Overrides the shader's image scale (default 0.65). Larger = bigger fill. */
+  scale?: number;
+  /** Overrides the shader's image offset (default [0, 0]). */
+  offset?: [number, number];
 }
 
 const ImageShader = dynamic(() => import("./ImageShader"), {
@@ -20,7 +24,7 @@ const ImageShader = dynamic(() => import("./ImageShader"), {
  * - WebGPU available → renders the Shader Lab composition.
  * - WebGPU unavailable → falls back to a plain <img> element.
  */
-export function ImageBg({ src, fileName, className }: Props) {
+export function ImageBg({ src, fileName, className, scale, offset }: Props) {
   const [supportsWebGpu, setSupportsWebGpu] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -30,7 +34,15 @@ export function ImageBg({ src, fileName, className }: Props) {
   }, []);
 
   if (supportsWebGpu === true) {
-    return <ImageShader src={src} fileName={fileName} className={className} />;
+    return (
+      <ImageShader
+        src={src}
+        fileName={fileName}
+        className={className}
+        scale={scale}
+        offset={offset}
+      />
+    );
   }
 
   return (

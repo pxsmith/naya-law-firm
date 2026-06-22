@@ -148,3 +148,37 @@ a:hover {
   color: var(--color-accent-hover);
   text-decoration: underline;
 }
+
+/* Print — used by the "Download PDF" button on the price reveal. Flip the dark
+   palette to a light, low-ink one so most components fall in line automatically,
+   and drop all decorative chrome (site header/footer, WebGPU/video canvases,
+   the golden beam). */
+@media print {
+  :root {
+    --color-bg: #fff;
+    --color-surface: #fff;
+    --color-text: #000;
+    --color-text-muted: #333;
+    --color-border: #000;
+    --color-disclaimer: #333;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  p {
+    color: #000 !important;
+  }
+
+  header,
+  footer,
+  canvas {
+    display: none !important;
+  }
+}

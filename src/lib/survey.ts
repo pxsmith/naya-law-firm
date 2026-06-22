@@ -10,12 +10,40 @@
  * own data; if the form's questions change, re-pull these.
  */
 
-export type SurveyQuestionType = "single" | "multi" | "text" | "longtext";
+import { LOAN_BANDS, ADDONS } from "@/lib/pricing";
+
+export type SurveyQuestionType =
+  | "single"
+  | "multi"
+  | "text"
+  | "longtext"
+  // Pricing questions — local only (never posted to Google), used to compute
+  // the fixed-fee estimate shown on the reveal screen.
+  | "loanBand" // single-select; each option carries a base fee
+  | "addons"; // multi-select where some options carry a quantity stepper
+
+/** A priced choice for "loanBand" / "addons" questions. */
+export interface PriceOption {
+  /** Stable key — the answer token and the pricing line-item key. */
+  key: string;
+  /** Display label shown in the option row and the breakdown. */
+  label: string;
+  /** Plain-language helper shown under the label. */
+  help?: string;
+  /** Unit price in whole dollars; null = TBD (shown as "TBD"). */
+  unitPrice: number | null;
+  /** Selecting reveals a quantity stepper (per-unit add-ons). */
+  hasQuantity?: boolean;
+  minQty?: number;
+  maxQty?: number;
+  /** Suffix beside the price, e.g. "per lease". */
+  unitNote?: string;
+}
 
 export interface SurveyQuestion {
   /** Stable internal key used in component state + the API payload. */
   id: string;
-  /** Google Form field id, e.g. "entry.1962709598". */
+  /** Google Form field id, e.g. "entry.1962709598". Empty = local only. */
   entryId: string;
   type: SurveyQuestionType;
   title: string;
@@ -24,15 +52,17 @@ export interface SurveyQuestion {
   required: boolean;
   /** Present for "single" / "multi". */
   options?: string[];
+  /** Present for "loanBand" / "addons" — the priced choices. */
+  priceOptions?: PriceOption[];
   /** Placeholder for "text" / "longtext". */
   placeholder?: string;
 }
 
 export const SURVEY_META = {
   eyebrow: "Commercial Real Estate",
-  title: "Fixed Legal Fee Survey",
+  title: "See your fixed fee",
   subtitle:
-    "A few quick questions on how legal fees work on your loans. Anonymous, about two minutes — your answers help shape fairer, more predictable pricing.",
+    "A few quick questions on how legal fees work on your loans — then we'll show your estimated Naya fixed fee. About two minutes.",
   /** Shown on the closing screen. */
   thanks: {
     title: "Thank you.",
@@ -154,6 +184,45 @@ export const SURVEY_QUESTIONS: SurveyQuestion[] = [
       "Anything you'd like to anonymously share with outside counsel about pricing that would help win deals?",
     description: "Optional.",
     placeholder: "Type your message…",
+  },
+  // ── Your deal — local-only pricing inputs (no entryId → not sent to Google).
+  // These drive the fixed-fee estimate on the reveal screen.
+  {
+    id: "quoteLoanBand",
+    entryId: "",
+    type: "loanBand",
+    required: true,
+    title: "Now — let's estimate your fixed fee. How large is the loan?",
+    description: "Pick the range your loan principal falls into.",
+    priceOptions: LOAN_BANDS.map((b) => ({
+      key: b.key,
+      label: b.label,
+      unitPrice: b.baseFee,
+    })),
+  },
+  {
+    id: "quoteAddons",
+    entryId: "",
+    type: "addons",
+    required: false,
+    title: "Does the deal involve any of these?",
+    description:
+      "Select all that apply — we'll add them to your estimate. Skip if none.",
+    priceOptions: [
+      ...ADDONS.map((a) => ({
+        key: a.key,
+        label: a.label,
+        help: a.help,
+        unitPrice: a.unitPrice,
+        hasQuantity: a.hasQuantity,
+        minQty: a.minQty,
+        maxQty: a.maxQty,
+        unitNote: a.unitNote,
+      })),
+      // Explicit "no add-ons" choice — mutually exclusive with the rest
+      // (handled in toggleMulti); carries no fee, so it never affects the quote.
+      { key: "none", label: "None of these", unitPrice: null },
+    ],
   },
   {
     id: "name",

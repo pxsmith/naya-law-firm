@@ -1,0 +1,25 @@
+.embed {
+  width: 100%;
+  /* Blend the iframe edges into the dark page; Calendly draws its own surface.
+     The background fills the frame before Calendly paints, so there's no light
+     flash on load. */
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  /* Generous fixed height so Calendly's month + time view never spawns an
+     internal scrollbar nested inside the page scroll. */
+  height: 1000px;
+  border: 0;
+}
+
+@media (max-width: 800px) {
+  .frame {
+    /* The widget stacks vertically on narrow screens and needs more room. */
+    height: 1180px;
+  }
+}

@@ -117,8 +117,12 @@
   flex: 1;
   display: flex;
   align-items: center;
+  /* `safe center` keeps short screens centered, but top-aligns any screen
+     taller than the viewport (e.g. the long add-ons list) so its header stays
+     visible and the content scrolls instead of overflowing above the top. */
+  align-items: safe center;
   justify-content: center;
-  padding: var(--space-6) var(--container-padding) var(--space-16);
+  padding: var(--space-8) var(--container-padding) var(--space-16);
   overflow-y: auto;
 }
 
@@ -678,5 +682,346 @@
   .textInput,
   .textarea {
     font-size: 1.25rem;
+  }
+}
+
+/* ── Priced options (loanBand / addons) ── */
+/* Stack the label over its helper line and let the price sit on the right. */
+.optionLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.optHelp {
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--color-text-muted);
+}
+
+/* Quantity stepper, revealed under a selected per-unit add-on. */
+.qtyStepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding-left: calc(var(--space-4) + 1.5rem + var(--space-4));
+}
+
+.qtyBtn {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--color-text);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  transition: color var(--transition), border-color var(--transition),
+    background-color var(--transition);
+}
+
+.qtyBtn:hover {
+  color: var(--color-accent);
+  border-color: rgba(177, 226, 68, 0.5);
+  background-color: rgba(177, 226, 68, 0.08);
+}
+
+.qtyValue {
+  min-width: 2.2rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.qtyNote {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Price reveal ── */
+.stageScroll {
+  align-items: flex-start;
+}
+
+.revealRoot {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  padding-bottom: var(--space-24);
+}
+
+.revealEyebrow {
+  margin-bottom: var(--space-3);
+  color: var(--color-accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.revealTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-8);
+  outline: none;
+}
+
+.revealHero {
+  margin-bottom: var(--space-12);
+}
+
+.revealTotal {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 12vw, var(--text-3xl));
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.revealFrom {
+  font-size: 0.36em;
+  letter-spacing: 0;
+  vertical-align: middle;
+  margin-right: 0.15em;
+  color: var(--color-text-muted);
+}
+
+.revealTBD {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 5vw, var(--text-xl));
+  line-height: 1.1;
+  color: var(--color-text);
+  max-width: 14ch;
+}
+
+.revealTotalNote {
+  color: var(--color-text-muted) !important;
+  font-size: 1rem;
+  margin-top: var(--space-4);
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+.breakdown {
+  margin-top: var(--space-12);
+  text-align: left;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.breakdownLabel {
+  margin-bottom: var(--space-2);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted) !important;
+}
+
+.lineItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.lineRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-6);
+  align-items: baseline;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lineLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--color-text);
+}
+
+.lineMeta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.lineAmount {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lineTotalRow {
+  border-bottom: none;
+  border-top: 2px solid var(--color-text);
+  margin-top: var(--space-2);
+  padding-top: var(--space-4);
+}
+
+.lineTotalRow .lineLabel {
+  font-weight: 500;
+}
+
+.lineTotalAmount {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tbdNote {
+  margin-top: var(--space-4);
+  font-size: 0.9rem;
+  color: var(--color-text-muted) !important;
+}
+
+.footnotes {
+  margin: var(--space-12) auto 0;
+  padding-left: 1.2em;
+  max-width: 520px;
+  text-align: left;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.footnotes li {
+  color: var(--color-text-muted) !important;
+}
+
+.revealCtas {
+  justify-content: center;
+  margin-top: var(--space-12);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: var(--space-3) var(--space-6);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), background-color var(--transition),
+    transform var(--transition);
+}
+
+.secondaryBtn:hover {
+  border-color: rgba(177, 226, 68, 0.5);
+  background-color: rgba(177, 226, 68, 0.06);
+}
+
+.secondaryBtn:active {
+  transform: scale(0.96);
+}
+
+.submitNote {
+  margin-top: var(--space-8);
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--color-disclaimer) !important;
+}
+
+.linkBtn {
+  font: inherit;
+  color: var(--color-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Print-only letterhead for the saved PDF. */
+.printLetterhead {
+  display: none;
+}
+
+/* ── Print / "Download PDF" — black-on-white, low-ink ── */
+@media print {
+  .root {
+    position: static !important;
+    inset: auto !important;
+    z-index: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .mesh,
+  .topbar,
+  .revealCtas,
+  .submitNote,
+  .revealEyebrow,
+  .revealTotalNote {
+    display: none !important;
+  }
+  .stage {
+    display: block !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  .revealRoot {
+    max-width: none !important;
+    text-align: left !important;
+    padding: 0 !important;
+  }
+  .printLetterhead {
+    display: block !important;
+    margin-bottom: var(--space-8);
+    font-size: 0.95rem;
+    color: #000 !important;
+  }
+  .revealHero {
+    margin: 0 0 var(--space-8) !important;
+    text-align: left !important;
+  }
+  .revealTitle,
+  .revealTotal,
+  .revealTBD,
+  .revealFrom,
+  .breakdownLabel,
+  .lineLabel,
+  .lineMeta,
+  .lineAmount,
+  .lineTotalAmount,
+  .tbdNote,
+  .footnotes,
+  .footnotes li {
+    color: #000 !important;
+  }
+  .revealTotal {
+    font-size: 2.4rem !important;
+  }
+  .breakdown,
+  .footnotes {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .lineItems,
+  .lineRow {
+    border-color: #000 !important;
+  }
+  .lineTotalRow {
+    border-top-color: #000 !important;
+  }
+  .lineRow,
+  .footnotes li {
+    break-inside: avoid;
   }
 }

@@ -100,11 +100,21 @@ export default function BeamCanvas({
     let cssW = Math.max(1, Math.round(wrap.clientWidth));
     let cssH = Math.max(1, Math.round(wrap.clientHeight));
 
-    // Current (damped) beam target, in aspect-corrected space.
-    let curTx = 0.9;
-    let curTy = 0.12;
-    // Gentle fade in/out as the cursor enters/leaves a beam zone (0 = hidden).
-    let zoneFade = 0;
+    // Damped aim point the beam tracks (aspect-corrected space, y-up). A settled
+    // beam follows this so it stays on a word as the page scrolls.
+    let curAimX = 0.9;
+    let curAimY = 0.12;
+    // Bloom progress (0 = off, 1 = full). The beam sits at full length on the
+    // word and blooms in place — growing in thickness + brightness on enter and
+    // shrinking/dimming on exit — rather than travelling.
+    let bloom = 0;
+    // Identity of the current aim; a change re-triggers the bloom at the new spot.
+    let lastKey: Element | string = "none";
+
+    // Bloom tuning. Exit is slower than enter so the light lingers as it leaves.
+    const BLOOM_IN = 0.55;
+    const BLOOM_OUT = 0.8;
+    const easeOutCubic = (p: number) => 1 - Math.pow(1 - p, 3);
 
     const applyParams = () => {
       if (!beam) return;
@@ -130,11 +140,19 @@ export default function BeamCanvas({
     const updateTarget = (dt: number) => {
       if (!beam) return;
       const aspect = cssW / cssH;
-      // Desired aim (aspect space, y-up); default to a rest point.
-      let dx = aspect * 0.55;
-      let dy = 0.12;
+      const p = paramsRef.current;
+      const k = dt > 0 ? Math.min(1, dt * 30) : 1;
       const tr = targetRef.current;
-      if (!reducedMotion && tr.inZone) {
+      // `inZone` is the real liveness gate (xPx/yPx persist once set).
+      const active =
+        !reducedMotion &&
+        tr.inZone &&
+        (tr.el != null || (tr.xPx !== null && tr.yPx !== null));
+
+      if (active) {
+        // Desired aim (aspect space, y-up).
+        let dx = aspect * 0.55;
+        let dy = 0.12;
         if (tr.el) {
           // element-lock: aim at the element's live centre (tracks scroll)
           const r = tr.el.getBoundingClientRect();
@@ -145,12 +163,50 @@ export default function BeamCanvas({
           dx = Math.max(0, Math.min(1, tr.xPx / cssW)) * aspect;
           dy = 1 - Math.max(0, Math.min(1, tr.yPx / cssH));
         }
+
+        // What are we aiming at? When it changes, snap the aim to the new spot
+        // (no slide) and re-bloom from zero there.
+        const key: Element | string = tr.el ?? "cursor";
+        if (key !== lastKey) {
+          lastKey = key;
+          curAimX = dx;
+          curAimY = dy;
+          bloom = 0;
+        }
+
+        // Damp the aim every frame so a settled beam keeps tracking the word.
+        curAimX += (dx - curAimX) * k;
+        curAimY += (dy - curAimY) * k;
+      } else {
+        // Inactive: hold the aim in place (no slide to a rest point) and let the
+        // bloom shrink/dim out where the word was. lastKey="none" so re-entry to
+        // any target blooms in cleanly.
+        lastKey = "none";
       }
-      const k = dt > 0 ? Math.min(1, dt * 7) : 1;
-      curTx += (dx - curTx) * k;
-      curTy += (dy - curTy) * k;
-      beam.uniforms.targetX.value = curTx;
-      beam.uniforms.targetY.value = curTy;
+
+      // Integrate the bloom toward full (active) or zero (inactive); exit slower.
+      if (dt > 0) {
+        const step = dt / (active ? BLOOM_IN : BLOOM_OUT);
+        bloom = active ? Math.min(1, bloom + step) : Math.max(0, bloom - step);
+      }
+      const e = easeOutCubic(bloom);
+
+      // Full length on the word — no travel. The damp only moves the aim when the
+      // word itself scrolls.
+      const u = beam.uniforms;
+      u.targetX.value = curAimX;
+      u.targetY.value = curAimY;
+      // Thickness + spotlight size grow from a floor (kept subtle, and high
+      // enough to avoid a razor-thin shaft under the bloom post pass).
+      u.width.value = p.width * (0.5 + 0.5 * e);
+      u.poolSize.value = p.poolSize * (0.55 + 0.45 * e);
+      // Brightness via the inten-driving uniforms (not opacity), so the shader's
+      // gold-edge → warm-white-core grading shifts naturally as it brightens.
+      u.intensity.value = p.intensity * e;
+      u.poolIntensity.value = p.poolIntensity * e;
+      u.dust.value = p.dust * e;
+      // opacity is the on/off kill (hidden under reduced motion), not the bloom.
+      u.opacity.value = reducedMotion ? 0 : p.opacity;
     };
 
     const renderNow = (nowMs: number) => {
@@ -163,12 +219,9 @@ export default function BeamCanvas({
 
       beam.uniforms.time.value = tSec;
       beam.setAspect(cssW / cssH);
+      // updateTarget drives the aim, bloom, and all bloom-animated uniforms
+      // (width/poolSize/intensity/poolIntensity/dust/opacity).
       updateTarget(dt);
-
-      // Fade the beam in when the cursor is over a beam zone, out otherwise.
-      const wantZone = !reducedMotion && targetRef.current.inZone ? 1 : 0;
-      zoneFade += (wantZone - zoneFade) * (dt > 0 ? Math.min(1, dt * 4) : 1);
-      beam.uniforms.opacity.value = paramsRef.current.opacity * zoneFade;
 
       renderer.setRenderTarget(beamRT);
       renderer.render(beam.scene, beam.camera);
