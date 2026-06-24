@@ -18,11 +18,6 @@ const FAQ_ITEMS = [
 			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing — if something material changes, we tell you before the work happens, not after.",
 	},
 	{
-		question: "Is my deal data confidential if you use AI?",
-		answer:
-			"Yes. Naya runs on its own platform built specifically for commercial mortgage transactions, and client data is never used to train third-party models. AI accelerates document and workflow tasks under attorney supervision; it does not replace the lawyer responsible for your matter.",
-	},
-	{
 		question: "Who is actually doing the legal work?",
 		answer:
 			"Experienced commercial real estate attorneys. Naya was built by Matthew Basile, who spent nearly two decades in CRE law and was a partner at a large Am Law 150 firm. You get Big Law judgment with a delivery model built for the AI era.",
@@ -30,12 +25,7 @@ const FAQ_ITEMS = [
 	{
 		question: "What types of transactions do you handle?",
 		answer:
-			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
-	},
-	{
-		question: "How can you quote pricing when you have never worked with us?",
-		answer:
-			"For sub-$10MM loans we are comfortable to close up to 5 deals with any new lender and take the risk. If both sides think an adjustment is appropriate then we can change the schedule as needed.",
+			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$20M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
 	},
 	{
 		question: "How does the fixed fee pricing change if unexpected complexities come up in the course of a deal?",
@@ -167,7 +157,7 @@ export default function HomePage() {
 						<div>
 							<p className={styles.eyebrow}>The problem</p>
 							<h1 className={`${styles.sectionTitle} ${styles.lightHeading}`}>
-								The longer it takes, the higher the fee for your borrower.
+								The longer it takes, the higher the fee.
 							</h1>
 						</div>
 						<div className={styles.prose}>
