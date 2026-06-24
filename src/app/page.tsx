@@ -248,14 +248,24 @@ export default function HomePage() {
 						Platform
 					</p>
 					<h2 className={`${styles.sectionTitle} ${styles.platformTitle}`}>
-					The Naya Software Platform
+						A law firm running on its own operating{" "}
+					<span data-beam-target>system</span>.
 					</h2>
 					<div className={styles.platformColumns}>
 						<p>
-							{/* TODO: replace with client-supplied copy */}
-							Placeholder — copy coming from the client. This is where the
-							Naya Software Platform (the app the team built to run commercial
-							mortgage closings) will be described.
+							Naya's software is customized for commercial mortgage loan
+							transactions, including document automation and workflow support
+							tailored to lender requirements.
+						</p>
+						<p>
+							The Naya Closing Services model combines cutting-edge technology
+							with an experienced deal team to improve cost efficiency and
+							accelerate commercial real estate finance closings.
+						</p>
+						<p>
+							This is the core differentiator: Naya is not just using
+							third-party tools — it is building and controlling the platform
+							behind the work.
 						</p>
 					</div>
 				</Container>
