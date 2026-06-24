@@ -226,12 +226,7 @@ export default function HomePage() {
 					</h2>
 					<div className={styles.prose}>
 						<p>
-							Before the work begins, Naya gives clients a defined fee structure
-							instead of an open-ended hourly meter. That helps lenders quote
-							legal fees to borrowers early, manage expectations, and compete
-							more effectively on total deal economics. And because Naya does not
-							bill by the hour, its incentive is straightforward: close the deal
-							accurately, efficiently, and without unnecessary friction.
+							Before the matter begins, Naya gives clients a defined fee structure instead of an hourly estimate. That allows your originators to quote legal fees to borrowers upfront, manage expectations, and compete more effectively to win deals on total economics. And because Naya does not bill by the hour, its incentive is straightforward: close the deal accurately, efficiently, and without unnecessary friction so you benefit as AI and tech improves.
 						</p>
 					</div>
 				</Container>
