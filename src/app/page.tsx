@@ -270,9 +270,7 @@ export default function HomePage() {
 									02
 								</span>
 								<p>
-									That background gives Naya experience with complex
-									transactions, but the delivery model is different: fixed fees,
-									software-enabled workflows, and no billable-hour treadmill.
+									That background gives Naya experience with complex transactions, but the delivery model is different: value based fees, tech and AI enabled workflows, and no billable-hour at all anywhere.
 								</p>
 							</li>
 							<li className={styles.aboutPoint}>
