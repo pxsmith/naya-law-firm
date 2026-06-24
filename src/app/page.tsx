@@ -10,12 +10,12 @@ const FAQ_ITEMS = [
 	{
 		question: "How can a law firm offer fixed fees on complex closings?",
 		answer:
-			"Because Naya focuses narrowly on commercial real estate and corporate lending, the work is repeatable — and our platform automates the documents and workflow that traditional firms bill by the hour. That lets us price the matter based on what it should cost and stand behind that number before the work begins.",
+			"Because Naya focuses narrowly on commercial real estate and corporate lending, the work is repeatable â and our platform automates the documents and workflow that traditional firms bill by the hour. That lets us price the matter based on what it should cost and stand behind that number before the work begins.",
 	},
 	{
 		question: "What happens if a deal turns out to be more complicated than expected?",
 		answer:
-			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing — if something material changes, we tell you before the work happens, not after.",
+			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing â if something material changes, we tell you before the work happens, not after.",
 	},
 	{
 		question: "Is my deal data confidential if you use AI?",
@@ -30,7 +30,7 @@ const FAQ_ITEMS = [
 	{
 		question: "What types of transactions do you handle?",
 		answer:
-			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
+			"Commercial mortgage loan closings and related corporate lending transactions â typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
 	},
 ];
 
@@ -40,7 +40,7 @@ const APPROACH_VIDEO = "/videos/approach.mp4";
 const AUDIENCE_VIDEO = "/videos/audience.mp4";
 
 // Line-style marks for the comparison table. Lime check = the Naya way;
-// muted ✗ = the traditional way (brand avoids red, so the negative recedes
+// muted â = the traditional way (brand avoids red, so the negative recedes
 // in grey rather than shouting).
 function CheckMark() {
 	return (
@@ -82,7 +82,7 @@ function XMark() {
 export default function HomePage() {
 	return (
 		<>
-			{/* ───────────── Hero ───────────── */}
+			{/* âââââââââââââ Hero âââââââââââââ */}
 			<section className={styles.hero}>
 				<VideoBg src={HERO_VIDEO} className={styles.sectionVideo} />
 				<Container>
@@ -123,7 +123,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Problem ───────────── */}
+			{/* âââââââââââââ Problem âââââââââââââ */}
 			<section
 				className={`${styles.section} ${styles.sectionTrimBottom}`}
 				data-beam-zone
@@ -133,7 +133,7 @@ export default function HomePage() {
 						<div>
 							<p className={styles.eyebrow}>The problem</p>
 							<h1 className={`${styles.sectionTitle} ${styles.lightHeading}`}>
-								The longer they take, the more you pay.
+								The longer it takes, the higher the fee for your borrower.
 							</h1>
 						</div>
 						<div className={styles.prose}>
@@ -157,7 +157,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Fern Visual Break ───────────── */}
+			{/* âââââââââââââ Fern Visual Break âââââââââââââ */}
 			<section className={styles.fernSection} data-beam-zone>
 				<div className={styles.fernWrapper}>
 					<ImageBg
@@ -169,7 +169,7 @@ export default function HomePage() {
 				</div>
 			</section>
 
-			{/* ───────────── What Naya Does ───────────── */}
+			{/* âââââââââââââ What Naya Does âââââââââââââ */}
 			<section
 				className={`${styles.section} ${styles.sectionTrimTop}`}
 				data-beam-zone
@@ -217,7 +217,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Approach ───────────── */}
+			{/* âââââââââââââ Approach âââââââââââââ */}
 			<section id="approach" className={`${styles.section} ${styles.approachVideoSection}`}>
 				<VideoBg src={APPROACH_VIDEO} className={styles.sectionVideo} />
 				<Container narrow className={styles.approachCenter}>
@@ -238,7 +238,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Experience / About ───────────── */}
+			{/* âââââââââââââ Experience / About âââââââââââââ */}
 			<section id="about" className={`${styles.section} ${styles.alt}`}>
 				<Container>
 					<div className={styles.aboutGrid}>
@@ -290,7 +290,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Pricing ───────────── */}
+			{/* âââââââââââââ Pricing âââââââââââââ */}
 			<section id="pricing" className={styles.section}>
 				<Container>
 					<div className={styles.split}>
@@ -302,8 +302,8 @@ export default function HomePage() {
 						</div>
 						<div className={`${styles.prose} ${styles.proseRight}`}>
 							<p>
-								For context: large-firm associate rates often run $650–$700 per
-								hour, junior partners $1,000+, and top partners $2,000–$3,000.
+								For context: large-firm associate rates often run $650â$700 per
+								hour, junior partners $1,000+, and top partners $2,000â$3,000.
 								Naya's pitch is simple: price the matter based on what it should
 								cost, then stand behind that number.
 							</p>
@@ -313,7 +313,7 @@ export default function HomePage() {
 					<div className={styles.priceCompare}>
 						<div className={`${styles.priceCard} ${styles.priceCardMuted}`}>
 							<p className={styles.priceLabel}>Big Law equivalent</p>
-							<p className={styles.priceAmount}>$20K–$30K</p>
+							<p className={styles.priceAmount}>$20Kâ$30K</p>
 							<p className={styles.priceNote}>for similar matters</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -336,7 +336,7 @@ export default function HomePage() {
 						</div>
 						<div className={styles.priceCard}>
 							<p className={styles.priceLabel}>Naya Law</p>
-							<p className={styles.priceAmount} data-beam-target>$5K–$15K</p>
+							<p className={styles.priceAmount} data-beam-target>$5Kâ$15K</p>
 							<p className={styles.priceNote}>typical sub-$10M loan closing</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -364,7 +364,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Platform ───────────── */}
+			{/* âââââââââââââ Platform âââââââââââââ */}
 			<section className={`${styles.section} ${styles.alt} ${styles.platformSection}`}>
 				<Container>
 					<p className={`${styles.eyebrow} ${styles.platformEyebrow}`}>
@@ -387,14 +387,14 @@ export default function HomePage() {
 						</p>
 						<p>
 							This is the core differentiator: Naya is not just using
-							third-party tools — it is building and controlling the platform
+							third-party tools â it is building and controlling the platform
 							behind the work.
 						</p>
 					</div>
 				</Container>
 			</section>
 
-			{/* ───────────── Who It's For ───────────── */}
+			{/* âââââââââââââ Who It's For âââââââââââââ */}
 			<section className={`${styles.section} ${styles.audienceVideoSection}`}>
 				<VideoBg src={AUDIENCE_VIDEO} className={styles.sectionVideo} />
 				<Container>
@@ -417,7 +417,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── FAQ ───────────── */}
+			{/* âââââââââââââ FAQ âââââââââââââ */}
 			<section id="faq" className={`${styles.section} ${styles.faqSection}`}>
 				<Container>
 					<div className={styles.faqGrid}>
@@ -436,7 +436,7 @@ export default function HomePage() {
 				</Container>
 			</section>
 
-			{/* ───────────── Final CTA / Contact ───────────── */}
+			{/* âââââââââââââ Final CTA / Contact âââââââââââââ */}
 			<section id="contact" className={styles.finalCta}>
 				<VideoBg src={CONTACT_VIDEO} className={styles.sectionVideo} />
 				<Container narrow>
