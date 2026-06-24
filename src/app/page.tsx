@@ -328,7 +328,7 @@ export default function HomePage() {
 					<div className={styles.priceCompare}>
 						<div className={`${styles.priceCard} ${styles.priceCardMuted}`}>
 							<p className={styles.priceLabel}>Big Law equivalent</p>
-							<p className={styles.priceAmount}>$20K–$30K</p>
+							<p className={styles.priceAmount}>$20K–$40K</p>
 							<p className={styles.priceNote}>for similar matters</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -351,7 +351,7 @@ export default function HomePage() {
 						</div>
 						<div className={styles.priceCard}>
 							<p className={styles.priceLabel}>Naya Law</p>
-							<p className={styles.priceAmount} data-beam-target>$5K–$15K</p>
+							<p className={styles.priceAmount} data-beam-target>$5K–$20K</p>
 							<p className={styles.priceNote}>typical sub-$10M loan closing</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
