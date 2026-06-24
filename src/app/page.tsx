@@ -105,8 +105,7 @@ export default function HomePage() {
 						className={`${styles.lede} ${styles.reveal}`}
 						style={{ animationDelay: "210ms" }}
 					>
-						Naya Law is a revolutionary AI-native law firm for institutional real estate lenders. We combine Big Law experience, a proprietary technology platform, and
-						fixed-fee pricing so you can quote legal costs up front, close more
+						Naya Law is a tech and AI first law firm for institutional real estate lenders. We combine Big Law experience, a proprietary technology platform, and value based fixed-fee pricing so you can quote legal costs up front, close more
 						loans with the same team, and leverage AI to transform your closing process.
 					</p>
 					<div
