@@ -139,12 +139,12 @@ export default function HomePage() {
 						<div className={styles.prose}>
 							<p>
 								Traditional law firms still run on the billable hour, which means
-								delay, manual work, and extra timekeepers all turn into a bigger
+								delay, manual work, and extra timekeepers all result into a higher
 								invoice for the client.
 							</p>
 							<p>
-								That model also gives firms weak incentives to automate, because
-								efficiency can reduce billable time.
+								That model also gives firms weak incentives to leverage technology and AI to automate processes, because
+								improved efficiency can reduce billable time. It is also risk free to the law firm as any inefficiency or surprises just increase the fee.
 							</p>
 							<p>
 								For institutional lenders, that creates friction where there
