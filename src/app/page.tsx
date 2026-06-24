@@ -91,7 +91,7 @@ export default function HomePage() {
 						style={{ animationDelay: "0ms" }}
 					>
 						<span className={styles.proofDot} aria-hidden="true" />
-						100+ CRE closings and $775MM in deals closed
+						100+ CRE closings of over $775MM
 					</p>
 					<h1
 						className={`${styles.heroTitle} ${styles.reveal}`}
