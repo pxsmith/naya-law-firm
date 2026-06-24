@@ -167,7 +167,7 @@ export default function HomePage() {
 						<div>
 							<p className={styles.eyebrow}>The problem</p>
 							<h1 className={`${styles.sectionTitle} ${styles.lightHeading}`}>
-								The longer it takes, the higher the fee for your borrower.
+								The longer it takes, the higher the fee.
 							</h1>
 						</div>
 						<div className={styles.prose}>
