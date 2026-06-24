@@ -39,9 +39,7 @@ export default function AboutPage() {
 
           <h2>The founder</h2>
           <p>
-            <strong>Matthew Basile</strong> spent nearly two decades practicing
-            commercial real estate law and served as a partner at a large Am
-            Law 150 firm before building Naya. That background gives the firm
+            Our team has spent decades practicing commercial real estate law at AM Law firms before building Naya Law. That background gives the firm
             experience with complex transactions; the delivery model is what
             differs.
           </p>

@@ -254,9 +254,7 @@ export default function HomePage() {
 									01
 								</span>
 								<p>
-									Matthew Basile spent nearly two decades practicing commercial
-									real estate law and served as a partner at a large Am Law 150
-									firm before building Naya.
+									Our team has spent decades practicing commercial real estate law at AM Law firms before building Naya Law.
 								</p>
 							</li>
 							<li className={styles.aboutPoint}>
