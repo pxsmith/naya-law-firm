@@ -481,7 +481,7 @@ export default function HomePage() {
 						<div>
 							<p className={styles.eyebrow}>FAQ</p>
 							<h2 className={styles.faqTitle}>
-								Questions lenders ask before switching.
+								Questions lenders ask us.
 							</h2>
 							<p className={styles.faqLede}>
 								Everything firms want to understand before moving a closing
