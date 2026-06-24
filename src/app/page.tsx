@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
 	{
 		question: "What types of transactions do you handle?",
 		answer:
-			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
+			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$20M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
 	},
 	{
 		question: "How does the fixed fee pricing change if unexpected complexities come up in the course of a deal?",
