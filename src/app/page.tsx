@@ -445,8 +445,7 @@ export default function HomePage() {
 					</h2>
 					<p className={styles.lede}>
 						If your team wants fixed-fee commercial real estate closings,
-						predictable pricing, and a technology-first legal partner, Naya Law
-						Group was built for that.
+						predictable pricing, and a technology-first legal partner, Naya Law was built for that.
 					</p>
 					<div className={styles.ctas}>
 						<Link href="/pricing" className={styles.primaryCta} data-beam-hover>
