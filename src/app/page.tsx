@@ -241,6 +241,26 @@ export default function HomePage() {
 				</Container>
 			</section>
 
+			{/* ───────────── Platform ───────────── */}
+			<section id="platform" className={`${styles.section} ${styles.alt} ${styles.platformSection}`}>
+				<Container>
+					<p className={`${styles.eyebrow} ${styles.platformEyebrow}`}>
+						Platform
+					</p>
+					<h2 className={`${styles.sectionTitle} ${styles.platformTitle}`}>
+					The Naya Software Platform
+					</h2>
+					<div className={styles.platformColumns}>
+						<p>
+							{/* TODO: replace with client-supplied copy */}
+							Placeholder — copy coming from the client. This is where the
+							Naya Software Platform (the app the team built to run commercial
+							mortgage closings) will be described.
+						</p>
+					</div>
+				</Container>
+			</section>
+
 			{/* âââââââââââââ Approach âââââââââââââ */}
 			<section id="approach" className={`${styles.section} ${styles.approachVideoSection}`}>
 				<VideoBg src={APPROACH_VIDEO} className={styles.sectionVideo} />
@@ -317,8 +337,8 @@ export default function HomePage() {
 						</div>
 						<div className={`${styles.prose} ${styles.proseRight}`}>
 							<p>
-								For context: large-firm associate rates often run $650–$700 per
-								hour, junior partners $1,000+, and top partners $2,000–$3,000.
+								For context: large-firm associate rates often run $650&ndash;$700 per
+								hour, junior partners $1,000+, and top partners $2,000&ndash;$3,000.
 								Naya's pitch is simple: price the matter based on what it should
 								cost, then stand behind that number.
 							</p>
@@ -328,7 +348,7 @@ export default function HomePage() {
 					<div className={styles.priceCompare}>
 						<div className={`${styles.priceCard} ${styles.priceCardMuted}`}>
 							<p className={styles.priceLabel}>Big Law equivalent</p>
-							<p className={styles.priceAmount}>$20K–$40K</p>
+							<p className={styles.priceAmount}>$20K&ndash;$40K</p>
 							<p className={styles.priceNote}>for similar matters</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -351,7 +371,7 @@ export default function HomePage() {
 						</div>
 						<div className={styles.priceCard}>
 							<p className={styles.priceLabel}>Naya Law</p>
-							<p className={styles.priceAmount} data-beam-target>$5K–$20K</p>
+							<p className={styles.priceAmount} data-beam-target>$5K&ndash;$20K</p>
 							<p className={styles.priceNote}>typical sub-$10M loan closing</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -375,36 +395,6 @@ export default function HomePage() {
 								Get Pricing
 							</Link>
 						</div>
-					</div>
-				</Container>
-			</section>
-
-			{/* âââââââââââââ Platform âââââââââââââ */}
-			<section className={`${styles.section} ${styles.alt} ${styles.platformSection}`}>
-				<Container>
-					<p className={`${styles.eyebrow} ${styles.platformEyebrow}`}>
-						Platform
-					</p>
-					<h2 className={`${styles.sectionTitle} ${styles.platformTitle}`}>
-						A law firm running on its own operating{" "}
-					<span data-beam-target>system</span>.
-					</h2>
-					<div className={styles.platformColumns}>
-						<p>
-							Naya's software is customized for commercial mortgage loan
-							transactions, including document automation and workflow support
-							tailored to lender requirements.
-						</p>
-						<p>
-							The Naya Closing Services model combines cutting-edge technology
-							with an experienced deal team to improve cost efficiency and
-							accelerate commercial real estate finance closings.
-						</p>
-						<p>
-							This is the core differentiator: Naya is not just using
-							third-party tools — it is building and controlling the platform
-							behind the work.
-						</p>
 					</div>
 				</Container>
 			</section>
