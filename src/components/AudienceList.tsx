@@ -8,7 +8,7 @@ const AUDIENCES = [
 	"Commercial mortgage lenders",
 	"Life insurance company lenders",
 	"Institutional lending teams",
-	"High-volume CRE finance participants",
+	"Private Lenders",
 	"Other firms wanting fixed-fee capability",
 ];
 
