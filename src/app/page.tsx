@@ -10,12 +10,12 @@ const FAQ_ITEMS = [
 	{
 		question: "How can a law firm offer fixed fees on complex closings?",
 		answer:
-			"Because Naya focuses narrowly on commercial real estate and corporate lending, the work is repeatable â and our platform automates the documents and workflow that traditional firms bill by the hour. That lets us price the matter based on what it should cost and stand behind that number before the work begins.",
+			"Because Naya focuses narrowly on commercial real estate and corporate lending, the work is repeatable — and our platform automates the documents and workflow that traditional firms bill by the hour. That lets us price the matter based on what it should cost and stand behind that number before the work begins.",
 	},
 	{
 		question: "What happens if a deal turns out to be more complicated than expected?",
 		answer:
-			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing â if something material changes, we tell you before the work happens, not after.",
+			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing — if something material changes, we tell you before the work happens, not after.",
 	},
 	{
 		question: "Is my deal data confidential if you use AI?",
@@ -30,7 +30,7 @@ const FAQ_ITEMS = [
 	{
 		question: "What types of transactions do you handle?",
 		answer:
-			"Commercial mortgage loan closings and related corporate lending transactions â typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
+			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$10M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
 	},
 	{
 		question: "How can you quote pricing when you have never worked with us?",
@@ -359,8 +359,8 @@ export default function HomePage() {
 						</div>
 						<div className={`${styles.prose} ${styles.proseRight}`}>
 							<p>
-								For context: large-firm associate rates often run $650â$700 per
-								hour, junior partners $1,000+, and top partners $2,000â$3,000.
+								For context: large-firm associate rates often run $650–$700 per
+								hour, junior partners $1,000+, and top partners $2,000–$3,000.
 								Naya's pitch is simple: price the matter based on what it should
 								cost, then stand behind that number.
 							</p>
@@ -370,7 +370,7 @@ export default function HomePage() {
 					<div className={styles.priceCompare}>
 						<div className={`${styles.priceCard} ${styles.priceCardMuted}`}>
 							<p className={styles.priceLabel}>Big Law equivalent</p>
-							<p className={styles.priceAmount}>$20Kâ$30K</p>
+							<p className={styles.priceAmount}>$20K–$30K</p>
 							<p className={styles.priceNote}>for similar matters</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -393,7 +393,7 @@ export default function HomePage() {
 						</div>
 						<div className={styles.priceCard}>
 							<p className={styles.priceLabel}>Naya Law</p>
-							<p className={styles.priceAmount} data-beam-target>$5Kâ$15K</p>
+							<p className={styles.priceAmount} data-beam-target>$5K–$15K</p>
 							<p className={styles.priceNote}>typical sub-$10M loan closing</p>
 							<ul className={styles.compareList}>
 								<li className={styles.compareCell}>
@@ -444,7 +444,7 @@ export default function HomePage() {
 						</p>
 						<p>
 							This is the core differentiator: Naya is not just using
-							third-party tools â it is building and controlling the platform
+							third-party tools — it is building and controlling the platform
 							behind the work.
 						</p>
 					</div>
