@@ -30,14 +30,6 @@ export function Footer() {
             &copy; {year} {siteSettings.firmName}. All rights reserved.{" "}
             <Link href="/privacy">Privacy</Link>
           </p>
-          <a
-            className={styles.credit}
-            href="https://gotimehq.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Design by Go Time
-          </a>
         </div>
       </Container>
     </footer>
