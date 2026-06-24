@@ -258,7 +258,7 @@ export default function HomePage() {
 							tailored to lender requirements.
 						</p>
 						<p>
-							The Naya Closing Services model combines cutting-edge technology
+							The Naya Law model combines cutting-edge technology
 							with an experienced deal team to improve cost efficiency and
 							accelerate commercial real estate finance closings.
 						</p>
