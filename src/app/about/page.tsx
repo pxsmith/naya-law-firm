@@ -29,15 +29,15 @@ export default function AboutPage() {
         >
           <h2>The firm</h2>
           <p>
-            Naya Law is an AI-native law firm focused narrowly on
+            Naya Law is a tech and AI-native law firm focused narrowly on
             commercial real estate and corporate lending transactions. We
             combine Big Law experience with a proprietary closing platform and
-            fixed-fee pricing — so institutional lenders can quote legal costs
+            fixed-fee pricing so institutional lenders can quote legal costs
             up front, close more loans with the same team, and stop paying for
             inefficiency.
           </p>
 
-          <h2>The founder</h2>
+          <h2>The founders</h2>
           <p>
             Our team has spent decades practicing commercial real estate law at AM Law firms before building Naya Law. That background gives the firm
             experience with complex transactions; the delivery model is what
@@ -52,9 +52,9 @@ export default function AboutPage() {
             efficiency reduces billable time.
           </p>
           <p>
-            Naya inverts that. The firm operates on its own software platform,
+            Naya Law inverts that. The firm operates on its own software platform,
             customized for commercial mortgage closings, with document
-            automation and workflow tooling built for lender requirements. The
+            automation and workflow tooling built custom for each lender’s requirements. The
             legal workflow, software workflow, and client experience are
             designed together from day one.
           </p>
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
           <h2>Track record</h2>
           <p>
-            100+ commercial real estate loans closed using this model.
+            100+ commercial real estate loans with over $775MM in deal value closed using this model in the last two years.
           </p>
 
           <p style={{ marginTop: "var(--space-8)" }}>
