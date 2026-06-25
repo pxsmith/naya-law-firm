@@ -8,26 +8,6 @@ import styles from "./page.module.css";
 
 const FAQ_ITEMS = [
 	{
-		question: "How can a law firm offer fixed fees on complex closings?",
-		answer:
-			"Because Naya focuses narrowly on commercial real estate and corporate lending, the work is repeatable — and our platform automates the documents and workflow that traditional firms bill by the hour. That lets us price the matter based on what it should cost and stand behind that number before the work begins.",
-	},
-	{
-		question: "What happens if a deal turns out to be more complicated than expected?",
-		answer:
-			"The fee structure is agreed up front, including how unusual scope is handled. You will not get a surprise invoice at closing — if something material changes, we tell you before the work happens, not after.",
-	},
-	{
-		question: "Who is actually doing the legal work?",
-		answer:
-			"Experienced commercial real estate attorneys. Naya was built by Matthew Basile, who spent nearly two decades in CRE law and was a partner at a large Am Law 150 firm. You get Big Law judgment with a delivery model built for the AI era.",
-	},
-	{
-		question: "What types of transactions do you handle?",
-		answer:
-			"Commercial mortgage loan closings and related corporate lending transactions — typically sub-$20M loan closings, though we work across a range of institutional lending matters. If your team needs predictable legal fees on repeatable lending work, we likely fit.",
-	},
-	{
 		question: "How does the fixed fee pricing change if unexpected complexities come up in the course of a deal?",
 		answer:
 			"We generally stick to the fixed price as long as nothing major changes. The most common reasons pricing is increased is comments to the loan documents.",
