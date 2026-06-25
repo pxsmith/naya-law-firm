@@ -1,12 +1,15 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useHeavyGpuAllowed } from "@/lib/useHeavyGpuAllowed";
+import { LazyVideo } from "./LazyVideo";
 
 interface Props {
   src: string;
   fileName?: string;
   className?: string;
+  /** Still frame for the light/mobile fallback so it never shows blank. */
+  poster?: string;
 }
 
 const VideoShader = dynamic(() => import("./VideoShader"), {
@@ -17,33 +20,17 @@ const VideoShader = dynamic(() => import("./VideoShader"), {
 /**
  * Background video with shader effects applied.
  *
- * - WebGPU available → renders the Shader Lab composition (shared config
- *   lives in VideoShader.tsx; effects update everywhere at once).
- * - WebGPU unavailable → falls back to a plain <video> element so the
- *   section still has motion on Firefox / older browsers.
+ * - Heavy GPU path allowed (desktop-class device with WebGPU) → renders the
+ *   Shader Lab composition (shared config lives in VideoShader.tsx).
+ * - Otherwise (phones, reduced-motion, no WebGPU) → a lazy <video> that only
+ *   decodes near the viewport, so four background videos never crash mobile.
  */
-export function VideoBg({ src, fileName, className }: Props) {
-  const [supportsWebGpu, setSupportsWebGpu] = useState<boolean | null>(null);
+export function VideoBg({ src, fileName, className, poster }: Props) {
+  const allowed = useHeavyGpuAllowed();
 
-  useEffect(() => {
-    setSupportsWebGpu(
-      typeof navigator !== "undefined" && "gpu" in navigator,
-    );
-  }, []);
-
-  if (supportsWebGpu === true) {
+  if (allowed === true) {
     return <VideoShader src={src} fileName={fileName} className={className} />;
   }
 
-  return (
-    <video
-      className={className}
-      src={src}
-      autoPlay
-      muted
-      loop
-      playsInline
-      aria-hidden="true"
-    />
-  );
+  return <LazyVideo src={src} poster={poster} className={className} />;
 }
