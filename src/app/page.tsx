@@ -451,8 +451,7 @@ export default function HomePage() {
 						Ready to close with more certainty?
 					</h2>
 					<p className={styles.lede}>
-						If your team wants fixed-fee commercial real estate closings,
-						predictable pricing, and a technology-first legal partner, Naya Law was built for that.
+						If your team wants fixed-fee commercial real estate closings, big law service, predictable pricing, and a technology-first legal partner, Naya Law was built for that.
 					</p>
 					<div className={styles.ctas}>
 						<Link href="/pricing" className={styles.primaryCta} data-beam-hover>
