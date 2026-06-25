@@ -253,19 +253,13 @@ export default function HomePage() {
 					</h2>
 					<div className={styles.platformColumns}>
 						<p>
-							Naya's software is customized for commercial mortgage loan
-							transactions, including document automation and workflow support
-							tailored to lender requirements.
+							At our core, we are a technology company, leveraging the Naya Lending Platform and advanced AI-powered applications to automate as many tasks as possible, while maintaining full control over essential product enhancements.
 						</p>
 						<p>
-							The Naya Law model combines cutting-edge technology
-							with an experienced deal team to improve cost efficiency and
-							accelerate commercial real estate finance closings.
+							We do not talk about adoption with our lawyers. They are all part of the software company and view the ever changing software tools as an asset to performing high quality legal work. They help build the platform daily and are AI native.
 						</p>
 						<p>
-							This is the core differentiator: Naya is not just using
-							third-party tools — it is building and controlling the platform
-							behind the work.
+							This is a core differentiator. We are not using third party tools or AI wrappers, we control our entire technology stack and can build an AI and technology native law firm that can compete with large law firms with a fraction of the costs.
 						</p>
 					</div>
 				</Container>
