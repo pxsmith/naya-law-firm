@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useHeavyGpuAllowed } from "@/lib/useHeavyGpuAllowed";
 
 interface Props {
   src: string;
@@ -25,15 +25,9 @@ const ImageShader = dynamic(() => import("./ImageShader"), {
  * - WebGPU unavailable → falls back to a plain <img> element.
  */
 export function ImageBg({ src, fileName, className, scale, offset }: Props) {
-  const [supportsWebGpu, setSupportsWebGpu] = useState<boolean | null>(null);
+  const allowed = useHeavyGpuAllowed();
 
-  useEffect(() => {
-    setSupportsWebGpu(
-      typeof navigator !== "undefined" && "gpu" in navigator,
-    );
-  }, []);
-
-  if (supportsWebGpu === true) {
+  if (allowed === true) {
     return (
       <ImageShader
         src={src}
@@ -51,6 +45,8 @@ export function ImageBg({ src, fileName, className, scale, offset }: Props) {
       src={src}
       alt="Fern asset"
       aria-hidden="true"
+      loading="lazy"
+      decoding="async"
     />
   );
 }

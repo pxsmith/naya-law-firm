@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { useHeavyGpuAllowed } from "@/lib/useHeavyGpuAllowed";
 import {
   DEFAULT_BEAM_PARAMS,
   type BeamParams,
@@ -39,7 +40,7 @@ const BeamDialPanel = dynamic(() => import("./BeamDialPanel"), { ssr: false });
 
 export function BeamControls() {
   const [params, setParams] = useState<BeamParams>(DEFAULT_BEAM_PARAMS);
-  const [supportsWebGpu, setSupportsWebGpu] = useState<boolean | null>(null);
+  const allowed = useHeavyGpuAllowed();
   const targetRef = useRef<BeamTarget>({
     xPx: null,
     yPx: null,
@@ -47,10 +48,6 @@ export function BeamControls() {
     inZone: false,
     el: null,
   });
-
-  useEffect(() => {
-    setSupportsWebGpu(typeof navigator !== "undefined" && "gpu" in navigator);
-  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -179,7 +176,7 @@ export function BeamControls() {
     };
   }, []);
 
-  if (supportsWebGpu !== true) return null;
+  if (allowed !== true) return null;
 
   return (
     <>

@@ -44,6 +44,14 @@ const CONTACT_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
 const APPROACH_VIDEO = "/videos/approach.mp4";
 const AUDIENCE_VIDEO = "/videos/audience.mp4";
 
+// Poster stills (representative frame of each background video). Shown instantly
+// on the lazy/mobile path so a section never renders blank while its video
+// loads. Generated from the videos via ffmpeg into /public/posters.
+const HERO_POSTER = "/posters/hero.jpg";
+const CONTACT_POSTER = "/posters/contact.jpg";
+const APPROACH_POSTER = "/posters/approach.jpg";
+const AUDIENCE_POSTER = "/posters/audience.jpg";
+
 // Line-style marks for the comparison table. Lime check = the Naya way;
 // muted â = the traditional way (brand avoids red, so the negative recedes
 // in grey rather than shouting).
@@ -89,7 +97,11 @@ export default function HomePage() {
 		<>
 			{/* âââââââââââââ Hero âââââââââââââ */}
 			<section className={styles.hero}>
-				<VideoBg src={HERO_VIDEO} className={styles.sectionVideo} />
+				<VideoBg
+					src={HERO_VIDEO}
+					poster={HERO_POSTER}
+					className={styles.sectionVideo}
+				/>
 				<Container>
 					<p
 						className={`${styles.proof} ${styles.reveal}`}
@@ -245,7 +257,11 @@ export default function HomePage() {
 
 			{/* âââââââââââââ Approach âââââââââââââ */}
 			<section id="approach" className={`${styles.section} ${styles.approachVideoSection}`}>
-				<VideoBg src={APPROACH_VIDEO} className={styles.sectionVideo} />
+				<VideoBg
+					src={APPROACH_VIDEO}
+					poster={APPROACH_POSTER}
+					className={styles.sectionVideo}
+				/>
 				<Container narrow className={styles.approachCenter}>
 					<p className={styles.eyebrow}>Approach</p>
 					<h2 className={`${styles.sectionTitle} ${styles.tunableHeading}`}>
@@ -383,7 +399,11 @@ export default function HomePage() {
 
 			{/* âââââââââââââ Who It's For âââââââââââââ */}
 			<section className={`${styles.section} ${styles.audienceVideoSection}`}>
-				<VideoBg src={AUDIENCE_VIDEO} className={styles.sectionVideo} />
+				<VideoBg
+					src={AUDIENCE_VIDEO}
+					poster={AUDIENCE_POSTER}
+					className={styles.sectionVideo}
+				/>
 				<Container>
 					<div className={styles.audienceGrid}>
 						<div>
@@ -425,7 +445,11 @@ export default function HomePage() {
 
 			{/* âââââââââââââ Final CTA / Contact âââââââââââââ */}
 			<section id="contact" className={styles.finalCta}>
-				<VideoBg src={CONTACT_VIDEO} className={styles.sectionVideo} />
+				<VideoBg
+					src={CONTACT_VIDEO}
+					poster={CONTACT_POSTER}
+					className={styles.sectionVideo}
+				/>
 				<Container narrow>
 					<h2 className={styles.sectionTitle}>
 						Ready to close with more certainty?
