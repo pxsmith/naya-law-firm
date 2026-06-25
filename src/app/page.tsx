@@ -165,19 +165,16 @@ export default function HomePage() {
 						</div>
 						<div className={styles.prose}>
 							<p>
-								Traditional law firms still run on the billable hour, which means
-								delay, manual work, and extra timekeepers all result into a higher
-								invoice for the client.
+								Traditional law firms bill by the hour and have no incentive to work efficiently and leverage technology.
 							</p>
 							<p>
-								That model also gives firms weak incentives to leverage technology and AI to automate processes, because
-								improved efficiency can reduce billable time. It is also risk free to the law firm as any inefficiency or surprises just increase the fee.
+								We are reimagining the law firm business model to create a firm that is designed to take advantage of AI and tech to deliver a model that works for the client, not just the lawyers.
 							</p>
 							<p>
-								For institutional lenders, that creates friction where there
-								should be certainty: fees are hard to quote up front, hard to
-								explain to borrowers, and often higher than expected by the time
-								the deal closes.
+								We have eliminated the billable hour model and we provide fixed fees for all real estate finance transactions, reducing the risk of unexpected legal costs on fee-sensitive matters.
+							</p>
+							<p>
+								As a result we are completely aligned with our lender clients helping them transform their workflows to align with the AI powered future of commercial real estate deals.
 							</p>
 						</div>
 					</div>
