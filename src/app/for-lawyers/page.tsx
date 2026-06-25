@@ -18,6 +18,35 @@ export default function ForLawyersPage() {
         title="A better platform for commercial real estate lawyers."
         description="Built for attorneys who are done with the billable-hour treadmill and want to work with better tools and more aligned economics."
       />
+      <section className={styles.workWithUs}>
+        <Container>
+          <h2 className={styles.workWithUsTitle}>
+            Work With Us &mdash; <em className={styles.workWithUsAccent}>For Lawyers</em>
+          </h2>
+          <ol className={styles.workWithUsList}>
+            <li className={styles.workWithUsItem}>
+              <span className={styles.workWithUsNum} aria-hidden="true">01</span>
+              <p>Better quality of life. Never track another billable hour again.</p>
+            </li>
+            <li className={styles.workWithUsItem}>
+              <span className={styles.workWithUsNum} aria-hidden="true">02</span>
+              <p>Take home a larger percentage of fees generated.</p>
+            </li>
+            <li className={styles.workWithUsItem}>
+              <span className={styles.workWithUsNum} aria-hidden="true">03</span>
+              <p>Access to the best technology. We are obsessed with innovation and efficiency.</p>
+            </li>
+            <li className={styles.workWithUsItem}>
+              <span className={styles.workWithUsNum} aria-hidden="true">04</span>
+              <p>Bring in more business with a cutting edge business model.</p>
+            </li>
+            <li className={styles.workWithUsItem}>
+              <span className={styles.workWithUsNum} aria-hidden="true">05</span>
+              <p>Flexible hours and remote work policy. We have big law talent with a start-up culture.</p>
+            </li>
+          </ol>
+        </Container>
+      </section>
       <Container narrow>
         <div className={styles.body}>
           <p>
