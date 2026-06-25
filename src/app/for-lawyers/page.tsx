@@ -16,7 +16,7 @@ export default function ForLawyersPage() {
       <PageIntro
         eyebrow="For lawyers"
         title="A better platform for commercial real estate lawyers."
-        description="Built for attorneys who are done with the billable-hour treadmill and want to work with better tools and more aligned economics."
+        description="Built for attorneys who are done with the billable-hour model in Big Law and want to be a part of transforming the business of law in the AI era."
       />
       <section className={styles.workWithUs}>
         <Container>
