@@ -155,9 +155,12 @@ export default function HomePage() {
 				<Container>
 					<div className={styles.split}>
 						<div>
-							<p className={styles.eyebrow}>The problem</p>
+							<p className={styles.eyebrow}>The New Model Law Firm</p>
 							<h1 className={`${styles.sectionTitle} ${styles.lightHeading}`}>
-								The longer it takes, the higher the fee.
+								No Billable Hours Ever.<br />
+								Value Based Pricing.<br />
+								Incentives Aligned with Clients.<br />
+								Tech Forward.
 							</h1>
 						</div>
 						<div className={styles.prose}>
