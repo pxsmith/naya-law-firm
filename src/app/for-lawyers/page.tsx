@@ -50,15 +50,15 @@ export default function ForLawyersPage() {
       <Container narrow>
         <div className={styles.body}>
           <p>
-            Naya's model is intended to appeal to commercial real estate lawyers
-            who are tired of the billable-hour structure and want to work with
-            better tools and more aligned economics.
+            Naya Law&rsquo;s model appeals to commercial real estate lawyers who are
+            tired of the billable-hour structure and want to work with cutting
+            edge AI and tech tools and help to create the law firm of the
+            future.
           </p>
           <p>
-            Founder Matthew Basile describes Naya's platform as an{" "}
-            <strong>operating system for closing commercial mortgage loans</strong>
-            , with the vision that lawyers could plug into that system rather
-            than trying to reform a traditional firm from the inside.
+            Our team is comprised of former big law partners and associates that
+            want to redefine the way law is practiced. We adapt efficiently and
+            approach process improvement like a high growth startup.
           </p>
 
           <h2>What that looks like in practice</h2>
