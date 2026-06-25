@@ -65,20 +65,28 @@ export default function ForLawyersPage() {
           <ul className={styles.bullets}>
             <li>
               <strong>Fixed-fee economics.</strong> Compensation aligned with
-              closing deals, not logging hours.
+              closing deals and revenue.
             </li>
             <li>
-              <strong>Proprietary closing platform.</strong> Document automation
-              and workflow tools built specifically for commercial mortgage
-              transactions.
+              <strong>Proprietary closing platform.</strong> Access to the best
+              technology. We are obsessed with innovation and efficiency.
             </li>
             <li>
               <strong>Big Law-caliber work.</strong> Institutional lender
-              clients, complex deals — without the Big Law operating model.
+              clients, complex deals without the Big Law operating model.
             </li>
             <li>
               <strong>Focused practice.</strong> Commercial real estate and
               corporate lending transactions, not everything-to-everyone.
+            </li>
+            <li>
+              <strong>Better quality of life.</strong> Never bill another hour
+              again.
+            </li>
+            <li>
+              <strong>Develop business.</strong> New business model helps
+              attract clients and you keep a bigger percentage of what you bring
+              in.
             </li>
           </ul>
 
