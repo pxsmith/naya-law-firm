@@ -301,7 +301,7 @@ export default function HomePage() {
 									01
 								</span>
 								<p>
-									Our team has spent decades practicing commercial real estate law at AM Law firms before building Naya Law.
+									Our team is comprised of former big law partners and associates that want to redefine the way law is practiced.
 								</p>
 							</li>
 							<li className={styles.aboutPoint}>
