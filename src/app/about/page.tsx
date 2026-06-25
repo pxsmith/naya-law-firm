@@ -14,7 +14,7 @@ export default function AboutPage() {
     <>
       <PageIntro
         eyebrow="About"
-        title="A technology company first, now a new model law firm that is changing the business of law."
+        title="A technology company first — now a new model law firm changing the business of law."
         description="Big Law judgment, fixed-fee economics, and a proprietary platform built specifically for commercial mortgage transactions and the AI era."
       />
       <Container narrow>
