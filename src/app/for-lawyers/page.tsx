@@ -63,9 +63,10 @@ export default function ForLawyersPage() {
 
           <h2>Who we're looking for</h2>
           <p>
-            Experienced commercial real estate attorneys — particularly those
-            with institutional lender or Big Law transactional backgrounds —
-            who want to build something rather than maintain the status quo.
+            Experienced commercial real estate attorneys, particularly those
+            with institutional lender or Big Law transactional backgrounds,
+            who want to build something that will withstand the changes that
+            are coming to the traditional law firm model.
           </p>
 
           <div className={styles.cta}>
