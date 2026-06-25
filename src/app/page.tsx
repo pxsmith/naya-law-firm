@@ -157,10 +157,8 @@ export default function HomePage() {
 						<div>
 							<p className={styles.eyebrow}>The New Model Law Firm</p>
 							<h1 className={`${styles.sectionTitle} ${styles.lightHeading}`}>
-								No Billable Hours Ever.<br />
-								Value Based Pricing.<br />
-								Incentives Aligned with Clients.<br />
-								Tech Forward.
+								No billable hours.<br />
+								Value based pricing.
 							</h1>
 						</div>
 						<div className={styles.prose}>
