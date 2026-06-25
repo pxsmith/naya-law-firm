@@ -18,6 +18,10 @@ export function Footer() {
             width={780}
             height={112}
           />
+          <p className={styles.address}>
+            802 E. Whiting Street<br />
+            Tampa, Florida 33602
+          </p>
         </div>
         <div className={styles.disclaimers}>
           <p>
