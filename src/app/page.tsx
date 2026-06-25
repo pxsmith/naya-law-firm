@@ -257,7 +257,7 @@ export default function HomePage() {
 							We do not talk about adoption with our lawyers. They are all part of the software company and view the ever changing software tools as an asset to performing high quality legal work. They help build the platform daily and are AI native.
 						</p>
 						<p>
-							This is a core differentiator. We are not using third party tools or AI wrappers, we control our entire technology stack and can build an AI and technology native law firm that can compete with large law firms with a fraction of the costs.
+							This is a core differentiator. We are not using third party tools, we control our entire technology stack and can build an AI and technology native law firm that can compete with large law firms with a fraction of the costs.
 						</p>
 					</div>
 				</Container>
