@@ -10,6 +10,8 @@ interface Props {
   className?: string;
   /** Still frame for the light/mobile fallback so it never shows blank. */
   poster?: string;
+  /** Video duration (seconds) — keeps the shader loop synced to the video. */
+  duration?: number;
 }
 
 const VideoShader = dynamic(() => import("./VideoShader"), {
@@ -25,11 +27,18 @@ const VideoShader = dynamic(() => import("./VideoShader"), {
  * - Otherwise (phones, reduced-motion, no WebGPU) → a lazy <video> that only
  *   decodes near the viewport, so four background videos never crash mobile.
  */
-export function VideoBg({ src, fileName, className, poster }: Props) {
+export function VideoBg({ src, fileName, className, poster, duration }: Props) {
   const allowed = useHeavyGpuAllowed();
 
   if (allowed === true) {
-    return <VideoShader src={src} fileName={fileName} className={className} />;
+    return (
+      <VideoShader
+        src={src}
+        fileName={fileName}
+        className={className}
+        duration={duration}
+      />
+    );
   }
 
   return <LazyVideo src={src} poster={poster} className={className} />;

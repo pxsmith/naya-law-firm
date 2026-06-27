@@ -21,26 +21,60 @@ export function StructuredData({ data }: StructuredDataProps) {
   );
 }
 
-export function legalServiceSchema(): JsonLd {
+function postalAddress(): JsonLd | undefined {
   const office = siteSettings.offices[0];
+  if (!office) return undefined;
   return {
+    "@type": "PostalAddress",
+    streetAddress: office.street,
+    addressLocality: office.city,
+    addressRegion: office.region,
+    postalCode: office.postalCode,
+    addressCountry: office.country,
+  };
+}
+
+// Drop empty/placeholder fields so we never publish blank or fake data.
+function pruned(obj: JsonLd): JsonLd {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined && v !== ""),
+  );
+}
+
+export function legalServiceSchema(): JsonLd {
+  return pruned({
     "@context": "https://schema.org",
     "@type": "LegalService",
+    "@id": `${siteSettings.siteUrl}/#legalservice`,
     name: siteSettings.firmName,
     url: siteSettings.siteUrl,
+    logo: `${siteSettings.siteUrl}/brand/naya-logo.png`,
+    image: `${siteSettings.siteUrl}/opengraph-image`,
+    description: siteSettings.tagline,
     telephone: siteSettings.contact.phone,
     email: siteSettings.contact.email,
-    address: office
-      ? {
-          "@type": "PostalAddress",
-          streetAddress: office.street,
-          addressLocality: office.city,
-          addressRegion: office.region,
-          postalCode: office.postalCode,
-          addressCountry: office.country,
-        }
-      : undefined,
-  };
+    areaServed: "US",
+    priceRange: "$$",
+    address: postalAddress(),
+  });
+}
+
+export function organizationSchema(): JsonLd {
+  const sameAs = [siteSettings.social.linkedin, siteSettings.social.x].filter(
+    Boolean,
+  );
+  return pruned({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteSettings.siteUrl}/#organization`,
+    name: siteSettings.legalEntity,
+    alternateName: siteSettings.firmName,
+    url: siteSettings.siteUrl,
+    logo: `${siteSettings.siteUrl}/brand/naya-logo.png`,
+    email: siteSettings.contact.email,
+    address: postalAddress(),
+    ...(sameAs.length ? { sameAs } : {}),
+  });
 }
 
 interface AttorneySchemaInput {

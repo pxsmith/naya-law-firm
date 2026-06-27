@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteSettings } from "@content/settings";
 import { Header } from "@/components/Header";
@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import {
   StructuredData,
   legalServiceSchema,
+  organizationSchema,
 } from "@/components/StructuredData";
 import { ShaderControls } from "@/components/ShaderControls";
 import "@/styles/globals.css";
@@ -73,22 +74,51 @@ const fansanDisplay = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(siteSettings.siteUrl),
   title: {
-    default: siteSettings.firmName,
+    default: `${siteSettings.firmName} — AI-native commercial real estate law firm`,
     template: `%s — ${siteSettings.firmName}`,
   },
   description: siteSettings.tagline,
+  applicationName: siteSettings.firmName,
+  keywords: [
+    "commercial real estate law firm",
+    "fixed-fee legal",
+    "AI law firm",
+    "institutional lenders",
+    "commercial mortgage closings",
+    "Naya Law",
+  ],
+  authors: [{ name: siteSettings.firmName }],
+  creator: siteSettings.firmName,
+  publisher: siteSettings.legalEntity,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
+    locale: "en_US",
     siteName: siteSettings.firmName,
-    title: siteSettings.firmName,
+    title: `${siteSettings.firmName} — AI-native commercial real estate law firm`,
     description: siteSettings.tagline,
     url: siteSettings.siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: siteSettings.firmName,
+    title: `${siteSettings.firmName} — AI-native commercial real estate law firm`,
     description: siteSettings.tagline,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0b0e",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -102,7 +132,7 @@ export default function RootLayout({
       className={`${ryman.variable} ${fansan.variable} ${fansanDisplay.variable}`}
     >
       <body>
-        <StructuredData data={legalServiceSchema()} />
+        <StructuredData data={[legalServiceSchema(), organizationSchema()]} />
         <Header />
         <ShaderControls>
           <main>{children}</main>

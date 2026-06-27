@@ -112,15 +112,14 @@ const VIDEO_LAYER_DEFAULTS = {
   visible: true,
 };
 
-const TIMELINE = {
-  duration: 23.481792,
-  loop: true,
-  tracks: [],
-};
+// Fallback only — each <VideoShader> should pass its video's real duration so
+// the composition loop boundary lands exactly on the (seamless) video loop.
+const DEFAULT_DURATION = 10;
 
 function buildConfig(
   src: string,
   fileName: string,
+  duration: number,
   live: PatternParams | null,
 ): ShaderLabConfig {
   const videoLayer: ShaderLabLayerConfig = {
@@ -136,7 +135,9 @@ function buildConfig(
     : pattern;
   return {
     layers: [patternLayer, ...rest, videoLayer],
-    timeline: TIMELINE,
+    // Per-video duration keeps the composition clock in sync with the video's
+    // own (now seamless) loop, so the desktop shader path has no visible reset.
+    timeline: { duration, loop: true, tracks: [] },
   };
 }
 
@@ -144,13 +145,20 @@ interface Props {
   src: string;
   fileName?: string;
   className?: string;
+  /** The video's real duration in seconds (drives the loop timeline). */
+  duration?: number;
 }
 
-export default function VideoShader({ src, fileName = "", className }: Props) {
+export default function VideoShader({
+  src,
+  fileName = "",
+  className,
+  duration = DEFAULT_DURATION,
+}: Props) {
   const live = useShaderPatternParams();
   const config = useMemo(
-    () => buildConfig(src, fileName, live),
-    [src, fileName, live],
+    () => buildConfig(src, fileName, duration, live),
+    [src, fileName, duration, live],
   );
   return (
     <div className={className}>

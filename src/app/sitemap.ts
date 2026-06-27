@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
     "/about",
+    "/for-lawyers",
     "/practice-areas",
     "/attorneys",
     "/insights",
