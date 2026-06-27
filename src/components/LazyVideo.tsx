@@ -33,18 +33,28 @@ export function LazyVideo({ src, poster, className }: Props) {
       return;
     }
 
+    // Only start playback once there's enough buffered to play through, so we
+    // never show a stuttering, half-loaded first pass.
+    const playWhenReady = () => void video.play().catch(() => {});
+
     const attachAndPlay = () => {
       if (!video.getAttribute("src")) {
+        video.preload = "auto";
         video.setAttribute("src", src);
         video.load();
+        // `canplaythrough` fires when the browser estimates it can play to the
+        // end without buffering. Start then (iOS may still reject — swallow it
+        // and let the poster stand in).
+        video.addEventListener("canplaythrough", playWhenReady, { once: true });
+      } else {
+        // Already buffered (re-entering view) — resume immediately.
+        playWhenReady();
       }
-      // iOS may reject play() outside a gesture; muted + playsInline normally
-      // permits it. Swallow the rejection and let the poster stand in.
-      void video.play().catch(() => {});
     };
 
     const releaseDecoder = () => {
       video.pause();
+      video.removeEventListener("canplaythrough", playWhenReady);
       // Dropping the src frees the decoded frames from memory. The poster
       // keeps the section looking finished while unloaded.
       if (video.getAttribute("src")) {
@@ -60,8 +70,8 @@ export function LazyVideo({ src, poster, className }: Props) {
           else releaseDecoder();
         }
       },
-      // Start loading just before it enters view so the motion is ready in time.
-      { rootMargin: "200px 0px" },
+      // Begin loading well before it enters view so it's buffered in time.
+      { rootMargin: "400px 0px" },
     );
 
     observer.observe(video);

@@ -1,10 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { VideoBg } from "@/components/VideoBg";
 import { ImageBg } from "@/components/ImageBg";
 import { Faq } from "@/components/Faq";
 import { AudienceList } from "@/components/AudienceList";
+import { siteSettings } from "@content/settings";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  // `absolute` bypasses the "%s — Naya Law" template so the brand isn't doubled.
+  title: {
+    absolute: `${siteSettings.firmName} — AI-native commercial real estate law firm`,
+  },
+  description: siteSettings.tagline,
+  alternates: { canonical: "/" },
+};
 
 const FAQ_ITEMS = [
 	{
@@ -51,6 +62,13 @@ const HERO_POSTER = "/posters/hero.jpg";
 const CONTACT_POSTER = "/posters/contact.jpg";
 const APPROACH_POSTER = "/posters/approach.jpg";
 const AUDIENCE_POSTER = "/posters/audience.jpg";
+
+// Real durations (seconds) of the seamless-loop encodes. Passed to the shader
+// path so its loop boundary lands exactly on the video's own seamless loop.
+const HERO_DURATION = 10.636;
+const CONTACT_DURATION = 31.323;
+const APPROACH_DURATION = 13.96;
+const AUDIENCE_DURATION = 29.321;
 
 // Line-style marks for the comparison table. Lime check = the Naya way;
 // muted â = the traditional way (brand avoids red, so the negative recedes
@@ -100,6 +118,7 @@ export default function HomePage() {
 				<VideoBg
 					src={HERO_VIDEO}
 					poster={HERO_POSTER}
+					duration={HERO_DURATION}
 					className={styles.sectionVideo}
 				/>
 				<Container>
@@ -260,6 +279,7 @@ export default function HomePage() {
 				<VideoBg
 					src={APPROACH_VIDEO}
 					poster={APPROACH_POSTER}
+					duration={APPROACH_DURATION}
 					className={styles.sectionVideo}
 				/>
 				<Container narrow className={styles.approachCenter}>
@@ -402,6 +422,7 @@ export default function HomePage() {
 				<VideoBg
 					src={AUDIENCE_VIDEO}
 					poster={AUDIENCE_POSTER}
+					duration={AUDIENCE_DURATION}
 					className={styles.sectionVideo}
 				/>
 				<Container>
@@ -448,6 +469,7 @@ export default function HomePage() {
 				<VideoBg
 					src={CONTACT_VIDEO}
 					poster={CONTACT_POSTER}
+					duration={CONTACT_DURATION}
 					className={styles.sectionVideo}
 				/>
 				<Container narrow>

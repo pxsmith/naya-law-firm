@@ -7,24 +7,29 @@ export const siteSettings = {
 
   contact: {
     email: "info@nayalawgroup.com",
-    phone: "+1 (555) 000-0000",
-    phoneDisplay: "(555) 000-0000",
+    // No public phone number yet — leave blank so the schema omits it rather
+    // than advertising a placeholder.
+    phone: "",
+    phoneDisplay: "",
   },
+
+  // Legal entity behind the firm (used for Organization structured data).
+  legalEntity: "Naya Software, Inc.",
 
   offices: [
     {
       label: "Main Office",
-      street: "123 Example Avenue, Suite 100",
-      city: "City",
-      region: "ST",
-      postalCode: "00000",
+      street: "802 E. Whiting Street",
+      city: "Tampa",
+      region: "FL",
+      postalCode: "33602",
       country: "US",
       hours: "Mon–Fri, 9:00 AM – 5:30 PM",
     },
   ],
 
   social: {
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/company/naya-software/",
     x: "",
   },
 

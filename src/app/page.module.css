@@ -39,24 +39,22 @@
   z-index: -2;
 }
 
-/* Soften the loop boundary: fade opacity briefly at the start/end of
- * each cycle so the cut blends into the dark gradient overlay instead
- * of jumping. Duration matches the shader timeline (see VideoShader.tsx
- * TIMELINE.duration). */
+/* The videos are now encoded as true seamless loops (their tail crossfades
+ * into their head), so the native `loop` restart is invisible — no per-cycle
+ * opacity fade needed. We keep a single gentle fade-IN so the section eases in
+ * on first appearance rather than popping. */
 .hero .sectionVideo,
 .finalCta .sectionVideo,
 .approachVideoSection .sectionVideo,
 .audienceVideoSection .sectionVideo {
-  animation: videoLoopFade 23.481792s linear infinite;
+  animation: videoFadeIn 1200ms ease both;
 }
 
-@keyframes videoLoopFade {
-  0%,
-  100% {
+@keyframes videoFadeIn {
+  from {
     opacity: 0;
   }
-  6%,
-  94% {
+  to {
     opacity: 1;
   }
 }
