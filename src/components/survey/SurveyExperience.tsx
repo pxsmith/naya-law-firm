@@ -10,7 +10,14 @@ import {
 } from "@/lib/survey";
 import { computeQuote, formatUSD, type Quote } from "@/lib/pricing";
 import { encodeQuote, decodeQuote } from "@/lib/quoteCode";
+import { VideoBg } from "@/components/VideoBg";
 import styles from "./SurveyExperience.module.css";
+
+// Survey background — reuses the homepage's final-CTA waterfall clip (shader
+// on desktop, lazy plain video on mobile, seamless loop). Values mirror page.tsx.
+const BG_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
+const BG_POSTER = "/posters/contact.jpg";
+const BG_DURATION = 31.323;
 
 type Phase = "welcome" | "question" | "reveal";
 /** Background status of the Google-Form relay — never blocks the reveal. */
@@ -91,12 +98,32 @@ export function SurveyExperience() {
   // The estimate is derived purely from the collected answers.
   const quote = useMemo(() => computeQuote(answers), [answers]);
 
-  // Lock the page behind the full-screen experience while it's mounted.
+  // Memoized as a stable element so the WebGPU shader background is NOT
+  // re-rendered (and re-initialized → glitch) every time survey state changes,
+  // e.g. hovering an option updates `focusedOption`. Props are all constants.
+  const backgroundVideo = useMemo(
+    () => (
+      <VideoBg
+        src={BG_VIDEO}
+        poster={BG_POSTER}
+        duration={BG_DURATION}
+        className={styles.bgVideo}
+      />
+    ),
+    [],
+  );
+
+  // Lock the page behind the full-screen experience while it's mounted, and
+  // lift the global golden beam above this fixed (z-1000) overlay so it can
+  // shine onto the reveal-screen price. Restored on unmount → homepage beam
+  // keeps its normal layer (var defaults to 40 there).
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.setProperty("--beam-z", "1100");
     return () => {
       document.body.style.overflow = previous;
+      document.documentElement.style.removeProperty("--beam-z");
       window.clearTimeout(advanceTimer.current);
       window.clearTimeout(exitTimer.current);
     };
@@ -399,7 +426,8 @@ export function SurveyExperience() {
 
   return (
     <div className={styles.root}>
-      <div className={styles.mesh} aria-hidden="true" />
+      {backgroundVideo}
+      <div className={styles.scrim} aria-hidden="true" />
 
       {/* Top bar: brand · progress · exit */}
       <header className={styles.topbar}>
