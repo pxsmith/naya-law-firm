@@ -59,8 +59,10 @@ export default async function OpenGraphImage() {
               "linear-gradient(90deg, rgba(10,11,14,0.94) 0%, rgba(10,11,14,0.78) 45%, rgba(10,11,14,0.4) 100%)",
           }}
         />
-        {/* Solid-feathered mask over the top-right to hide the stock-footage
-            watermark. Angled linear-gradient (satori-reliable, unlike radial). */}
+        {/* Corner vignette. This started life as a solid mask hiding the stock
+            watermark; the footage is licensed and clean now, so it's dialled back
+            to a soft falloff that just keeps the top-right from competing with
+            the headline. Angled linear-gradient (satori-reliable, unlike radial). */}
         <div
           style={{
             position: "absolute",
@@ -69,7 +71,7 @@ export default async function OpenGraphImage() {
             width: 560,
             height: 300,
             background:
-              "linear-gradient(225deg, rgba(10,11,14,1) 0%, rgba(10,11,14,1) 45%, rgba(10,11,14,0) 78%)",
+              "linear-gradient(225deg, rgba(10,11,14,0.72) 0%, rgba(10,11,14,0.42) 45%, rgba(10,11,14,0) 78%)",
           }}
         />
         <div

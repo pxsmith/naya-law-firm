@@ -15,9 +15,11 @@ import styles from "./SurveyExperience.module.css";
 
 // Survey background — reuses the homepage's final-CTA waterfall clip (shader
 // on desktop, lazy plain video on mobile, seamless loop). Values mirror page.tsx.
-const BG_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
+// Marked priority: it's the only background on this page, so nothing else is
+// waiting behind it and there's no reason to hold it back.
+const BG_VIDEO = "/videos/contact.mp4";
 const BG_POSTER = "/posters/contact.jpg";
-const BG_DURATION = 31.323;
+const BG_DURATION = 12.012;
 
 type Phase = "welcome" | "question" | "reveal";
 /** Background status of the Google-Form relay — never blocks the reveal. */
@@ -108,6 +110,7 @@ export function SurveyExperience() {
         poster={BG_POSTER}
         duration={BG_DURATION}
         className={styles.bgVideo}
+        priority
       />
     ),
     [],

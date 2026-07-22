@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { signalPriorityReady } from "@/lib/videoWarmQueue";
 
 interface Props {
   src: string;
   /** Still frame shown until (and whenever) the video isn't decoding. */
   poster?: string;
   className?: string;
+  /**
+   * The above-the-fold video. Attaches on mount instead of waiting to be
+   * observed, and opens the warm-up queue for the rest of the page once it can
+   * play through.
+   */
+  priority?: boolean;
 }
 
 /**
@@ -19,7 +26,7 @@ interface Props {
  * `poster` stays painted the whole time, so the section never shows a blank
  * or a spinner — it looks like the video paused on a still.
  */
-export function LazyVideo({ src, poster, className }: Props) {
+export function LazyVideo({ src, poster, className, priority = false }: Props) {
   const ref = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -35,7 +42,11 @@ export function LazyVideo({ src, poster, className }: Props) {
 
     // Only start playback once there's enough buffered to play through, so we
     // never show a stuttering, half-loaded first pass.
-    const playWhenReady = () => void video.play().catch(() => {});
+    const playWhenReady = () => {
+      // The hero being playable is the cue to start warming everything below it.
+      if (priority) signalPriorityReady();
+      void video.play().catch(() => {});
+    };
 
     const attachAndPlay = () => {
       if (!video.getAttribute("src")) {
@@ -51,6 +62,10 @@ export function LazyVideo({ src, poster, className }: Props) {
         playWhenReady();
       }
     };
+
+    // The above-the-fold video shouldn't wait to be observed — it's already on
+    // screen, and every millisecond here is on the critical path.
+    if (priority) attachAndPlay();
 
     const releaseDecoder = () => {
       video.pause();
@@ -79,7 +94,7 @@ export function LazyVideo({ src, poster, className }: Props) {
       observer.disconnect();
       releaseDecoder();
     };
-  }, [src]);
+  }, [src, priority]);
 
   return (
     <video

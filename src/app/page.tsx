@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { BrandIntro } from "@/components/BrandIntro";
 import { VideoBg } from "@/components/VideoBg";
 import { ImageBg } from "@/components/ImageBg";
 import { Faq } from "@/components/Faq";
@@ -50,8 +51,11 @@ const FAQ_ITEMS = [
 	},
 ];
 
-const HERO_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_2907984.mp4";
-const CONTACT_VIDEO = "/videos/Stocksy_unlicensed_comp_watermarked_4046271.mp4";
+// Licensed Stocksy footage (purchase stocksy_txpurchase_1025166), encoded by
+// scripts/encode-backgrounds.sh. Re-run that script to regenerate these and the
+// posters below; it prints the duration constants to copy over.
+const HERO_VIDEO = "/videos/hero.mp4";
+const CONTACT_VIDEO = "/videos/contact.mp4";
 const APPROACH_VIDEO = "/videos/approach.mp4";
 const AUDIENCE_VIDEO = "/videos/audience.mp4";
 
@@ -65,10 +69,10 @@ const AUDIENCE_POSTER = "/posters/audience.jpg";
 
 // Real durations (seconds) of the seamless-loop encodes. Passed to the shader
 // path so its loop boundary lands exactly on the video's own seamless loop.
-const HERO_DURATION = 10.636;
-const CONTACT_DURATION = 31.323;
+const HERO_DURATION = 10.594;
+const CONTACT_DURATION = 12.012;
 const APPROACH_DURATION = 13.96;
-const AUDIENCE_DURATION = 29.321;
+const AUDIENCE_DURATION = 12.012;
 
 // Line-style marks for the comparison table. Lime check = the Naya way;
 // muted â = the traditional way (brand avoids red, so the negative recedes
@@ -113,6 +117,7 @@ function XMark() {
 export default function HomePage() {
 	return (
 		<>
+			<BrandIntro />
 			{/* âââââââââââââ Hero âââââââââââââ */}
 			<section className={styles.hero}>
 				<VideoBg
@@ -120,18 +125,19 @@ export default function HomePage() {
 					poster={HERO_POSTER}
 					duration={HERO_DURATION}
 					className={styles.sectionVideo}
+					priority
 				/>
 				<Container>
 					<p
 						className={`${styles.proof} ${styles.reveal}`}
-						style={{ animationDelay: "0ms" }}
+						style={{ animationDelay: "420ms" }}
 					>
 						<span className={styles.proofDot} aria-hidden="true" />
 						100+ CRE closings of over $775MM
 					</p>
 					<h1
 						className={`${styles.heroTitle} ${styles.reveal}`}
-						style={{ animationDelay: "90ms" }}
+						style={{ animationDelay: "510ms" }}
 					>
 						AI-native commercial
 						<br />
@@ -139,14 +145,14 @@ export default function HomePage() {
 					</h1>
 					<p
 						className={`${styles.lede} ${styles.reveal}`}
-						style={{ animationDelay: "210ms" }}
+						style={{ animationDelay: "630ms" }}
 					>
 						Naya Law is a tech and AI first law firm for institutional real estate lenders. We combine Big Law experience, a proprietary technology platform, and value based fixed-fee pricing so you can quote legal costs up front, close more
 						loans with the same team, and leverage AI to transform your closing process.
 					</p>
 					<div
 						className={`${styles.ctas} ${styles.reveal}`}
-						style={{ animationDelay: "330ms" }}
+						style={{ animationDelay: "750ms" }}
 					>
 						<Link href="/pricing" className={styles.primaryCta} data-beam-hover>
 							Get Pricing
@@ -164,15 +170,29 @@ export default function HomePage() {
 				data-beam-zone
 			>
 				<Container>
+					{/* The hero is 75vh, so the top of this section is on screen at load
+					    on every viewport. It continues the entrance rather than sitting
+					    there fully formed while the hero above it is still arriving. */}
 					<div className={styles.split}>
 						<div>
-							<p className={styles.eyebrow}>The New Model Law Firm</p>
-							<h1 className={`${styles.sectionTitle} ${styles.lightHeading}`}>
+							<p
+								className={`${styles.eyebrow} ${styles.reveal}`}
+								style={{ animationDelay: "870ms" }}
+							>
+								The New Model Law Firm
+							</p>
+							<h1
+								className={`${styles.sectionTitle} ${styles.lightHeading} ${styles.reveal}`}
+								style={{ animationDelay: "960ms" }}
+							>
 								No billable hours.<br />
 								Value based pricing.
 							</h1>
 						</div>
-						<div className={styles.prose}>
+						<div
+							className={`${styles.prose} ${styles.reveal}`}
+							style={{ animationDelay: "1080ms" }}
+						>
 							<p>
 								Traditional law firms bill by the hour and have no incentive to work efficiently and leverage technology.
 							</p>

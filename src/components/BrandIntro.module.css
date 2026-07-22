@@ -1,0 +1,115 @@
+/* Branded first-load screen. Holds the page until the hero background is
+   genuinely painting, so the video is already rolling from frame 0 the first
+   time it's seen — no still, no swap, no black gap.
+
+   Server-rendered so it's part of the very first paint. Everything about it is
+   built to fail safe: see .overlay's failsafe animation and the reduced-motion
+   block at the bottom. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+
+  /* If JS never runs (or throws before it can lift this), the overlay must not
+     trap the site behind it. This keyframe hides it unconditionally at 6s. The
+     JS path removes the element long before that. */
+  animation: introFailsafe 1ms linear 6s forwards;
+}
+
+@keyframes introFailsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Set by JS the moment the hero is painting. */
+.leaving {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 620ms;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* φ-derived, per the type scale in globals.css */
+  gap: var(--space-6);
+}
+
+.mark {
+  width: 190px;
+  max-width: 52vw;
+  height: auto;
+  opacity: 0;
+  animation: markIn 620ms cubic-bezier(0.22, 1, 0.36, 1) 60ms forwards;
+}
+
+@keyframes markIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hairline rule that fills while loading. Deliberately not a spinner — this
+   reads as an etched brand rule, which suits the "vintage etching" direction,
+   and it has no busy motion to distract from a page that's about to appear. */
+.rule {
+  position: relative;
+  width: 190px;
+  max-width: 52vw;
+  height: 1px;
+  background: var(--color-border);
+  overflow: hidden;
+  opacity: 0;
+  animation: markIn 620ms cubic-bezier(0.22, 1, 0.36, 1) 160ms forwards;
+}
+
+.rule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent) 40%,
+    var(--color-accent-hover)
+  );
+  transform: translateX(-100%);
+  /* Eases out toward ~92% and waits there. The last 8% is completed by .leaving
+     removing the overlay, so it never sits at 100% looking stalled, and never
+     claims to be finished before the video actually is. */
+  animation: ruleFill 2600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ruleFill {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(-8%);
+  }
+}
+
+/* Reduced motion: no animation, and nothing to wait for either — those visitors
+   get poster stills rather than video, so there is no load to cover. Hide the
+   overlay outright rather than animating it away. */
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    display: none;
+  }
+}

@@ -20,6 +20,38 @@ import { useEffect, useState } from "react";
  * IMPORTANT: all `navigator` / `matchMedia` reads happen inside useEffect, never
  * during render, so SSR and the first client render both emit the fallback.
  */
+/**
+ * Does the visitor want less movement?
+ *
+ * Lives here, next to `useHeavyGpuAllowed`, because both answer "what should we
+ * render for this device?" from a media query and both must follow the same
+ * SSR rule below. `motion` ships a `useReducedMotion` too (AudienceList uses it),
+ * but that one is free to flip after hydration because it only picks between two
+ * animation variants. Here the answer decides between an <img> and a <video> —
+ * a DOM-shape difference — so it has to be null until we've actually measured.
+ *
+ * Returns null until measured on the client, then true/false.
+ */
+export function usePrefersReducedMotion(): boolean | null {
+  const [reduced, setReduced] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      setReduced(false);
+      return;
+    }
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(query.matches);
+
+    // Honor a mid-session change (macOS lets you toggle this without a reload).
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  return reduced;
+}
+
 export function useHeavyGpuAllowed(): boolean | null {
   const [allowed, setAllowed] = useState<boolean | null>(null);
 
