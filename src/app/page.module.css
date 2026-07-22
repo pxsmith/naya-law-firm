@@ -325,7 +325,7 @@
   }
 }
 
-/* ─── Hero entrance (plays once on page load) ─── */
+/* ─── Hero entrance ─── */
 
 /* Elements are visible by default; the rise-in only runs for users who
  * haven't asked to reduce motion, so nothing can get stuck hidden. */
@@ -333,8 +333,18 @@
   opacity: 1;
 }
 
+/* Gated on `data-entrance`, which BrandIntro stamps on <html> the moment the
+ * loading screen starts to lift.
+ *
+ * Without that gate these animations run on mount — which is while the overlay
+ * is still covering everything — so they finish unseen and the entire hero
+ * appears in one lump the instant the overlay goes. That is exactly what it
+ * looked like. Starting them at the reveal is what makes the stagger visible.
+ *
+ * Pages with no intro (everything except the homepage) never get the attribute,
+ * so they simply render at full opacity with no entrance, as before. */
 @media (prefers-reduced-motion: no-preference) {
-  .reveal {
+  :global(html[data-entrance]) .reveal {
     animation: heroRiseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }

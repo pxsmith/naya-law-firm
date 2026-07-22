@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ShaderLabComposition,
   type ShaderLabConfig,
@@ -141,12 +141,27 @@ function buildConfig(
   };
 }
 
+/**
+ * How long to wait before showing this section anyway, if we never hear that its
+ * video started. Only guards against a section staying invisible forever — it
+ * does NOT report readiness, because an earlier version did exactly that and the
+ * false "ready" was what lifted the intro onto a black hero.
+ */
+const SELF_REVEAL_FALLBACK_MS = 6000;
+
 interface Props {
   src: string;
   fileName?: string;
   className?: string;
   /** The video's real duration in seconds (drives the loop timeline). */
   duration?: number;
+  /**
+   * Is the video actually rolling? Owned by VideoBg, which listens for the
+   * composition's own video element to start. This component deliberately does
+   * not try to work it out for itself — see shaderVideoWatch.ts for the three
+   * ways of guessing that were tried and failed.
+   */
+  live?: boolean;
 }
 
 export default function VideoShader({
@@ -154,14 +169,42 @@ export default function VideoShader({
   fileName = "",
   className,
   duration = DEFAULT_DURATION,
+  live = false,
 }: Props) {
-  const live = useShaderPatternParams();
+  const params = useShaderPatternParams();
   const config = useMemo(
-    () => buildConfig(src, fileName, duration, live),
-    [src, fileName, duration, live],
+    () => buildConfig(src, fileName, duration, params),
+    [src, fileName, duration, params],
   );
+
+  // Never heard that the video started. Show the section anyway rather than
+  // leaving it permanently blank — but only its own appearance is affected;
+  // nothing is told that the hero is ready.
+  const [gaveUp, setGaveUp] = useState(false);
+  useEffect(() => {
+    if (live) return;
+    const t = window.setTimeout(() => setGaveUp(true), SELF_REVEAL_FALLBACK_MS);
+    return () => window.clearTimeout(t);
+  }, [live]);
+
+  const visible = live || gaveUp;
+
   return (
-    <div className={className}>
+    <div
+      className={className}
+      style={{
+        // The shared `.sectionVideo` rule fades this element in on mount, which
+        // is far too early — it would fade up a blank canvas while the shader is
+        // still coming online, then pop to the real image once it arrives.
+        animation: "none",
+        opacity: visible ? 1 : 0,
+        // Cross-fades with the loading overlay dissolving above it, so the
+        // handover reads as one movement. It also buys tolerance: the exact
+        // moment the renderer draws its first frame can't be observed, and a
+        // fade absorbs that slack where a hard cut would expose it.
+        transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+      }}
+    >
       <ShaderLabComposition
         config={config}
         onRuntimeError={(msg) => {
