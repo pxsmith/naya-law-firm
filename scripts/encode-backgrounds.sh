@@ -66,12 +66,18 @@ mkdir -p "$OUT_VIDEO" "$OUT_POSTER" "$WORK"
 CLIPS=(
   "hero|2907984|-|-|768|432|33|3:2:4:4"
   "approach|3295997|-|-|854|480|32|3:2:4:4"
-  # Long clips — two candidates each, same rough byte budget spent two ways.
-  # A = trimmed and sharper, B = full length and softer. Pick one, then rename.
-  "contact-A|4046271|6|12|768|432|33|3:2:4:4"
-  "contact-B|4046271|-|-|512|288|34|4:3:6:4.5"
-  "audience-A|2724147|4|12|640|360|34|4:3:6:4.5"
-  "audience-B|2724147|-|-|512|288|34|4:3:6:4.5"
+  "audience|2724147|4|12|640|360|34|4:3:6:4.5"
+  # The waterfall runs in two places, cut differently for each.
+  #
+  # Homepage: a 12s window. It's one section among several that you scroll past,
+  # so a tight loop is never on screen long enough to read as repetitive, and the
+  # trim buys the resolution to stay sharp.
+  "contact|4046271|6|12|768|432|33|3:2:4:4"
+  # Pricing survey: the full 31s. It's the only background on that page and
+  # people sit in front of it answering questions, which is exactly where a short
+  # loop starts to show. Full length costs 2.6x the frames, so the resolution
+  # comes down to pay for it — acceptable because it is the page's only asset.
+  "contact-full|4046271|-|-|640|360|35|4:3:6:4.5"
 )
 
 # Does the clip wrap cleanly from its last frame back to frame 0?

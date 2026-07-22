@@ -13,13 +13,17 @@ import { encodeQuote, decodeQuote } from "@/lib/quoteCode";
 import { VideoBg } from "@/components/VideoBg";
 import styles from "./SurveyExperience.module.css";
 
-// Survey background — reuses the homepage's final-CTA waterfall clip (shader
-// on desktop, lazy plain video on mobile, seamless loop). Values mirror page.tsx.
-// Marked priority: it's the only background on this page, so nothing else is
-// waiting behind it and there's no reason to hold it back.
-const BG_VIDEO = "/videos/contact.mp4";
-const BG_POSTER = "/posters/contact.jpg";
-const BG_DURATION = 12.012;
+// Survey background — the same waterfall as the homepage's final CTA, but the
+// FULL 31s cut rather than the homepage's 12s window. This is the only
+// background on the page and people sit in front of it working through the
+// questions, which is where a short loop starts to announce itself. Regenerate
+// via scripts/encode-backgrounds.sh, which prints the duration to copy here.
+//
+// Marked priority: nothing else on this page is waiting behind it, so there's
+// no reason to hold it back.
+const BG_VIDEO = "/videos/contact-full.mp4";
+const BG_POSTER = "/posters/contact-full.jpg";
+const BG_DURATION = 31.281;
 
 type Phase = "welcome" | "question" | "reveal";
 /** Background status of the Google-Form relay — never blocks the reveal. */
