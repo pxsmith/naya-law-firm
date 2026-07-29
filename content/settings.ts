@@ -16,6 +16,9 @@ export const siteSettings = {
   // Legal entity behind the firm (used for Organization structured data).
   legalEntity: "Naya Software, Inc.",
 
+  // The law firm's professional-association name, shown in the footer copyright.
+  legalName: "Naya Law P.A.",
+
   offices: [
     {
       label: "Main Office",

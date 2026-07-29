@@ -3,10 +3,11 @@ version: alpha
 name: Naya Law Firm
 description: Linear-inspired dark palette with a focus on high-fidelity, archival typography and organic "fern" textures.
 colors:
-  primary: "#b1e244"
-  danger: "#b1e244"
-  accent: "#b1e244"
-  accent-hover: "#c4ed5c"
+  primary: "#1f9d63"
+  danger: "#1f9d63"
+  accent: "#1f9d63"
+  accent-hover: "#37c07d"
+  spark: "#b1e244"
   bg: "#0a0b0e"
   surface: "#14161a"
   text: "#ebecef"
@@ -41,4 +42,4 @@ A "Linear-inspired" dark workspace for legal professionals. The aesthetic combin
 - **DO:** Use `Fansan Display` for all major headings.
 - **DO:** Stick to the 8px base grid for all padding and margins.
 - **DON'T:** Use system default fonts for primary display text.
-- **DON'T:** Use generic purple/violet gradients; stick to the lime accent (#b1e244).
+- **DON'T:** Use generic purple/violet gradients. The brand green is a gradient identity: deep forest base into an emerald accent (#1f9d63), with electric lime (#b1e244) reserved as a small "spark" (the pulsing dot, the logo's highlight tips) — not a fill.

@@ -135,7 +135,7 @@ export default async function OpenGraphImage() {
               width: 140,
               height: 5,
               borderRadius: 3,
-              background: "#b1e244",
+              background: "#1f9d63",
             }}
           />
         </div>

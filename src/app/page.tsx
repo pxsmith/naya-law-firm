@@ -22,7 +22,7 @@ const FAQ_ITEMS = [
 	{
 		question: "How does the fixed fee pricing change if unexpected complexities come up in the course of a deal?",
 		answer:
-			"We generally stick to the fixed price as long as nothing major changes. The most common reasons pricing is increased is comments to the loan documents.",
+			"We generally stick to the fixed price as long as nothing major changes. The most common reason pricing increases is comments to the loan documents from the borrower.",
 	},
 	{
 		question: "How do you handle adjusting the price during a deal?",
@@ -66,6 +66,15 @@ const HERO_POSTER = "/posters/hero.jpg";
 const CONTACT_POSTER = "/posters/contact.jpg";
 const APPROACH_POSTER = "/posters/approach.jpg";
 const AUDIENCE_POSTER = "/posters/audience.jpg";
+
+// Pre-graded stills — the desktop candlelight look (candles + bloom) baked into
+// a static image. Shown on the light/mobile path INSTEAD of the raw video, so
+// phones match the desktop look and skip the video download. Baked from the
+// posters through the real shader (see git history for the one-off bake tooling).
+const HERO_POSTER_GRADED = "/posters/hero-graded.jpg";
+const CONTACT_POSTER_GRADED = "/posters/contact-graded.jpg";
+const APPROACH_POSTER_GRADED = "/posters/approach-graded.jpg";
+const AUDIENCE_POSTER_GRADED = "/posters/audience-graded.jpg";
 
 // Real durations (seconds) of the seamless-loop encodes. Passed to the shader
 // path so its loop boundary lands exactly on the video's own seamless loop.
@@ -123,6 +132,7 @@ export default function HomePage() {
 				<VideoBg
 					src={HERO_VIDEO}
 					poster={HERO_POSTER}
+					posterGraded={HERO_POSTER_GRADED}
 					duration={HERO_DURATION}
 					className={styles.sectionVideo}
 					priority
@@ -147,7 +157,7 @@ export default function HomePage() {
 						className={`${styles.lede} ${styles.reveal}`}
 						style={{ animationDelay: "630ms" }}
 					>
-						Naya Law is a tech and AI first law firm for institutional real estate lenders. We combine Big Law experience, a proprietary technology platform, and value based fixed-fee pricing so you can quote legal costs up front, close more
+						Naya Law is a tech and AI first law firm for institutional real estate lenders. We combine Big Law experience, a proprietary technology platform, and value-based fixed-fee pricing so you can quote legal costs up front, close more
 						loans with the same team, and leverage AI to transform your closing process.
 					</p>
 					<div
@@ -186,7 +196,7 @@ export default function HomePage() {
 								style={{ animationDelay: "960ms" }}
 							>
 								No billable hours.<br />
-								Value based pricing.
+								Value-based pricing.
 							</h1>
 						</div>
 						<div
@@ -215,6 +225,7 @@ export default function HomePage() {
 				<div className={styles.fernWrapper}>
 					<ImageBg
 						src="/brand/fern.png"
+						alt="Sunlight filtering through a green fern frond"
 						className={styles.fernImage}
 						scale={1.15}
 						offset={[0.12, 0]}
@@ -255,7 +266,7 @@ export default function HomePage() {
 							</li>
 							<li>
 								<h2 className="sansHeading">Big Law experience</h2>
-								<p>Nearly two decades of complex CRE transactions.</p>
+								<p>Nearly two decades of closing complex CRE transactions.</p>
 							</li>
 							<li>
 								<h2 className="sansHeading">Proprietary platform</h2>
@@ -285,7 +296,7 @@ export default function HomePage() {
 							At our core, we are a technology company, leveraging the Naya Lending Platform and advanced AI-powered applications to automate as many tasks as possible, while maintaining full control over essential product enhancements.
 						</p>
 						<p>
-							We do not talk about adoption with our lawyers. They are all part of the software company and view the ever changing software tools as an asset to performing high quality legal work. They help build the platform daily and are AI native.
+							Our lawyers are all part of our software company and view the ever-changing software tools as an asset to performing high quality legal work. They help build the platform daily and are AI native.
 						</p>
 						<p>
 							This is a core differentiator. We are not using third party tools, we control our entire technology stack and can build an AI and technology native law firm that can compete with large law firms with a fraction of the costs.
@@ -299,6 +310,7 @@ export default function HomePage() {
 				<VideoBg
 					src={APPROACH_VIDEO}
 					poster={APPROACH_POSTER}
+					posterGraded={APPROACH_POSTER_GRADED}
 					duration={APPROACH_DURATION}
 					className={styles.sectionVideo}
 				/>
@@ -309,7 +321,7 @@ export default function HomePage() {
 					</h2>
 					<div className={styles.prose}>
 						<p>
-							Before the matter begins, Naya gives clients a defined fee structure instead of an hourly estimate. That allows your originators to quote legal fees to borrowers upfront, manage expectations, and compete more effectively to win deals on total economics. And because Naya does not bill by the hour, its incentive is straightforward: close the deal accurately, efficiently, and without unnecessary friction so you benefit as AI and tech improves.
+							Before the matter begins, Naya gives clients a defined fee structure instead of an hourly estimate. That allows your originators to quote legal fees to borrowers upfront, manage expectations, and compete more effectively to win deals on total economics. And because Naya does not bill by the hour, its incentive is straightforward: close the deal accurately, efficiently, and without unnecessary friction so you benefit as AI and tech improve.
 						</p>
 					</div>
 				</Container>
@@ -345,7 +357,7 @@ export default function HomePage() {
 									02
 								</span>
 								<p>
-									That background gives Naya experience with complex transactions, but the delivery model is different: value based fees, tech and AI enabled workflows, and no billable-hour at all anywhere.
+									That background gives Naya experience with complex transactions, but the delivery model is different: value-based fees, tech and AI enabled workflows, and no billable hours.
 								</p>
 							</li>
 							<li className={styles.aboutPoint}>
@@ -442,6 +454,7 @@ export default function HomePage() {
 				<VideoBg
 					src={AUDIENCE_VIDEO}
 					poster={AUDIENCE_POSTER}
+					posterGraded={AUDIENCE_POSTER_GRADED}
 					duration={AUDIENCE_DURATION}
 					className={styles.sectionVideo}
 				/>
@@ -489,6 +502,7 @@ export default function HomePage() {
 				<VideoBg
 					src={CONTACT_VIDEO}
 					poster={CONTACT_POSTER}
+					posterGraded={CONTACT_POSTER_GRADED}
 					duration={CONTACT_DURATION}
 					className={styles.sectionVideo}
 				/>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { siteSettings } from "@content/settings";
 import { Container } from "@/components/Container";
 import { PageIntro } from "@/components/PageIntro";
 
@@ -19,7 +18,7 @@ export default function PrivacyPage() {
       <Container narrow>
         <article className="prose" style={{ paddingBlock: "var(--space-16)" }}>
           <p>
-            <strong>Last updated:</strong> Replace with effective date.
+            <strong>Last updated:</strong> August 1, 2026
           </p>
 
           <h2>Information We Collect</h2>
@@ -62,8 +61,8 @@ export default function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             Questions about this policy should be directed to{" "}
-            <a href={`mailto:${siteSettings.contact.email}`}>
-              {siteSettings.contact.email}
+            <a href="mailto:matthew.basile@nayalawgroup.com">
+              matthew.basile@nayalawgroup.com
             </a>
             .
           </p>

@@ -12,17 +12,21 @@ h6 {
   line-height: var(--line-height-heading);
 }
 
+/* Fluid heading sizes: each clamp shrinks on phones/tablets so long words
+   never overflow or get clipped on narrow screens, then rises to the exact
+   golden-ratio token as the ceiling. At >=~960px every heading reaches its
+   token, so desktop renders identically to the fixed scale. */
 h1 {
-  font-size: var(--text-2xl);
+  font-size: clamp(2rem, 0.65rem + 6vw, var(--text-2xl));
   line-height: 0.98;
 }
 
 h2 {
-  font-size: var(--text-xl);
+  font-size: clamp(1.5rem, 0.77rem + 3.1vw, var(--text-xl));
 }
 
 h3 {
-  font-size: var(--text-lg);
+  font-size: clamp(1.25rem, 0.98rem + 1.1vw, var(--text-lg));
 }
 
 h4 {

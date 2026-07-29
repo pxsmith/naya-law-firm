@@ -8,8 +8,8 @@ const AUDIENCES = [
 	"Commercial mortgage lenders",
 	"Life insurance company lenders",
 	"Institutional lending teams",
-	"Private lenders",
-	"Other forward thinking lenders",
+	"Private and hard money lenders",
+	"Other forward-thinking lenders",
 ];
 
 /** Each pill steps a little further right than the one above it (a cascading indent). */
