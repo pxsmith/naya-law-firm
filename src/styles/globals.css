@@ -12,9 +12,15 @@
   --color-text: #ebecef;
   --color-text-muted: #8a8d94;
   --color-border: #25282f;
-  --color-accent: #b1e244;
-  --color-accent-hover: #c4ed5c;
+  /* Emerald is the primary brand accent (links, buttons, labels, focus).
+     Electric lime is kept as a small, memorable "spark" — the pulsing proof
+     dot and the logo's highlight tips — not a fill. Deep forest adds depth on
+     the button glows. This mirrors the logo: forest base -> emerald -> lime tip. */
+  --color-accent: #1f9d63;
+  --color-accent-hover: #37c07d;
   --color-on-accent: #0a0b0e;
+  --color-spark: #b1e244;
+  --color-spark-hover: #c4ed5c;
   --color-disclaimer: #686b73;
 
   /* Typography — fonts are loaded in src/app/layout.tsx via next/font/local.

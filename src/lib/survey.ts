@@ -131,7 +131,7 @@ export const SURVEY_QUESTIONS: SurveyQuestion[] = [
     entryId: "entry.873142555",
     type: "multi",
     required: true,
-    title: "What type of value based legal fee would be appealing to you?",
+    title: "What type of value-based legal fee would be appealing to you?",
     description: "Select all that apply.",
     options: [
       "Fixed Based on Loan Amount",

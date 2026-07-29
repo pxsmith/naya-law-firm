@@ -23,6 +23,8 @@ import styles from "./SurveyExperience.module.css";
 // no reason to hold it back.
 const BG_VIDEO = "/videos/contact-full.mp4";
 const BG_POSTER = "/posters/contact-full.jpg";
+// Pre-graded still (desktop candlelight look) for the light/mobile path.
+const BG_POSTER_GRADED = "/posters/contact-full-graded.jpg";
 const BG_DURATION = 31.281;
 
 type Phase = "welcome" | "question" | "reveal";
@@ -112,6 +114,7 @@ export function SurveyExperience() {
       <VideoBg
         src={BG_VIDEO}
         poster={BG_POSTER}
+        posterGraded={BG_POSTER_GRADED}
         duration={BG_DURATION}
         className={styles.bgVideo}
         priority

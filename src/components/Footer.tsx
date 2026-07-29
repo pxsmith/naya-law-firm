@@ -31,7 +31,7 @@ export function Footer() {
         </div>
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            &copy; {year} {siteSettings.firmName}. All rights reserved.{" "}
+            &copy; {year} {siteSettings.legalName}. All rights reserved.{" "}
             <Link href="/privacy">Privacy</Link>
           </p>
         </div>

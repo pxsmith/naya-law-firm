@@ -7,6 +7,8 @@ interface Props {
   src: string;
   fileName?: string;
   className?: string;
+  /** Alt text for the fallback <img>. Omit for a purely decorative image. */
+  alt?: string;
   /** Overrides the shader's image scale (default 0.65). Larger = bigger fill. */
   scale?: number;
   /** Overrides the shader's image offset (default [0, 0]). */
@@ -24,7 +26,7 @@ const ImageShader = dynamic(() => import("./ImageShader"), {
  * - WebGPU available → renders the Shader Lab composition.
  * - WebGPU unavailable → falls back to a plain <img> element.
  */
-export function ImageBg({ src, fileName, className, scale, offset }: Props) {
+export function ImageBg({ src, fileName, className, scale, offset, alt = "" }: Props) {
   const allowed = useHeavyGpuAllowed();
 
   if (allowed === true) {
@@ -43,8 +45,8 @@ export function ImageBg({ src, fileName, className, scale, offset }: Props) {
     <img
       className={className}
       src={src}
-      alt="Fern asset"
-      aria-hidden="true"
+      alt={alt}
+      aria-hidden={alt ? undefined : "true"}
       loading="lazy"
       decoding="async"
     />

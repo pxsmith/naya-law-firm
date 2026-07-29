@@ -20,6 +20,12 @@ interface Props {
   className?: string;
   /** Still frame for the light/mobile fallback so it never shows blank. */
   poster?: string;
+  /**
+   * Pre-graded still — the desktop candlelight look (candles + bloom) baked into
+   * a static image. When provided, the light/mobile path shows THIS instead of
+   * the raw video, so phones match the desktop look and skip the video download.
+   */
+  posterGraded?: string;
   /** Video duration (seconds) — keeps the shader loop synced to the video. */
   duration?: number;
   /**
@@ -70,15 +76,21 @@ export function VideoBg({
   fileName,
   className,
   poster,
+  posterGraded,
   duration,
   priority = false,
 }: Props) {
   const allowed = useHeavyGpuAllowed();
   const reducedMotion = usePrefersReducedMotion();
 
+  // Light/mobile path with a pre-graded still available: show the still instead
+  // of the raw video (lighter, and matches the desktop shader look). These
+  // backgrounds therefore want no video downloaded at all.
+  const rawStill = allowed === false && !!posterGraded;
+
   // Both hooks report null until measured on the client. Until then, and forever
   // for reduced-motion visitors, this background loads no video whatsoever.
-  const wantsVideo = reducedMotion === false && allowed !== null;
+  const wantsVideo = reducedMotion === false && allowed !== null && !rawStill;
   const isRawPath = wantsVideo && allowed === false;
 
   const { warm, markDone } = useWarmSlot(priority, wantsVideo);
@@ -131,9 +143,10 @@ export function VideoBg({
 
   // Without a poster there is nothing to show, so render nothing rather than an
   // <img> with no src (which browsers resolve against the page URL and refetch it).
-  const stillOnly = poster ? (
+  const stillSrc = posterGraded ?? poster;
+  const stillOnly = stillSrc ? (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={className} src={poster} alt="" aria-hidden="true" />
+    <img className={className} src={stillSrc} alt="" aria-hidden="true" />
   ) : null;
 
   // `reducedMotion` is null on the server and the first client paint. Rendering
@@ -158,6 +171,10 @@ export function VideoBg({
       />
     );
   }
+
+  // Light/mobile path. With a pre-graded still, show it (no video) so phones get
+  // the desktop look as a fast static image. Otherwise fall back to the lazy video.
+  if (rawStill) return stillOnly;
 
   return (
     <LazyVideo

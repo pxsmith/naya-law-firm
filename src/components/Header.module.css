@@ -79,8 +79,9 @@
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-accent);
   background-image:
-    radial-gradient(ellipse at top right, #c4ed5c 0%, transparent 60%),
-    radial-gradient(ellipse at bottom left, #3a9460 0%, transparent 70%);
+    radial-gradient(ellipse at top left, rgba(177, 226, 68, 0.42) 0%, transparent 40%),
+    radial-gradient(ellipse at top left, #4fd089 0%, transparent 62%),
+    radial-gradient(ellipse at bottom right, #2f7a4a 0%, transparent 72%);
   color: var(--color-on-accent);
   border-radius: var(--radius);
   font-size: 0.95rem;
@@ -90,8 +91,9 @@
 .ctaLink:hover {
   background-color: var(--color-accent-hover);
   background-image:
-    radial-gradient(ellipse at top right, #d4f470 0%, transparent 60%),
-    radial-gradient(ellipse at bottom left, #4daa72 0%, transparent 70%);
+    radial-gradient(ellipse at top left, rgba(177, 226, 68, 0.52) 0%, transparent 42%),
+    radial-gradient(ellipse at top left, #5fdb97 0%, transparent 62%),
+    radial-gradient(ellipse at bottom right, #368a55 0%, transparent 72%);
   color: var(--color-on-accent);
   text-decoration: none;
 }

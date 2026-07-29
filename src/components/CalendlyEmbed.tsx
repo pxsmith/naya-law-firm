@@ -8,14 +8,14 @@ import styles from "./CalendlyEmbed.module.css";
  * values mirror the design tokens in globals.css:
  *   background_color → --color-bg     (#0a0b0e)
  *   text_color       → --color-text   (#ebecef)
- *   primary_color    → --color-accent (#b1e244)
+ *   primary_color    → --color-accent (#1f9d63)
  */
 const CALENDLY_URL =
   "https://calendly.com/matthew-basile/naya-demo" +
   "?hide_gdpr_banner=1" +
   "&background_color=0a0b0e" +
   "&text_color=ebecef" +
-  "&primary_color=b1e244";
+  "&primary_color=1f9d63";
 
 export function CalendlyEmbed() {
   return (
