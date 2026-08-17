@@ -1,21 +1,23 @@
 import styles from "./CalendlyEmbed.module.css";
 
 /**
- * Inline Calendly booking widget, themed to match the brand's dark palette.
+ * Inline Calendly booking widget.
  *
- * Calendly renders inside a cross-origin iframe, so it can't read our CSS
- * variables — the dark theme is passed as URL query params instead. The hex
- * values mirror the design tokens in globals.css:
- *   background_color → --color-bg     (#0a0b0e)
- *   text_color       → --color-text   (#ebecef)
- *   primary_color    → --color-accent (#1f9d63)
+ * Uses Calendly's standard inline embed (`embed_type=Inline`), which drops
+ * Calendly's standalone-page chrome (the light-gray page background) so the
+ * widget sits cleanly on our dark section — matching the Naya Software contact
+ * page, which uses the same Calendly link.
+ *
+ * The dark-theme colour params were removed: custom embed colours are a Calendly
+ * paid-plan feature and were being ignored on the current plan. If Calendly is
+ * ever upgraded, re-add
+ * `&background_color=0a0b0e&text_color=ebecef&primary_color=1f9d63` to theme it.
  */
 const CALENDLY_URL =
   "https://calendly.com/matthew-basile/naya-demo" +
-  "?hide_gdpr_banner=1" +
-  "&background_color=0a0b0e" +
-  "&text_color=ebecef" +
-  "&primary_color=1f9d63";
+  "?embed_domain=www.nayalawgroup.com" +
+  "&embed_type=Inline" +
+  "&hide_gdpr_banner=1";
 
 export function CalendlyEmbed() {
   return (

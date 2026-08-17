@@ -403,7 +403,8 @@
 
 .secondaryCta:hover {
   border-color: var(--color-accent);
-  color: var(--color-accent);
+  /* Keep the label white on hover; only the border picks up the accent. */
+  color: var(--color-text);
   text-decoration: none;
 }
 
