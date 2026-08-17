@@ -20,15 +20,16 @@ const FORM_ID =
 const FORM_ACTION = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
 
 /**
- * Where pricing submissions are emailed. Reuses the Formspree pattern from the
- * contact form: create a Formspree form whose recipient is the target inbox,
- * then set PRICING_FORMSPREE_ID to that form's id.
+ * Where pricing submissions are emailed, via Formspree. Defaults to the client's
+ * Formspree form id (`xjgqbvjj`) so it works in production without an env var —
+ * same pattern as GOOGLE_FORM_ID above. Override with PRICING_FORMSPREE_ID if the
+ * form ever changes. (Formspree ids are public — they live in the form action —
+ * so keeping the default in code is safe.)
  *
- * ⚠️  PRODUCTION FLAG: for now this routes to phil@gotimehq.com (the recipient
- * is configured inside the Formspree form). Before launch, point the Formspree
- * form — or this env var — at the CLIENT's inbox.
+ * The recipient inbox is set inside the Formspree form itself (not here): make
+ * sure form `xjgqbvjj` is pointed at the CLIENT's inbox in the Formspree dashboard.
  */
-const PRICING_FORMSPREE_ID = process.env.PRICING_FORMSPREE_ID ?? "";
+const PRICING_FORMSPREE_ID = process.env.PRICING_FORMSPREE_ID ?? "xjgqbvjj";
 
 type Answers = Record<string, string | string[] | undefined>;
 
