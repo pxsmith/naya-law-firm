@@ -52,6 +52,8 @@ async function notifyFormspree(
   answers: Record<string, unknown>,
   quote: Quote,
   origin: string,
+  userAgent: string,
+  clientIp: string,
 ): Promise<boolean> {
   const str = (k: string) =>
     typeof answers[k] === "string" ? (answers[k] as string).trim() : "";
@@ -103,7 +105,17 @@ async function notifyFormspree(
 
   const res = await fetch(`https://formspree.io/f/${formId}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      // We relay this server-side, so pass the real submission context (the
+      // visitor's page, browser and IP) through. Without it, Formspree sees a
+      // bare datacenter request with no referrer and quarantines it as spam.
+      Referer: `${origin}/pricing`,
+      Origin: origin,
+      ...(userAgent ? { "User-Agent": userAgent } : {}),
+      ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
+    },
     body: JSON.stringify(payload),
   });
   return res.ok;
@@ -174,6 +186,9 @@ export async function POST(request: Request) {
   const answersAny = answers as Record<string, unknown>;
   const quote = computeQuote(answersAny);
   const origin = new URL(request.url).origin;
+  const userAgent = request.headers.get("user-agent") ?? "";
+  const clientIp =
+    (request.headers.get("x-forwarded-for") ?? "").split(",")[0]?.trim() ?? "";
 
   // 1) Relay research answers to the Google Form (best-effort).
   let googleOk = false;
@@ -203,6 +218,8 @@ export async function POST(request: Request) {
         answersAny,
         quote,
         origin,
+        userAgent,
+        clientIp,
       );
     } catch {
       formspreeOk = false;
