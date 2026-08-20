@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import styles from "../app/page.module.css";
 
@@ -25,22 +26,34 @@ const listVariants: Variants = {
 
 export function AudienceList() {
 	const reduceMotion = useReducedMotion();
+	// On mobile, drop the cascading indent (it pushed pills off the screen).
+	const [isNarrow, setIsNarrow] = useState(false);
+	useEffect(() => {
+		const mq = window.matchMedia("(max-width: 800px)");
+		const update = () => setIsNarrow(mq.matches);
+		update();
+		mq.addEventListener("change", update);
+		return () => mq.removeEventListener("change", update);
+	}, []);
 
 	return (
 		<motion.ul
 			className={styles.audienceList}
 			variants={listVariants}
 			initial="hidden"
-			whileInView="visible"
+			whileInView={isNarrow ? undefined : "visible"}
+			animate={isNarrow ? "visible" : undefined}
 			viewport={{ once: true, amount: 0.4 }}
 		>
 			{AUDIENCES.map((label, i) => {
-				const x = i * INDENT_STEP;
-				// Resting state holds the cascading indent; entrance adds a slide from the left.
+				const x = isNarrow ? 0 : i * INDENT_STEP;
+				// Desktop: cascading indent + slide-in. Mobile (and reduced-motion):
+				// no indent, appear immediately (chips wrap; no scroll-triggered fade).
 				const itemVariants: Variants = {
-					hidden: reduceMotion
-						? { opacity: 1, x }
-						: { opacity: 0, x: x - 32 },
+					hidden:
+						reduceMotion || isNarrow
+							? { opacity: 1, x }
+							: { opacity: 0, x: x - 32 },
 					visible: {
 						opacity: 1,
 						x,
