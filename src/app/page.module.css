@@ -108,6 +108,19 @@
   padding-bottom: calc(var(--space-24) + 6rem);
 }
 
+/* On phones these two video sections carried 12–15rem of top/bottom padding,
+   which read as dead space. Bring them down to a balanced, section-like amount. */
+@media (max-width: 800px) {
+  .approachVideoSection {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+  .audienceVideoSection {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+}
+
 /* ─── Fern Visual Break ─── */
 
 .fernSection {
@@ -487,7 +500,7 @@
 @media (max-width: 800px) {
   .split {
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
   .split > div:first-child {
@@ -498,9 +511,29 @@
     grid-column: auto;
   }
 
+  /* Tighten the gap between a stacked heading and its paragraph on mobile. */
+  .split .sectionTitle {
+    margin-bottom: var(--space-2);
+  }
+
+  /* Single column: the right-aligned pricing paragraph reads badly aligned right,
+     so left-align it and give it a little space below. */
+  .proseRight {
+    text-align: left;
+    margin-bottom: var(--space-4);
+  }
+
+  /* Tighten the four differentiators into a compact 2x2 of visible tiles rather
+     than a sparse, invisible single-file stack. */
   .differentiators {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .differentiators li {
+    padding: var(--space-4);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
   }
 }
 
@@ -619,11 +652,23 @@
 }
 
 @media (max-width: 800px) {
+  /* Left-align the whole moment on mobile: a centered heading over left-aligned
+     paragraphs reads as a mismatch, and long headings scan better left-aligned. */
+  .platformSection {
+    text-align: left;
+  }
+
+  .platformTitle {
+    margin-inline: 0;
+    max-width: 22ch;
+    margin-bottom: var(--space-8);
+  }
+
   .platformColumns {
     grid-template-columns: 1fr;
-    gap: var(--space-8);
-    max-width: 40ch;
-    margin-inline: auto;
+    gap: var(--space-6);
+    max-width: none;
+    margin-inline: 0;
   }
 
   .platformColumns p {
@@ -798,11 +843,19 @@
     row-gap: var(--space-12);
   }
 
-  /* Once stacked under the intro, let pills wrap inline again rather than form
-     a tall single-file list. */
+  /* Once stacked under the intro, let pills wrap inline as compact chips rather
+     than a tall single-file list. Drop the desktop cascading indent (it pushed
+     text off-screen), shrink the type, tighten the leading and padding. */
   .audienceList {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .audienceList li {
+    font-size: var(--text-md);
+    line-height: 1.15;
+    padding: var(--space-2) var(--space-4);
   }
 }
 
